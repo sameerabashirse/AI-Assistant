@@ -27,14 +27,14 @@
     --admin-border: rgba(255, 255, 255, 0.08);
   }
 
-  /* Premium Accessible Light Mode Palette (WCAG AA Compliant) */
+  /* Premium Accessible Light Mode Palette (WCAG AA Compliant - Perplexity/Gemini Light Theme) */
   .light {
     --theme-bg: #FFFFFF;
     --theme-card: #FFFFFF;
     --theme-card-elevated: #F8FAFC;
     --theme-border: #E2E8F0;
     --theme-text-main: #0F172A;
-    --theme-text-secondary: #334155;
+    --theme-text-secondary: #475569;
     --theme-text-muted: #64748B;
 
     --admin-bg: #F8FAFC;
@@ -70,17 +70,23 @@ body {
   color: #334155 !important;
 }
 
-.light .text-gray-400, .light .text-gray-500 {
+.light .text-gray-400 {
+  color: #475569 !important;
+}
+
+.light .text-gray-500 {
   color: #64748B !important;
 }
 
-/* Light Mode Cards & Glass Panels */
+/* Light Mode Cards, Drawers & Glass Panels */
 .light .glass-panel,
 .light nav,
 .light .bg-\[\#111827\],
 .light .bg-\[\#070B14\],
 .light .bg-\[\#18181B\],
-.light .bg-\[\#09090B\] {
+.light .bg-\[\#09090B\],
+.light .bg-\[\#071705\],
+.light .bg-\[\#0C3D06\] {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
   color: #0F172A !important;
@@ -97,7 +103,7 @@ body {
   color: #0F172A !important;
 }
 
-/* Light Mode Sidebar Links */
+/* Light Mode Sidebar Links & Thread Cards */
 .light aside button {
   color: #334155;
 }
@@ -107,17 +113,18 @@ body {
   color: #0F172A !important;
 }
 
-.light aside .bg-\[\#123B73\],
-.light aside .bg-\[\#102A56\] {
-  background-color: #DBEAFE !important;
-  color: #1D4ED8 !important;
-  border-color: #BFDBFE !important;
+.light aside .bg-black\/20,
+.light aside .bg-\[\#111827\]\/60 {
+  background-color: #FFFFFF !important;
+  border-color: #E2E8F0 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
 }
 
-/* Light Mode Navbar Active Pill */
-.light nav .bg-\[\#2563EB\] {
-  background-color: #2563EB !important;
-  color: #FFFFFF !important;
+.light aside .bg-\[\#123B73\],
+.light aside .bg-\[\#102A56\] {
+  background-color: #EFF6FF !important;
+  color: #1E3A8A !important;
+  border-color: #2563EB !important;
 }
 
 /* Light Mode Input Elements & Floating Search */
