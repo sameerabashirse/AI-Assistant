@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { X, BookOpen, ExternalLink, Sparkles, FileText } from 'lucide-react';
+import { X, BookOpen, ShieldCheck } from 'lucide-react';
 import type { Citation, Language } from '../types';
 import { MOCK_UI_STRINGS, MOCK_MANUSCRIPT_PREVIEWS } from '../data/mockData';
-import { SourceCard } from './SourceCard';
 
 interface SourceDrawerProps {
   isOpen: boolean;
@@ -31,16 +30,16 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <aside className="w-80 lg:w-96 shrink-0 h-full border-l border-[#1AFF00]/20 bg-[#071705]/95 backdrop-blur-xl flex flex-col justify-between z-20 transition-all duration-300 shadow-2xl">
+    <aside className="w-80 lg:w-96 shrink-0 h-full border-l border-[#6366F1]/20 bg-[#18181B]/95 backdrop-blur-xl flex flex-col justify-between z-20 transition-all duration-300 shadow-2xl">
       {/* Header */}
-      <div className="p-4 border-b border-[#1AFF00]/20 flex items-center justify-between bg-[#0C3D06]/40">
+      <div className="p-4 border-b border-[#6366F1]/20 flex items-center justify-between bg-[#1E1B4B]/50">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-[#1AFF00]/10 text-[#1AFF00]">
+          <div className="p-1.5 rounded-lg bg-[#6366F1]/20 text-[#A78BFA]">
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
             <h3 className="text-sm font-bold text-white leading-none">{title}</h3>
-            <span className="text-[10px] text-emerald-400 font-mono">
+            <span className="text-[10px] text-[#A78BFA] font-mono">
               {citations.length} Verified Entries
             </span>
           </div>
@@ -59,120 +58,101 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
       <div className="px-4 pt-3 flex gap-2 border-b border-white/10 text-xs">
         <button
           onClick={() => setActiveTab('citations')}
-          className={`pb-2 font-semibold border-b-2 transition-colors ${
+          className={`pb-2.5 px-3 font-bold transition-all border-b-2 ${
             activeTab === 'citations'
-              ? 'border-[#1AFF00] text-[#1AFF00]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+              ? 'border-[#8B5CF6] text-[#A78BFA]'
+              : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          Active Citations ({citations.length})
+          Citations ({citations.length})
         </button>
+
         <button
           onClick={() => setActiveTab('manuscripts')}
-          className={`pb-2 font-semibold border-b-2 transition-colors ${
+          className={`pb-2.5 px-3 font-bold transition-all border-b-2 ${
             activeTab === 'manuscripts'
-              ? 'border-[#1AFF00] text-[#1AFF00]'
-              : 'border-transparent text-gray-400 hover:text-gray-200'
+              ? 'border-[#8B5CF6] text-[#A78BFA]'
+              : 'border-transparent text-gray-400 hover:text-white'
           }`}
         >
-          Manuscript Vault
+          Scanned Manuscripts ({MOCK_MANUSCRIPT_PREVIEWS.length})
         </button>
       </div>
 
-      {/* Main Content Area */}
+      {/* Drawer Body Content */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {activeTab === 'citations' ? (
-          <>
-            {citations.length === 0 ? (
-              <div className="text-center py-10 text-gray-400 text-xs">
-                <BookOpen className="w-8 h-8 text-emerald-600 mx-auto mb-2 opacity-50" />
-                <p>Select an AI response to view verified citations.</p>
-              </div>
-            ) : (
-              citations.map((cit) => (
-                <SourceCard
+          citations.length === 0 ? (
+            <div className="text-center py-10 text-xs text-gray-500 font-mono">
+              No active citations for this thread.
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {citations.map((cit, idx) => (
+                <div
                   key={cit.id}
-                  citation={cit}
-                  language={language}
-                  isSelected={cit.id === (activeCitationId || selectedCitation?.id)}
-                  onOpenSource={(c) => setSelectedCitation(c)}
-                  onOpenEvidence={(c) => onOpenEvidence(c)}
-                />
-              ))
-            )}
+                  onClick={() => setSelectedCitation(cit)}
+                  className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                    selectedCitation?.id === cit.id || activeCitationId === cit.id
+                      ? 'bg-[#1E1B4B] border-[#8B5CF6] text-white shadow-[0_0_15px_rgba(139,92,246,0.3)]'
+                      : 'bg-black/30 border-white/10 text-gray-300 hover:bg-white/5'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#6366F1]/20 text-[#A78BFA] border border-[#6366F1]/30">
+                      Citation [{idx + 1}]
+                    </span>
+                    <span className="text-[10px] font-mono font-bold text-[#A78BFA]">
+                      {Math.round(cit.relevanceScore * 100)}% Match
+                    </span>
+                  </div>
 
-            {/* Selected Citation Scan Mockup */}
-            {selectedCitation && (
-              <div className="mt-4 p-4 rounded-xl bg-black/40 border border-[#1AFF00]/20 space-y-3">
-                <div className="flex items-center justify-between text-xs text-[#1AFF00] font-mono">
-                  <span className="flex items-center gap-1">
-                    <FileText className="w-3.5 h-3.5" />
-                    OCR Scan Preview
-                  </span>
-                  <span>Page {selectedCitation.pageNumber}</span>
+                  <h4 className="text-xs font-bold text-white leading-snug">{cit.bookTitle}</h4>
+                  <p className="text-[11px] text-gray-400 mt-0.5">Author: {cit.author}</p>
+                  <p className="text-[10px] font-mono text-gray-500 mt-1">
+                    {cit.edition} • Page {cit.pageNumber}
+                  </p>
+
+                  <div className="mt-2.5 p-2 rounded-lg bg-black/40 border border-white/5 text-[11px] text-indigo-200 italic font-serif leading-relaxed">
+                    "{cit.originalQuote}"
+                  </div>
                 </div>
-
-                {selectedCitation.scanImageUrl ? (
-                  <div className="relative rounded-lg overflow-hidden border border-white/10 aspect-video group">
-                    <img
-                      src={selectedCitation.scanImageUrl}
-                      alt="Manuscript Scan"
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent flex items-end p-2">
-                      <span className="text-[10px] text-gray-300 font-mono truncate">
-                        {selectedCitation.bookTitle} (Archival Scan)
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="p-4 rounded-lg bg-emerald-950/40 border border-emerald-500/20 text-xs text-gray-300 font-serif">
-                    <p className="line-clamp-4">"{selectedCitation.originalQuote}"</p>
-                  </div>
-                )}
-              </div>
-            )}
-          </>
+              ))}
+            </div>
+          )
         ) : (
           <div className="space-y-3">
-            <p className="text-xs text-gray-400">
-              Digitized manuscripts cross-checked by the Balochi Digital AI Engine:
-            </p>
             {MOCK_MANUSCRIPT_PREVIEWS.map((ms, idx) => (
               <div
                 key={idx}
-                className={`p-3 rounded-xl border ${ms.coverBg} hover:border-[#1AFF00]/50 transition-all flex items-center justify-between`}
+                className="p-3.5 rounded-xl bg-black/40 border border-white/10 space-y-2 hover:border-[#6366F1]/40 transition-all"
               >
-                <div>
-                  <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded bg-[#1AFF00]/20 text-[#1AFF00] font-mono">
+                <div className="flex items-center justify-between">
+                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#6366F1]/20 text-[#A78BFA] border border-[#6366F1]/30">
                     {ms.badge}
                   </span>
-                  <h5 className="text-xs font-bold text-white mt-1">{ms.title}</h5>
-                  <p className="text-[11px] text-gray-400">{ms.author} • {ms.pages}</p>
+                  <span className="text-[10px] text-gray-400 font-mono">{ms.pages}</span>
                 </div>
-                <button
-                  onClick={() => onOpenEvidence()}
-                  className="p-2 rounded-lg bg-black/40 hover:bg-[#1AFF00] hover:text-black text-[#1AFF00] transition-colors"
-                  title="Inspect Manuscript"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </button>
+
+                <h4 className="text-xs font-bold text-white">{ms.title}</h4>
+                <p className="text-[11px] text-gray-400 font-mono">Collector / Author: {ms.author}</p>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Footer Action */}
-      <div className="p-4 border-t border-[#1AFF00]/20 bg-[#0C3D06]/40">
+      {/* Bottom Action Footer */}
+      <div className="p-3 border-t border-[#6366F1]/20 bg-[#1E1B4B]/30 space-y-2">
         <button
-          onClick={() => onOpenEvidence()}
-          className="w-full py-2.5 px-4 rounded-xl bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/40 font-semibold text-xs transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(26,255,0,0.15)]"
+          onClick={() => onOpenEvidence(selectedCitation || undefined)}
+          className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2 cursor-pointer"
         >
-          <Sparkles className="w-4 h-4" />
-          <span>Inspect Full Vector Evidence Trail</span>
+          <ShieldCheck className="w-4 h-4" />
+          <span>Audit Evidence Trail</span>
         </button>
       </div>
     </aside>
   );
 };
+

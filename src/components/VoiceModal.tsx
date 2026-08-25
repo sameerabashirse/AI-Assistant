@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Mic, Sparkles } from 'lucide-react';
+import { X, Mic } from 'lucide-react';
 import type { Language } from '../types';
 import { MOCK_UI_STRINGS } from '../data/mockData';
 
@@ -50,70 +50,72 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-[#071705] border border-[#1AFF00]/30 rounded-2xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="w-full max-w-sm bg-[#18181B] border border-[#6366F1]/30 rounded-2xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex justify-between items-center">
-          <span className="text-xs font-mono font-bold text-[#1AFF00] uppercase tracking-wider">
+          <span className="text-xs font-mono font-bold text-[#A78BFA] uppercase tracking-wider">
             {MOCK_UI_STRINGS.voiceQuery[language]}
           </span>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-gray-400 hover:text-white"
+            className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Animated Mic Sphere */}
-        <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+        {/* Animated Microphone Glow */}
+        <div className="relative py-4">
           <div
-            className={`w-20 h-20 rounded-full bg-[#0C3D06] border-2 border-[#1AFF00] flex items-center justify-center shadow-[0_0_30px_rgba(26,255,0,0.4)] ${
-              isListening ? 'animate-pulse' : ''
+            className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center transition-all ${
+              isListening
+                ? 'bg-[#1E1B4B] border-2 border-[#8B5CF6] shadow-[0_0_40px_rgba(139,92,246,0.6)] animate-pulse'
+                : 'bg-[#6366F1] text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]'
             }`}
           >
-            <Mic className={`w-8 h-8 text-[#1AFF00] ${isListening ? 'animate-bounce' : ''}`} />
+            <Mic className="w-10 h-10 text-white" />
           </div>
 
-          {/* Glowing waveform animation rings */}
           {isListening && (
-            <>
-              <div className="absolute inset-0 rounded-full border border-[#1AFF00] animate-ping opacity-40" />
-              <div className="absolute -inset-2 rounded-full border border-[#1AFF00] animate-ping opacity-20" />
-            </>
+            <div className="mt-3 flex items-center justify-center gap-1">
+              <span className="w-1.5 h-6 rounded-full bg-[#8B5CF6] animate-pulse" />
+              <span className="w-1.5 h-10 rounded-full bg-[#6366F1] animate-pulse delay-100" />
+              <span className="w-1.5 h-4 rounded-full bg-[#A78BFA] animate-pulse delay-200" />
+            </div>
           )}
         </div>
 
-        <div>
-          <h4 className="text-sm font-bold text-white">
-            {isListening ? 'Listening for speech input...' : 'Voice Transcribed Successfully'}
-          </h4>
-          <p className="text-xs text-gray-400 mt-1">
-            {isListening
-              ? 'Speak your question in Balochi, English or Urdu'
-              : 'Review transcribed query below:'}
-          </p>
-        </div>
-
-        {/* Transcript Result Box */}
-        <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 text-xs text-emerald-200 italic min-h-[60px] flex items-center justify-center">
+        {/* Transcript Box */}
+        <div className="p-4 rounded-xl bg-black/40 border border-white/10 text-xs min-h-[70px] flex items-center justify-center font-medium">
           {isListening ? (
-            <div className="flex items-center gap-1.5 text-gray-400">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1AFF00] animate-ping" />
-              <span>Listening to audio waveform...</span>
-            </div>
+            <span className="text-gray-400 font-mono italic animate-pulse">
+              Listening in {language.toUpperCase()}... Speak query clearly.
+            </span>
           ) : (
-            <span>"{transcript}"</span>
+            <span className="text-white leading-relaxed font-serif text-sm">
+              "{transcript}"
+            </span>
           )}
         </div>
 
         {!isListening && (
-          <button
-            onClick={handleConfirm}
-            className="w-full py-2.5 px-4 rounded-xl bg-[#1AFF00] hover:bg-[#16e000] text-black font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(26,255,0,0.3)]"
-          >
-            <Sparkles className="w-4 h-4" />
-            <span>Send Spoken Query</span>
-          </button>
+          <div className="flex justify-end gap-2 pt-2">
+            <button
+              onClick={() => {
+                setIsListening(true);
+                setTranscript('');
+              }}
+              className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-bold text-xs"
+            >
+              Retry
+            </button>
+            <button
+              onClick={handleConfirm}
+              className="py-2 px-5 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold text-xs shadow-[0_0_15px_rgba(99,102,241,0.4)]"
+            >
+              Submit Query →
+            </button>
+          </div>
         )}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Upload, FileText, CheckCircle2, Sparkles, Loader2 } from 'lucide-react';
+import { X, Upload, FileText, CheckCircle2, Loader2 } from 'lucide-react';
 import type { Language } from '../types';
 import { MOCK_UI_STRINGS } from '../data/mockData';
 
@@ -40,18 +40,18 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#071705] border border-[#1AFF00]/30 rounded-2xl p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between border-b border-[#1AFF00]/20 pb-3">
+    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-[#18181B] border border-[#6366F1]/30 rounded-2xl p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between border-b border-[#6366F1]/20 pb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/40 text-[#1AFF00]">
+            <div className="p-2 rounded-xl bg-[#1E1B4B] border border-[#8B5CF6]/40 text-[#A78BFA]">
               <FileText className="w-5 h-5" />
             </div>
             <div>
               <h3 className="text-base font-bold text-white leading-tight">
                 {MOCK_UI_STRINGS.uploadDoc[language]}
               </h3>
-              <p className="text-xs text-emerald-400 font-mono">
+              <p className="text-xs text-[#A78BFA] font-mono">
                 OCR & Manuscript Verification Engine
               </p>
             </div>
@@ -66,92 +66,85 @@ export const UploadModal: React.FC<UploadModalProps> = ({
         </div>
 
         {uploadingState === 'idle' && (
-          <div
-            onDragOver={(e) => {
-              e.preventDefault();
-              setIsDragging(true);
-            }}
-            onDragLeave={() => setIsDragging(false)}
-            onDrop={(e) => {
-              e.preventDefault();
-              setIsDragging(false);
-              const file = e.dataTransfer.files[0];
-              handleSimulatedUpload(file ? file.name : undefined);
-            }}
-            onClick={() => handleSimulatedUpload()}
-            className={`p-8 rounded-xl border-2 border-dashed transition-all cursor-pointer text-center space-y-3 ${
-              isDragging
-                ? 'border-[#1AFF00] bg-[#0C3D06]/50 shadow-[0_0_20px_rgba(26,255,0,0.3)]'
-                : 'border-white/20 hover:border-[#1AFF00]/60 bg-black/30 hover:bg-[#0C3D06]/30'
-            }`}
-          >
-            <div className="w-12 h-12 rounded-full bg-[#0C3D06] border border-[#1AFF00]/40 flex items-center justify-center mx-auto text-[#1AFF00] shadow-[0_0_15px_rgba(26,255,0,0.2)]">
-              <Upload className="w-6 h-6 animate-bounce" />
+          <div className="space-y-4 text-xs">
+            <div
+              onDragOver={(e) => {
+                e.preventDefault();
+                setIsDragging(true);
+              }}
+              onDragLeave={() => setIsDragging(false)}
+              onDrop={(e) => {
+                e.preventDefault();
+                setIsDragging(false);
+                const file = e.dataTransfer.files[0];
+                if (file) handleSimulatedUpload(file.name);
+              }}
+              onClick={() => handleSimulatedUpload()}
+              className={`p-6 rounded-2xl border-2 border-dashed transition-all text-center cursor-pointer ${
+                isDragging
+                  ? 'border-[#8B5CF6] bg-[#1E1B4B]/80'
+                  : 'border-white/20 hover:border-[#6366F1] bg-black/30'
+              }`}
+            >
+              <Upload className="w-10 h-10 text-[#A78BFA] mx-auto mb-2 animate-bounce" />
+              <p className="font-bold text-white text-sm">Drop PDF Manuscript or Book Scan</p>
+              <p className="text-gray-400 mt-1">Supports PDF, PNG high-res scans up to 100MB</p>
             </div>
-            <div>
-              <p className="text-sm font-bold text-white">
-                Drag & Drop Balochi Manuscript or Scan
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                Supports PDF, PNG, JPG scans, and TXT files (Max 50MB)
-              </p>
+
+            <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
+              <p className="font-bold text-white">Sample Manuscript Presets:</p>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  'Sher_Marri_Balochi_Dict.pdf',
+                  'Dames_Popular_Poetry_1907.pdf',
+                  'Zahirok_Melodies_Scan.png',
+                ].map((name) => (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => handleSimulatedUpload(name)}
+                    className="px-2.5 py-1 rounded-lg bg-[#6366F1]/20 hover:bg-[#6366F1]/40 text-[#A78BFA] border border-[#6366F1]/30 font-mono text-[10px] transition-colors"
+                  >
+                    + {name}
+                  </button>
+                ))}
+              </div>
             </div>
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#1AFF00]/10 text-[#1AFF00] border border-[#1AFF00]/30">
-              Click to browse files
-            </span>
           </div>
         )}
 
         {uploadingState === 'scanning' && (
           <div className="py-10 text-center space-y-4">
-            <div className="relative w-16 h-16 mx-auto flex items-center justify-center">
-              <Loader2 className="w-12 h-12 text-[#1AFF00] animate-spin" />
-              <div className="absolute inset-0 rounded-full border-2 border-[#1AFF00] animate-ping opacity-30" />
-            </div>
+            <Loader2 className="w-12 h-12 text-[#8B5CF6] animate-spin mx-auto" />
             <div>
-              <p className="text-sm font-bold text-white">
-                Scanning "{scannedDocName}"...
-              </p>
-              <p className="text-xs text-emerald-400 font-mono mt-1">
-                Applying OCR & Cross-referencing Vector Database...
+              <p className="text-sm font-bold text-white">Running Optical OCR & Alignment...</p>
+              <p className="text-xs text-[#A78BFA] font-mono mt-1">
+                Digitizing "{scannedDocName}"...
               </p>
             </div>
           </div>
         )}
 
         {uploadingState === 'success' && (
-          <div className="p-4 rounded-xl bg-[#0C3D06]/60 border border-[#1AFF00]/40 space-y-3">
-            <div className="flex items-center gap-2 text-[#1AFF00]">
-              <CheckCircle2 className="w-5 h-5" />
-              <span className="text-sm font-bold text-white">
-                Document Digitized Successfully!
-              </span>
+          <div className="py-6 text-center space-y-4">
+            <CheckCircle2 className="w-12 h-12 text-[#8B5CF6] mx-auto" />
+            <div>
+              <h4 className="text-base font-bold text-white">OCR Extraction Complete!</h4>
+              <p className="text-xs text-gray-300 mt-1 font-mono">{scannedDocName}</p>
             </div>
-            <div className="p-3 rounded-lg bg-black/40 text-xs font-mono space-y-1 text-gray-300">
-              <p className="text-white font-bold">{scannedDocName}</p>
-              <p>• 42 Pages Extracted</p>
-              <p>• Language Identified: Balochi (Classical Verse)</p>
-              <p>• 99.1% Optical OCR Confidence</p>
+
+            <div className="p-3 rounded-xl bg-black/40 border border-white/10 text-left text-xs font-mono text-indigo-200">
+              ✓ 142 pages indexed into Vector HNSW index.
             </div>
 
             <button
               onClick={handleAnalyze}
-              className="w-full py-2.5 px-4 rounded-xl bg-[#1AFF00] hover:bg-[#16e000] text-black font-bold text-xs transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(26,255,0,0.3)]"
+              className="w-full py-2.5 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold text-xs shadow-[0_0_15px_rgba(99,102,241,0.4)]"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Ask AI Assistant About This Document</span>
+              Analyze with Verified AI Assistant →
             </button>
           </div>
         )}
-
-        <div className="text-center">
-          <button
-            onClick={onClose}
-            className="text-xs text-gray-400 hover:text-white transition-colors"
-          >
-            Cancel
-          </button>
-        </div>
       </div>
     </div>
   );

@@ -53,15 +53,15 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
     return lines.map((line, idx) => {
       if (line.startsWith('### ')) {
         return (
-          <h3 key={idx} className="text-base md:text-lg font-bold text-white mt-4 mb-2 flex items-center gap-2 border-b border-[#1AFF00]/20 pb-1">
-            <span className="w-2 h-2 rounded-full bg-[#1AFF00]" />
+          <h3 key={idx} className="text-base md:text-lg font-bold text-white mt-4 mb-2 flex items-center gap-2 border-b border-[#6366F1]/20 pb-1">
+            <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
             {line.replace('### ', '')}
           </h3>
         );
       }
       if (line.startsWith('#### ')) {
         return (
-          <h4 key={idx} className="text-sm md:text-base font-bold text-[#1AFF00] mt-3 mb-1.5">
+          <h4 key={idx} className="text-sm md:text-base font-bold text-[#A78BFA] mt-3 mb-1.5">
             {line.replace('#### ', '')}
           </h4>
         );
@@ -75,7 +75,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
       }
       if (line.startsWith('> ')) {
         return (
-          <blockquote key={idx} className="my-3 p-3 rounded-xl bg-black/40 border-l-4 border-[#1AFF00] italic text-xs md:text-sm text-emerald-200 font-serif">
+          <blockquote key={idx} className="my-3 p-3 rounded-xl bg-black/40 border-l-4 border-[#8B5CF6] italic text-xs md:text-sm text-indigo-200 font-serif">
             {line.replace('> ', '')}
           </blockquote>
         );
@@ -93,19 +93,19 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
   };
 
   return (
-    <div className="w-full rounded-2xl bg-gradient-to-br from-[#0C3D06]/30 via-black/40 to-[#071705]/80 border border-[#1AFF00]/25 backdrop-blur-xl p-5 md:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.4)] animate-in fade-in duration-300">
+    <div className="w-full rounded-2xl bg-gradient-to-br from-[#18181B]/90 via-[#1E1B4B]/30 to-[#09090B]/90 border border-[#6366F1]/30 backdrop-blur-xl p-5 md:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] animate-in fade-in duration-300">
       {/* AI Card Header */}
-      <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#1AFF00]/20">
+      <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#6366F1]/20">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/50 flex items-center justify-center shadow-[0_0_15px_rgba(26,255,0,0.3)]">
-            <Sparkles className="w-5 h-5 text-[#1AFF00]" />
+          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#1E1B4B] to-[#6366F1] border border-[#8B5CF6]/50 flex items-center justify-center shadow-[0_0_15px_rgba(139,92,246,0.3)]">
+            <Sparkles className="w-5 h-5 text-[#A78BFA]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-sm text-white">AI Assistant</span>
               <span className="text-[10px] text-gray-400 font-mono">{message.timestamp}</span>
             </div>
-            <p className="text-[11px] text-emerald-400 font-medium">Balochi Knowledge Engine</p>
+            <p className="text-[11px] text-[#A78BFA] font-medium">Balochi Knowledge Engine</p>
           </div>
         </div>
 
@@ -120,11 +120,11 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
 
       {/* Streaming Indicator if response is loading */}
       {message.isStreaming ? (
-        <div className="py-6 flex items-center gap-3 text-sm text-[#1AFF00]">
+        <div className="py-6 flex items-center gap-3 text-sm text-[#A78BFA]">
           <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1AFF00] typing-dot-1" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1AFF00] typing-dot-2" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1AFF00] typing-dot-3" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-1" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-2" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-3" />
           </div>
           <span className="font-mono text-xs animate-pulse">
             Cross-referencing 14 verified Balochi manuscripts & dictionaries...
@@ -141,86 +141,79 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
           {message.citations && message.citations.length > 0 && (
             <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-gray-400 mr-1 flex items-center gap-1">
-                <BookOpen className="w-3.5 h-3.5 text-[#1AFF00]" />
+                <BookOpen className="w-3.5 h-3.5 text-[#A78BFA]" />
                 Sources:
               </span>
               {message.citations.map((cit, i) => (
                 <CitationCard
                   key={cit.id}
                   citation={cit}
-                  index={i}
-                  onClick={(c) => {
-                    onSelectCitation(c);
-                    onOpenSources(message.citations);
-                  }}
+                  index={i + 1}
+                  onSelect={onSelectCitation}
                 />
               ))}
             </div>
           )}
 
-          {/* Verification Metrics Summary Component */}
-          {message.verification && (
-            <VerificationMetricsCard
-              verification={message.verification}
-              language={language}
-            />
-          )}
-
-          {/* Bottom Action Bar */}
-          <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+          {/* Metrics & Action Bar */}
+          <div className="mt-5 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center gap-2">
               <button
-                onClick={handleCopy}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/30 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition-colors"
-                title="Copy Answer"
+                onClick={() => onOpenSources(message.citations)}
+                className="px-3 py-1.5 rounded-xl bg-[#6366F1]/20 hover:bg-[#6366F1]/30 text-[#A78BFA] border border-[#6366F1]/40 font-bold transition-all flex items-center gap-1.5"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-[#1AFF00]" /> : <Copy className="w-3.5 h-3.5" />}
-                <span>{copied ? 'Copied' : 'Copy'}</span>
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>View Sources ({message.citations?.length || 0})</span>
               </button>
 
               <button
+                onClick={() => onOpenEvidence(message.citations?.[0])}
+                className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 font-medium transition-all flex items-center gap-1.5"
+              >
+                <ShieldCheck className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                <span>Audit Evidence</span>
+              </button>
+            </div>
+
+            <div className="flex items-center gap-1.5">
+              <button
                 onClick={handleSpeak}
-                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-colors ${
+                className={`p-2 rounded-xl border transition-all ${
                   isPlayingAudio
-                    ? 'bg-[#1AFF00] text-black font-bold border-[#1AFF00]'
-                    : 'bg-black/30 hover:bg-white/10 text-gray-300 hover:text-white border-white/10'
+                    ? 'bg-[#8B5CF6] text-white border-[#8B5CF6]'
+                    : 'bg-white/5 hover:bg-white/10 text-gray-300 border-white/10'
                 }`}
-                title="Read Out Answer"
+                title="Read AI Answer Aloud"
               >
                 <Volume2 className="w-3.5 h-3.5" />
-                <span>{isPlayingAudio ? 'Speaking...' : 'Listen'}</span>
+              </button>
+
+              <button
+                onClick={handleCopy}
+                className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition-all"
+                title="Copy Answer Text"
+              >
+                {copied ? <Check className="w-3.5 h-3.5 text-[#8B5CF6]" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
 
               {onRegenerate && (
                 <button
                   onClick={onRegenerate}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/30 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 transition-colors"
-                  title="Re-query Engine"
+                  className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition-all"
+                  title="Regenerate Answer"
                 >
                   <RefreshCw className="w-3.5 h-3.5" />
-                  <span>Retry</span>
                 </button>
               )}
             </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => onOpenEvidence(message.citations?.[0])}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/30 font-semibold transition-all shadow-[0_0_12px_rgba(26,255,0,0.15)]"
-              >
-                <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Open Evidence</span>
-              </button>
-
-              <button
-                onClick={() => onOpenSources(message.citations)}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/40 hover:bg-[#0C3D06] text-white hover:text-[#1AFF00] border border-white/10 hover:border-[#1AFF00]/40 transition-all"
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>View Sources ({message.citations?.length || 0})</span>
-              </button>
-            </div>
           </div>
+
+          {/* Extended Metrics Card */}
+          {message.verification && (
+            <div className="mt-4">
+              <VerificationMetricsCard verification={message.verification} language={language} />
+            </div>
+          )}
         </>
       )}
     </div>

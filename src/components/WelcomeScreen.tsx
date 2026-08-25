@@ -9,10 +9,10 @@ interface WelcomeScreenProps {
 }
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  BookOpen: <BookOpen className="w-5 h-5 text-[#1AFF00]" />,
-  ScrollText: <ScrollText className="w-5 h-5 text-[#1AFF00]" />,
-  Compass: <Compass className="w-5 h-5 text-[#1AFF00]" />,
-  FileCheck: <FileCheck className="w-5 h-5 text-[#1AFF00]" />,
+  BookOpen: <BookOpen className="w-5 h-5 text-[#A78BFA]" />,
+  ScrollText: <ScrollText className="w-5 h-5 text-[#A78BFA]" />,
+  Compass: <Compass className="w-5 h-5 text-[#A78BFA]" />,
+  FileCheck: <FileCheck className="w-5 h-5 text-[#A78BFA]" />,
 };
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
@@ -26,17 +26,17 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 max-w-4xl mx-auto w-full text-center my-auto animate-in fade-in zoom-in-95 duration-500">
       {/* Hero Visual Orb */}
       <div className="relative mb-6">
-        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-b from-[#0C3D06] to-black border-2 border-[#1AFF00] flex items-center justify-center shadow-[0_0_50px_rgba(26,255,0,0.4)] animate-pulse-glow">
-          <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-[#1AFF00] animate-pulse" />
+        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-[#1E1B4B] via-[#6366F1] to-[#8B5CF6] border-2 border-[#A78BFA] flex items-center justify-center shadow-[0_0_50px_rgba(139,92,246,0.5)] animate-pulse-glow">
+          <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-white animate-pulse" />
         </div>
-        <div className="absolute -bottom-2 right-0 px-2 py-0.5 rounded-full bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/50 text-[10px] font-mono font-bold flex items-center gap-1">
-          <ShieldCheck className="w-3 h-3 text-[#1AFF00]" />
+        <div className="absolute -bottom-2 right-0 px-2 py-0.5 rounded-full bg-[#1E1B4B] text-[#A78BFA] border border-[#8B5CF6]/50 text-[10px] font-mono font-bold flex items-center gap-1">
+          <ShieldCheck className="w-3 h-3 text-[#A78BFA]" />
           Verified AI
         </div>
       </div>
 
       {/* Hero Heading */}
-      <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-2xl bg-clip-text text-transparent bg-gradient-to-r from-white via-emerald-100 to-[#1AFF00]">
+      <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-2xl bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-[#A78BFA]">
         {heroTitle}
       </h2>
 
@@ -50,35 +50,35 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         {SUGGESTIONS.map((card) => {
           const titleText = card.title[language] || card.title.english;
           const subText = card.subtitle[language] || card.subtitle.english;
-          const icon = ICON_MAP[card.iconName] || <BookOpen className="w-5 h-5 text-[#1AFF00]" />;
+          const icon = ICON_MAP[card.iconName] || <BookOpen className="w-5 h-5 text-[#A78BFA]" />;
 
           return (
             <button
               key={card.id}
               onClick={() => onSelectSuggestion(card)}
-              className="group relative p-4 md:p-5 rounded-2xl bg-gradient-to-br from-[#0C3D06]/40 to-black/50 hover:from-[#0C3D06] hover:to-[#051902] border border-[#1AFF00]/20 hover:border-[#1AFF00] backdrop-blur-md transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_25px_rgba(26,255,0,0.25)] hover:-translate-y-1 flex flex-col justify-between"
+              className="group relative p-4 md:p-5 rounded-2xl bg-gradient-to-br from-[#18181B]/80 to-[#1E1B4B]/40 hover:from-[#1E1B4B] hover:to-[#312E81] border border-[#6366F1]/20 hover:border-[#8B5CF6] backdrop-blur-md transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.3)] hover:-translate-y-1 flex flex-col justify-between cursor-pointer"
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="p-2.5 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/30 shadow-[0_0_10px_rgba(26,255,0,0.2)] group-hover:scale-110 transition-transform">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="p-2 rounded-xl bg-[#1E1B4B] border border-[#6366F1]/30 group-hover:scale-110 transition-transform">
                     {icon}
                   </div>
-                  <span className="text-[10px] uppercase font-mono font-bold text-[#1AFF00]/70 px-2 py-0.5 rounded bg-[#1AFF00]/10 border border-[#1AFF00]/20">
-                    Verified Query
+                  <span className="text-[10px] font-mono text-[#A78BFA] bg-[#6366F1]/15 px-2 py-0.5 rounded-full border border-[#6366F1]/30">
+                    Featured
                   </span>
                 </div>
 
-                <h3 className="text-sm font-extrabold text-white group-hover:text-[#1AFF00] transition-colors leading-snug">
+                <h3 className="text-sm font-bold text-white group-hover:text-[#A78BFA] transition-colors leading-snug">
                   {titleText}
                 </h3>
-                <p className="mt-1.5 text-xs text-gray-400 group-hover:text-gray-200 line-clamp-2 leading-relaxed">
+                <p className="mt-1 text-xs text-gray-400 font-normal leading-relaxed">
                   {subText}
                 </p>
               </div>
 
-              <div className="mt-4 pt-2 border-t border-white/10 flex items-center justify-end text-xs font-bold text-[#1AFF00] opacity-80 group-hover:opacity-100">
-                <span className="mr-1 text-[11px]">Ask Assistant</span>
-                <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#A78BFA] group-hover:text-white pt-2 border-t border-white/5">
+                <span>Ask Verified Assistant</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#8B5CF6]" />
               </div>
             </button>
           );

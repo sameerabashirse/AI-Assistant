@@ -2,19 +2,21 @@
 
 @layer base {
   :root {
-    --bg-primary: #0C3D06;
-    --accent-bright: #1AFF00;
-    --accent-soft: #EAF7E8;
+    /* Public User AI Theme - Deep Violet & Electric Indigo */
+    --bg-primary: #1E1B4B;
+    --accent-bright: #6366F1;
+    --accent-violet: #8B5CF6;
+    --accent-soft: #EEF2FF;
     --dark-text: #111827;
-    --light-bg: #F5F7FA;
+    --light-bg: #F8FAFC;
     --surface-white: #FFFFFF;
     
-    /* Dark Theme default variables */
-    --theme-bg: #071705;
-    --theme-card: #0c260a;
-    --theme-card-border: rgba(26, 255, 0, 0.15);
-    --theme-text-main: #f3f4f6;
-    --theme-text-muted: #9ca3af;
+    /* Dark Theme default variables (User App) */
+    --theme-bg: #09090B;
+    --theme-card: #18181B;
+    --theme-card-border: rgba(99, 102, 241, 0.25);
+    --theme-text-main: #F4F4F5;
+    --theme-text-muted: #A1A1AA;
 
     /* Admin Navy Theme Variables */
     --admin-bg: #070B14;
@@ -63,7 +65,7 @@ body {
   color: #334155;
 }
 
-.light .glass-panel, .light .bg-\[\#111615\], .light .bg-\[\#080B0A\] {
+.light .glass-panel, .light .bg-\[\#18181B\], .light .bg-\[\#09090B\] {
   background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
   color: #111827 !important;
@@ -98,16 +100,20 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 99, 235, 0.3);
+  background: rgba(99, 102, 241, 0.35);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(37, 99, 235, 0.6);
+  background: rgba(139, 92, 246, 0.6);
 }
 
 /* Glowing utilities */
 .glow-accent {
-  box-shadow: 0 0 25px -5px rgba(26, 255, 0, 0.35);
+  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.4);
+}
+
+.glow-violet {
+  box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.45);
 }
 
 .glow-blue {
@@ -115,8 +121,8 @@ body {
 }
 
 .glass-panel {
-  background: rgba(12, 38, 10, 0.75);
+  background: rgba(24, 24, 27, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(26, 255, 0, 0.18);
+  border: 1px solid rgba(99, 102, 241, 0.25);
 }
