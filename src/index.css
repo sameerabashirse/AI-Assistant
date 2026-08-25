@@ -3,15 +3,15 @@
 @layer base {
   :root {
     /* Global Balochi Digital Unified Navy Blue Brand System */
-    --brand-navy-primary: #0B1F3A;
-    --brand-navy-secondary: #123B73;
-    --brand-accent-blue: #2563EB;
-    --brand-accent-hover: #1D4ED8;
+    --brand-navy-primary: #0F172A;
+    --brand-navy-secondary: #1E293B;
+    --brand-accent-blue: #1D4ED8;
+    --brand-accent-hover: #1E40AF;
     --brand-accent-light: #60A5FA;
 
-    --brand-success: #22C55E;
+    --brand-success: #16A34A;
     --brand-warning: #F59E0B;
-    --brand-error: #EF4444;
+    --brand-error: #DC2626;
 
     /* Dark Mode Defaults (Shared by Public App & Admin Dashboard) */
     --theme-bg: #070B14;
@@ -27,15 +27,15 @@
     --admin-border: rgba(255, 255, 255, 0.08);
   }
 
-  /* Premium Accessible Light Mode Palette (WCAG AA Compliant - Perplexity/Gemini Light Theme) */
+  /* Premium Production-Ready SaaS Light Mode System (Stripe / Linear / Vercel Quality) */
   .light {
-    --theme-bg: #FFFFFF;
+    --theme-bg: #F8FAFC;
     --theme-card: #FFFFFF;
-    --theme-card-elevated: #F8FAFC;
+    --theme-card-elevated: #FFFFFF;
     --theme-border: #E2E8F0;
-    --theme-text-main: #0F172A;
+    --theme-text-main: #111827;
     --theme-text-secondary: #475569;
-    --theme-text-muted: #64748B;
+    --theme-text-muted: #6B7280;
 
     --admin-bg: #F8FAFC;
     --admin-card-bg: #FFFFFF;
@@ -50,20 +50,23 @@ body {
   color: var(--theme-text-main);
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light Mode Comprehensive Visual Overhaul */
+/* Light Mode Polish */
 .light body {
-  background-color: #FFFFFF !important;
-  color: #0F172A !important;
+  background-color: #F8FAFC !important;
+  color: #111827 !important;
 }
 
 .light h1, .light h2, .light h3, .light h4, .light h5, .light h6 {
-  color: #0F172A !important;
+  color: #111827 !important;
+  letter-spacing: -0.02em;
 }
 
 .light p, .light span:not(.no-light), .light td, .light label {
-  color: #334155;
+  color: #475569;
 }
 
 .light .text-gray-100, .light .text-gray-200, .light .text-gray-300 {
@@ -74,81 +77,79 @@ body {
   color: #475569 !important;
 }
 
-.light .text-gray-500 {
-  color: #64748B !important;
+.light .text-gray-500, .light .text-gray-600 {
+  color: #6B7280 !important;
 }
 
-/* Light Mode Cards, Drawers & Glass Panels */
+/* Premium Light Mode Cards & Floating Panels */
 .light .glass-panel,
 .light nav,
 .light .bg-\[\#111827\],
 .light .bg-\[\#070B14\],
 .light .bg-\[\#18181B\],
-.light .bg-\[\#09090B\],
-.light .bg-\[\#071705\],
-.light .bg-\[\#0C3D06\] {
+.light .bg-\[\#09090B\] {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
-  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06) !important;
+  color: #111827 !important;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05) !important;
 }
 
 .light nav {
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06) !important;
 }
 
 .light aside {
   background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #111827 !important;
 }
 
-/* Light Mode Sidebar Links & Thread Cards */
+/* Light Mode Sidebar Items */
 .light aside button {
-  color: #334155;
+  color: #475569;
 }
 
 .light aside button:hover {
   background-color: #F1F5F9 !important;
-  color: #0F172A !important;
+  color: #111827 !important;
 }
 
 .light aside .bg-black\/20,
 .light aside .bg-\[\#111827\]\/60 {
   background-color: #FFFFFF !important;
   border-color: #E2E8F0 !important;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
 }
 
 .light aside .bg-\[\#123B73\],
 .light aside .bg-\[\#102A56\] {
   background-color: #EFF6FF !important;
-  color: #1E3A8A !important;
+  color: #1D4ED8 !important;
   border-color: #2563EB !important;
 }
 
-/* Light Mode Input Elements & Floating Search */
+/* Light Mode Floating Composer Input */
 .light input, .light select, .light textarea {
   background-color: #FFFFFF !important;
-  color: #0F172A !important;
-  border-color: #CBD5E1 !important;
+  color: #111827 !important;
+  border-color: #E5E7EB !important;
 }
 
 .light input::placeholder, .light textarea::placeholder {
-  color: #64748B !important;
+  color: #6B7280 !important;
 }
 
 .light input:focus, .light textarea:focus {
   border-color: #2563EB !important;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15) !important;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12) !important;
 }
 
-/* Light Mode Verified Badges & Indicators */
+/* Light Mode Verified Badges & Highlights */
 .light .bg-\[\#2563EB\]\/20,
 .light .bg-\[\#0C3D06\] {
-  background-color: #DBEAFE !important;
+  background-color: #EFF6FF !important;
   color: #1D4ED8 !important;
-  border-color: #93C5FD !important;
+  border-color: #BFDBFE !important;
 }
 
 .light .text-\[\#60A5FA\],
@@ -159,24 +160,25 @@ body {
 
 /* Light Mode Blockquotes */
 .light blockquote {
-  background-color: #F1F5F9 !important;
-  border-left-color: #2563EB !important;
+  background-color: #F8FAFC !important;
+  border-left-color: #1D4ED8 !important;
   color: #1E293B !important;
 }
 
-/* Light Mode Tables */
+/* Light Mode Data Tables */
 .light table th {
-  background-color: #F1F5F9 !important;
+  background-color: #F8FAFC !important;
   color: #475569 !important;
+  font-weight: 600;
 }
 
 .light table td {
   border-color: #E2E8F0 !important;
-  color: #0F172A !important;
+  color: #111827 !important;
 }
 
 .light table tr:hover {
-  background-color: #F8FAFC !important;
+  background-color: #F1F5F9 !important;
 }
 
 /* Custom Scrollbars */
@@ -188,20 +190,20 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(37, 99, 235, 0.4);
+  background: rgba(37, 99, 235, 0.35);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(96, 165, 250, 0.7);
+  background: rgba(29, 78, 216, 0.7);
 }
 
-/* Glowing utilities */
-.glow-accent {
-  box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.45);
+/* Smooth micro-animations */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-
-.glow-blue {
-  box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.5);
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
 .glass-panel {
