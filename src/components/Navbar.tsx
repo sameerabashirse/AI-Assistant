@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Sun, Moon, Search, PanelLeft, ShieldCheck } from 'lucide-react';
+import { Sparkles, Sun, Moon, Search, PanelLeft, ShieldCheck, ShieldAlert } from 'lucide-react';
 import type { Language, ThemeMode } from '../types';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MOCK_UI_STRINGS } from '../data/mockData';
@@ -11,6 +11,7 @@ interface NavbarProps {
   onToggleTheme: () => void;
   onToggleSidebar: () => void;
   onToggleSourcesDrawer: () => void;
+  onOpenAdmin: () => void;
   sourcesCount?: number;
 }
 
@@ -21,6 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleTheme,
   onToggleSidebar,
   onToggleSourcesDrawer,
+  onOpenAdmin,
   sourcesCount = 0,
 }) => {
   const appTitle = MOCK_UI_STRINGS.appTitle[currentLanguage];
@@ -104,6 +106,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {sourcesCount}
               </span>
             )}
+          </button>
+
+          {/* Admin Control Panel Switcher */}
+          <button
+            onClick={onOpenAdmin}
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#0C3D06] text-gray-200 hover:text-[#1AFF00] border border-white/10 hover:border-[#1AFF00]/40 text-xs font-semibold transition-all"
+            title="Open Admin Control Panel"
+          >
+            <ShieldAlert className="w-3.5 h-3.5 text-[#1AFF00]" />
+            <span>Admin Portal</span>
           </button>
 
           {/* Profile Avatar */}

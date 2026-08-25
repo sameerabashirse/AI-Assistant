@@ -9,10 +9,12 @@ import { EvidenceDrawer } from './components/EvidenceDrawer';
 import { ChatInput } from './components/ChatInput';
 import { UploadModal } from './components/UploadModal';
 import { VoiceModal } from './components/VoiceModal';
+import { AdminDashboardApp } from './components/Admin/AdminDashboardApp';
 import type { Thread, Message, Language, ThemeMode, Citation, EvidenceData, SuggestionCard } from './types';
 import { MOCK_THREADS } from './data/mockData';
 
 export function App() {
+  const [viewMode, setViewMode] = useState<'user' | 'admin'>('user');
   const [language, setLanguage] = useState<Language>('english');
   const [theme, setTheme] = useState<ThemeMode>('dark');
   const [threads, setThreads] = useState<Thread[]>(MOCK_THREADS);
@@ -221,6 +223,10 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
       .filter((m) => m.sender === 'ai' && m.citations)
       .flatMap((m) => m.citations || []) || [];
 
+  if (viewMode === 'admin') {
+    return <AdminDashboardApp onSwitchToUserApp={() => setViewMode('user')} />;
+  }
+
   return (
     <div className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text-main)] flex flex-col justify-between font-sans selection:bg-[#1AFF00] selection:text-black">
       {/* Top Navbar */}
@@ -231,6 +237,7 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         onToggleTheme={handleToggleTheme}
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         onToggleSourcesDrawer={() => setIsSourcesDrawerOpen(!isSourcesDrawerOpen)}
+        onOpenAdmin={() => setViewMode('admin')}
         sourcesCount={currentCitations.length}
       />
 
