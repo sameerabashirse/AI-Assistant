@@ -9,7 +9,6 @@ export const KnowledgeDatabase: React.FC = () => {
   const [dialectFilter, setDialectFilter] = useState('All');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
-  // Form State
   const [newWord, setNewWord] = useState('');
   const [newScript, setNewScript] = useState('');
   const [newMeaning, setNewMeaning] = useState('');
@@ -57,19 +56,18 @@ export const KnowledgeDatabase: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Header Metrics Bar */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
           <div>
             <p className="text-xs text-gray-400 font-semibold">Total Verified Words</p>
-            <p className="text-2xl font-black text-[#1AFF00]">{words.length}</p>
+            <p className="text-2xl font-black text-[#60A5FA]">{words.length}</p>
           </div>
-          <div className="p-2.5 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/30 text-[#1AFF00]">
+          <div className="p-2.5 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
             <Database className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
           <div>
             <p className="text-xs text-gray-400 font-semibold">Pending Verification</p>
             <p className="text-2xl font-black text-amber-400">
@@ -81,7 +79,7 @@ export const KnowledgeDatabase: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 flex items-center justify-between">
+        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
           <div>
             <p className="text-xs text-gray-400 font-semibold">Dialects Cataloged</p>
             <p className="text-2xl font-black text-white">4 Dialects</p>
@@ -92,8 +90,7 @@ export const KnowledgeDatabase: React.FC = () => {
         </div>
       </div>
 
-      {/* Action Bar */}
-      <div className="p-4 rounded-2xl bg-[#111615] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-72">
             <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
@@ -102,7 +99,7 @@ export const KnowledgeDatabase: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search words, script or meanings..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#1AFF00]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
@@ -113,7 +110,7 @@ export const KnowledgeDatabase: React.FC = () => {
                 onClick={() => setDialectFilter(d)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   dialectFilter === d
-                    ? 'bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/40'
+                    ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40'
                     : 'bg-white/5 text-gray-400 hover:text-white'
                 }`}
               >
@@ -125,15 +122,14 @@ export const KnowledgeDatabase: React.FC = () => {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/40 font-bold text-xs transition-all shadow-[0_0_15px_rgba(26,255,0,0.2)] flex items-center justify-center gap-2"
+          className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Vocabulary Item</span>
         </button>
       </div>
 
-      {/* Words Database Table */}
-      <div className="rounded-2xl bg-[#111615] border border-white/10 overflow-hidden shadow-xl">
+      <div className="rounded-2xl bg-[#111827] border border-white/10 overflow-hidden shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
@@ -151,7 +147,7 @@ export const KnowledgeDatabase: React.FC = () => {
               {filteredWords.map((w) => (
                 <tr key={w.id} className="hover:bg-white/5 transition-colors">
                   <td className="py-3.5 px-4 font-bold text-white text-sm">{w.word}</td>
-                  <td className="py-3.5 px-4 font-serif text-emerald-300 text-base">{w.balochiScript}</td>
+                  <td className="py-3.5 px-4 font-serif text-[#60A5FA] text-base">{w.balochiScript}</td>
                   <td className="py-3.5 px-4 max-w-xs leading-snug">{w.meaning}</td>
                   <td className="py-3.5 px-4">
                     <span className="px-2 py-0.5 rounded bg-white/10 text-[10px] font-mono text-gray-300">
@@ -159,17 +155,17 @@ export const KnowledgeDatabase: React.FC = () => {
                     </span>
                   </td>
                   <td className="py-3.5 px-4 font-mono text-gray-400">{w.source}</td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-[#1AFF00]">{w.confidence}%</td>
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#60A5FA]">{w.confidence}%</td>
                   <td className="py-3.5 px-4 text-right">
                     {w.status === 'Verified' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/30">
-                        <CheckCircle2 className="w-3 h-3 text-[#1AFF00]" />
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40">
+                        <CheckCircle2 className="w-3 h-3 text-[#60A5FA]" />
                         Verified
                       </span>
                     ) : (
                       <button
                         onClick={() => handleVerifyWord(w.id)}
-                        className="px-2.5 py-1 rounded-lg bg-amber-500/20 hover:bg-[#1AFF00] text-amber-300 hover:text-black font-bold text-[10px] transition-colors"
+                        className="px-2.5 py-1 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-[10px] transition-colors"
                       >
                         Approve Word
                       </button>
@@ -182,16 +178,15 @@ export const KnowledgeDatabase: React.FC = () => {
         </div>
       </div>
 
-      {/* Add Word Modal */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
           <form
             onSubmit={handleAddWord}
-            className="w-full max-w-md bg-[#111615] border border-[#1AFF00]/30 rounded-2xl p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200"
+            className="w-full max-w-md bg-[#111827] border border-[#2563EB]/40 rounded-2xl p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200"
           >
             <div className="flex items-center justify-between border-b border-white/10 pb-3">
               <div className="flex items-center gap-2">
-                <Database className="w-5 h-5 text-[#1AFF00]" />
+                <Database className="w-5 h-5 text-[#60A5FA]" />
                 <h3 className="text-base font-bold text-white">Add Balochi Word Record</h3>
               </div>
               <button
@@ -212,18 +207,18 @@ export const KnowledgeDatabase: React.FC = () => {
                   value={newWord}
                   onChange={(e) => setNewWord(e.target.value)}
                   placeholder="e.g. Zahirok"
-                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#1AFF00]"
+                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
               <div>
-                <label className="block text-gray-300 font-semibold mb-1">Balochi Script (زهيروك)</label>
+                <label className="block text-gray-300 font-semibold mb-1">Balochi Script (زهيروک)</label>
                 <input
                   type="text"
                   value={newScript}
                   onChange={(e) => setNewScript(e.target.value)}
-                  placeholder="زهيروك"
-                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-serif text-sm focus:outline-none focus:border-[#1AFF00]"
+                  placeholder="زهيروک"
+                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white font-serif text-sm focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
 
@@ -235,7 +230,7 @@ export const KnowledgeDatabase: React.FC = () => {
                   value={newMeaning}
                   onChange={(e) => setNewMeaning(e.target.value)}
                   placeholder="Meaning and etymology..."
-                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#1AFF00] resize-none"
+                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB] resize-none"
                 />
               </div>
 
@@ -244,7 +239,7 @@ export const KnowledgeDatabase: React.FC = () => {
                 <select
                   value={newDialect}
                   onChange={(e) => setNewDialect(e.target.value as any)}
-                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#1AFF00]"
+                  className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#2563EB]"
                 >
                   <option value="Makrani (Coastal)">Makrani (Coastal)</option>
                   <option value="Marri (Eastern)">Marri (Eastern)</option>
@@ -260,7 +255,7 @@ export const KnowledgeDatabase: React.FC = () => {
                   value={newSource}
                   onChange={(e) => setNewSource(e.target.value)}
                   placeholder="Balochi Dictionary Page 124"
-                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#1AFF00]"
+                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
                 />
               </div>
             </div>
@@ -275,7 +270,7 @@ export const KnowledgeDatabase: React.FC = () => {
               </button>
               <button
                 type="submit"
-                className="py-2 px-5 rounded-xl bg-[#1AFF00] hover:bg-[#16e000] text-black font-bold text-xs transition-all shadow-[0_0_15px_rgba(26,255,0,0.3)]"
+                className="py-2 px-5 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)]"
               >
                 Save Word Record
               </button>

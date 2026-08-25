@@ -3,93 +3,81 @@ import { BarChart3, Search } from 'lucide-react';
 
 export const AnalyticsDashboard: React.FC = () => {
   const popularSearches = [
-    { query: 'Meaning of Zahirok', count: '45,210 queries', category: 'Dictionary' },
-    { query: 'Makrani vs Marri Dialect Grammar', count: '32,180 queries', category: 'Linguistics' },
-    { query: 'Mir Chakar Rind History & Epics', count: '28,900 queries', category: 'History' },
-    { query: 'Balochi Proverbs on Hospitality', count: '21,450 queries', category: 'Folklore' },
-    { query: 'Mast Tawkali Poetry References', count: '18,320 queries', category: 'Literature' },
+    { query: 'Meaning of Zahirok in Makrani', count: '42,500 queries', trend: '+18%' },
+    { query: 'Sher Muhammad Marri Books List', count: '28,100 queries', trend: '+12%' },
+    { query: 'Balochi Grammar Verb Conjugation', count: '21,400 queries', trend: '+24%' },
+    { query: 'Mir Chakar Rind Historical Manuscripts', count: '19,800 queries', trend: '+8%' },
+    { query: 'Coast Makrani vs Marri Dialects', count: '14,200 queries', trend: '+35%' },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Top Chart Metric Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 space-y-1">
-          <p className="text-xs text-gray-400 font-semibold">Daily Active Queries</p>
-          <p className="text-2xl font-black text-[#1AFF00]">38,420</p>
-          <p className="text-[10px] text-emerald-400 font-mono">+14.2% peak throughput</p>
+      {/* Monthly Query Volume Bar Chart */}
+      <div className="p-6 rounded-2xl bg-[#111827] border border-white/10 space-y-4">
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+          <div className="flex items-center gap-2">
+            <BarChart3 className="w-5 h-5 text-[#60A5FA]" />
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+              Monthly Verified Query Throughput (2026)
+            </h3>
+          </div>
+          <span className="text-xs font-mono text-[#60A5FA]">Total: 850,000 Queries</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 space-y-1">
-          <p className="text-xs text-gray-400 font-semibold">Avg Vector Search Latency</p>
-          <p className="text-2xl font-black text-white">320 ms</p>
-          <p className="text-[10px] text-emerald-400 font-mono">Fast HNSW cosine match</p>
-        </div>
-
-        <div className="p-4 rounded-xl bg-[#111615] border border-white/10 space-y-1">
-          <p className="text-xs text-gray-400 font-semibold">Verified Answer Consensus</p>
-          <p className="text-2xl font-black text-[#1AFF00]">96.8%</p>
-          <p className="text-[10px] text-emerald-400 font-mono">Across 14+ sources</p>
-        </div>
-
-        <div className="p-[#111615] p-4 rounded-xl bg-[#111615] border border-white/10 space-y-1">
-          <p className="text-xs text-gray-400 font-semibold">OCR Processing Rate</p>
-          <p className="text-2xl font-black text-white">140 pgs/min</p>
-          <p className="text-[10px] text-gray-400 font-mono">Parallel GPU pipeline</p>
+        <div className="h-48 flex items-end justify-between gap-3 pt-6 px-4">
+          {[
+            { month: 'Jan', val: 45 },
+            { month: 'Feb', val: 52 },
+            { month: 'Mar', val: 68 },
+            { month: 'Apr', val: 74 },
+            { month: 'May', val: 82 },
+            { month: 'Jun', val: 96 },
+            { month: 'Jul', val: 88 },
+            { month: 'Aug', val: 100 },
+          ].map((bar) => (
+            <div key={bar.month} className="flex-1 flex flex-col items-center gap-2 h-full justify-end group">
+              <div
+                style={{ height: `${bar.val}%` }}
+                className="w-full rounded-t-lg bg-gradient-to-t from-[#0B1F3A] to-[#2563EB] group-hover:to-[#60A5FA] transition-all relative"
+              >
+                <div className="opacity-0 group-hover:opacity-100 absolute -top-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-black border border-white/20 text-[10px] font-mono text-[#60A5FA] pointer-events-none transition-opacity">
+                  {bar.val * 8.5}K
+                </div>
+              </div>
+              <span className="text-[11px] font-mono text-gray-400">{bar.month}</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Visual Analytics Chart Containers */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Visual Bar Chart Mockup: Query Throughput */}
-        <div className="p-5 rounded-2xl bg-[#111615] border border-white/10 space-y-4 lg:col-span-2">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <BarChart3 className="w-4 h-4 text-[#1AFF00]" />
-              Monthly Query Volume & Throughput
-            </h3>
-            <span className="text-xs font-mono text-gray-400">August 2026</span>
-          </div>
+      {/* Popular Search Ranking List */}
+      <div className="p-6 rounded-2xl bg-[#111827] border border-white/10 space-y-4">
+        <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-white/10 pb-3">
+          <Search className="w-4 h-4 text-[#60A5FA]" />
+          Top 5 Popular Knowledge Queries
+        </h3>
 
-          <div className="h-48 flex items-end gap-3 pt-6 px-2">
-            {[45, 60, 52, 78, 90, 84, 95, 110, 105, 125, 140, 135].map((height, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                <div
-                  className="w-full bg-[#0C3D06] group-hover:bg-[#1AFF00] rounded-t-md transition-all duration-300 relative"
-                  style={{ height: `${height}%` }}
-                >
-                  <div className="opacity-0 group-hover:opacity-100 absolute -top-8 left-1/2 -translate-x-1/2 bg-black text-[#1AFF00] px-2 py-0.5 rounded text-[10px] font-mono font-bold whitespace-nowrap border border-[#1AFF00]/40 z-10 transition-opacity">
-                    {height * 500} queries
-                  </div>
-                </div>
-                <span className="text-[9px] text-gray-500 font-mono">Day {i * 2 + 1}</span>
+        <div className="space-y-3">
+          {popularSearches.map((item, idx) => (
+            <div
+              key={idx}
+              className="p-3.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between text-xs"
+            >
+              <div className="flex items-center gap-3">
+                <span className="w-6 h-6 rounded-lg bg-[#0B1F3A] border border-[#2563EB]/40 flex items-center justify-center font-mono font-bold text-[#60A5FA]">
+                  #{idx + 1}
+                </span>
+                <span className="font-bold text-white">{item.query}</span>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Popular Searches Ranking */}
-        <div className="p-5 rounded-2xl bg-[#111615] border border-white/10 space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
-            <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
-              <Search className="w-4 h-4 text-[#1AFF00]" />
-              Popular Search Queries
-            </h3>
-          </div>
-
-          <div className="space-y-3">
-            {popularSearches.map((item, index) => (
-              <div key={index} className="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-bold text-white leading-tight">{item.query}</p>
-                  <span className="text-[10px] text-gray-400 font-mono">{item.category}</span>
-                </div>
-                <span className="px-2 py-0.5 rounded bg-[#1AFF00]/10 text-[#1AFF00] text-[10px] font-mono font-bold">
-                  {item.count}
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-gray-400">{item.count}</span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40">
+                  {item.trend}
                 </span>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

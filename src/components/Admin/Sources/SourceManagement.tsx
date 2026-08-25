@@ -28,8 +28,7 @@ export const SourceManagement: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Search and Filters Bar */}
-      <div className="p-4 rounded-2xl bg-[#111615] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-72">
             <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
@@ -38,7 +37,7 @@ export const SourceManagement: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search source title or author..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#1AFF00]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
@@ -49,7 +48,7 @@ export const SourceManagement: React.FC = () => {
                 onClick={() => setTypeFilter(t)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   typeFilter === t
-                    ? 'bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/40'
+                    ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40'
                     : 'bg-white/5 text-gray-400 hover:text-white'
                 }`}
               >
@@ -59,38 +58,37 @@ export const SourceManagement: React.FC = () => {
           </div>
         </div>
 
-        <button className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/40 font-bold text-xs transition-all shadow-[0_0_15px_rgba(26,255,0,0.2)] flex items-center justify-center gap-2">
+        <button className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer">
           <Plus className="w-4 h-4" />
           <span>Add New Source Entry</span>
         </button>
       </div>
 
-      {/* Sources Grid Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredSources.map((src) => (
           <div
             key={src.id}
-            className="p-5 rounded-2xl bg-[#111615] border border-white/10 hover:border-[#1AFF00]/40 transition-all flex flex-col justify-between space-y-4 shadow-lg group"
+            className="p-5 rounded-2xl bg-[#111827] border border-white/10 hover:border-[#2563EB]/40 transition-all flex flex-col justify-between space-y-4 shadow-lg group"
           >
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/30">
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#0B1F3A] text-[#60A5FA] border border-[#2563EB]/30">
                   {src.type}
                 </span>
 
                 <span
                   className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                     src.verificationStatus === 'Verified'
-                      ? 'bg-[#1AFF00]/15 text-[#1AFF00] border border-[#1AFF00]/30'
+                      ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
                       : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
                   }`}
                 >
-                  <ShieldCheck className="w-3 h-3 text-[#1AFF00]" />
+                  <ShieldCheck className="w-3 h-3 text-[#60A5FA]" />
                   {src.verificationStatus}
                 </span>
               </div>
 
-              <h4 className="text-base font-bold text-white group-hover:text-[#1AFF00] transition-colors leading-snug">
+              <h4 className="text-base font-bold text-white group-hover:text-[#60A5FA] transition-colors leading-snug">
                 {src.title}
               </h4>
               <p className="text-xs text-gray-400 mt-1 font-medium">
@@ -111,7 +109,7 @@ export const SourceManagement: React.FC = () => {
                 {src.verificationStatus !== 'Verified' && (
                   <button
                     onClick={() => handleVerifySource(src.id)}
-                    className="px-3 py-1.5 rounded-lg bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black font-bold text-[11px] border border-[#1AFF00]/30 transition-all"
+                    className="px-3 py-1.5 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-[11px] transition-all"
                   >
                     Verify Source
                   </button>

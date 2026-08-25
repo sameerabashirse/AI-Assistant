@@ -13,18 +13,24 @@ import { AnalyticsDashboard } from './Analytics/AnalyticsDashboard';
 import { SystemLogsTable } from './Logs/SystemLogsTable';
 import { AdminSettings } from './Settings/AdminSettings';
 
+import type { ThemeMode } from '../../types';
+
 interface AdminDashboardAppProps {
   onSwitchToUserApp: () => void;
+  theme: ThemeMode;
+  onToggleTheme: () => void;
 }
 
 export const AdminDashboardApp: React.FC<AdminDashboardAppProps> = ({
   onSwitchToUserApp,
+  theme,
+  onToggleTheme,
 }) => {
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-[#080B0A] text-white flex overflow-hidden font-sans selection:bg-[#1AFF00] selection:text-black">
+    <div className="min-h-screen bg-[var(--admin-bg)] text-white flex overflow-hidden font-sans selection:bg-[#2563EB] selection:text-white">
       {/* Left Navigation Sidebar */}
       <AdminSidebar
         activeTab={activeTab}
@@ -40,6 +46,9 @@ export const AdminDashboardApp: React.FC<AdminDashboardAppProps> = ({
           activeTab={activeTab}
           onToggleSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
           onSwitchToUserApp={onSwitchToUserApp}
+          onSelectTab={setActiveTab}
+          theme={theme}
+          onToggleTheme={onToggleTheme}
         />
 
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 space-y-6">

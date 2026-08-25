@@ -10,11 +10,14 @@ import { ChatInput } from './components/ChatInput';
 import { UploadModal } from './components/UploadModal';
 import { VoiceModal } from './components/VoiceModal';
 import { AdminDashboardApp } from './components/Admin/AdminDashboardApp';
+import { AdminLogin } from './components/Admin/Auth/AdminLogin';
 import type { Thread, Message, Language, ThemeMode, Citation, EvidenceData, SuggestionCard } from './types';
 import { MOCK_THREADS } from './data/mockData';
 
 export function App() {
-  const [viewMode, setViewMode] = useState<'user' | 'admin'>('user');
+  const [route, setRoute] = useState<'public' | 'admin-login' | 'admin'>('public');
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+
   const [language, setLanguage] = useState<Language>('english');
   const [theme, setTheme] = useState<ThemeMode>('dark');
   const [threads, setThreads] = useState<Thread[]>(MOCK_THREADS);
@@ -27,13 +30,34 @@ export function App() {
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
 
-  // Selected Item details for Evidence & Sources Drawers
+  // Selected Item details
   const [activeCitationId, setActiveCitationId] = useState<string | undefined>();
   const [activeEvidence, setActiveEvidence] = useState<EvidenceData | undefined>();
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
   const activeThread = threads.find((t) => t.id === activeThreadId);
+
+  // Handle URL hash/path change simulation for /admin & /admin/login
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#/admin/login') {
+        setRoute('admin-login');
+      } else if (hash === '#/admin') {
+        if (isAdminAuthenticated) {
+          setRoute('admin');
+        } else {
+          setRoute('admin-login');
+        }
+      } else {
+        setRoute('public');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange();
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, [isAdminAuthenticated]);
 
   // Auto-scroll to bottom of chat
   useEffect(() => {
@@ -84,7 +108,6 @@ export function App() {
     let currentThreadId = activeThreadId;
 
     if (!currentThreadId) {
-      // Create new thread
       const newThread: Thread = {
         id: `thread-${Date.now()}`,
         title: text.length > 30 ? `${text.substring(0, 30)}...` : text,
@@ -97,13 +120,11 @@ export function App() {
       setActiveThreadId(newThread.id);
       currentThreadId = newThread.id;
     } else {
-      // Append user msg to current thread
       setThreads((prev) =>
         prev.map((t) => (t.id === currentThreadId ? { ...t, messages: [...t.messages, userMsg] } : t))
       );
     }
 
-    // Add streaming AI placeholder
     const aiPlaceholder: Message = {
       id: `ai-stream-${Date.now()}`,
       sender: 'ai',
@@ -120,9 +141,7 @@ export function App() {
       );
     }, 200);
 
-    // Simulate AI knowledge retrieval & verified synthesis
     setTimeout(() => {
-      // Trigger subtle celebration confetti for verified answer delivery
       confetti({
         particleCount: 25,
         spread: 60,
@@ -207,7 +226,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         )
       );
 
-      // Auto-open sources drawer to showcase verified citations
       setIsSourcesDrawerOpen(true);
     }, 1800);
   };
@@ -217,19 +235,66 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
     handleSendMessage(promptText);
   };
 
-  // Collect all active citations in current thread
   const currentCitations: Citation[] =
     activeThread?.messages
       .filter((m) => m.sender === 'ai' && m.citations)
       .flatMap((m) => m.citations || []) || [];
 
-  if (viewMode === 'admin') {
-    return <AdminDashboardApp onSwitchToUserApp={() => setViewMode('user')} />;
+  // ROUTE 1: Dedicated Admin Login Screen (/admin/login)
+  if (route === 'admin-login') {
+    return (
+      <AdminLogin
+        onLoginSuccess={() => {
+          setIsAdminAuthenticated(true);
+          setRoute('admin');
+          window.location.hash = '#/admin';
+        }}
+        onReturnToHome={() => {
+          setRoute('public');
+          window.location.hash = '';
+        }}
+      />
+    );
   }
 
+  // ROUTE 2: Protected Admin Control Panel (/admin)
+  if (route === 'admin') {
+    if (!isAdminAuthenticated) {
+      // Auto-redirect unauthenticated users to /admin/login
+      setRoute('admin-login');
+      window.location.hash = '#/admin/login';
+      return (
+        <AdminLogin
+          onLoginSuccess={() => {
+            setIsAdminAuthenticated(true);
+            setRoute('admin');
+            window.location.hash = '#/admin';
+          }}
+          onReturnToHome={() => {
+            setRoute('public');
+            window.location.hash = '';
+          }}
+        />
+      );
+    }
+
+    return (
+      <AdminDashboardApp
+        onSwitchToUserApp={() => {
+          setIsAdminAuthenticated(false);
+          setRoute('admin-login');
+          window.location.hash = '#/admin/login';
+        }}
+        theme={theme}
+        onToggleTheme={handleToggleTheme}
+      />
+    );
+  }
+
+  // ROUTE 3: Public Platform (Default User AI Knowledge Assistant)
   return (
     <div className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text-main)] flex flex-col justify-between font-sans selection:bg-[#1AFF00] selection:text-black">
-      {/* Top Navbar */}
+      {/* Top Public Navbar (No Admin Links) */}
       <Navbar
         currentLanguage={language}
         onLanguageChange={setLanguage}
@@ -237,13 +302,11 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         onToggleTheme={handleToggleTheme}
         onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         onToggleSourcesDrawer={() => setIsSourcesDrawerOpen(!isSourcesDrawerOpen)}
-        onOpenAdmin={() => setViewMode('admin')}
         sourcesCount={currentCitations.length}
       />
 
-      {/* Main Workspace Layout */}
+      {/* Main Public Workspace Layout */}
       <div className="flex-1 flex overflow-hidden relative max-w-[1920px] w-full mx-auto">
-        {/* Left Sidebar: History Threads */}
         <SidebarHistory
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
@@ -255,10 +318,8 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
           language={language}
         />
 
-        {/* Center: Main Canvas (Welcome Screen OR Active Conversation) */}
         <main className="flex-1 flex flex-col justify-between min-w-0 h-[calc(100vh-80px)] overflow-hidden relative">
           {!activeThread || activeThread.messages.length === 0 ? (
-            /* Welcome Hero View */
             <div className="flex-1 overflow-y-auto flex flex-col justify-between p-2">
               <WelcomeScreen
                 language={language}
@@ -272,13 +333,11 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
               />
             </div>
           ) : (
-            /* Active Chat Stream View */
             <div className="flex-1 flex flex-col justify-between h-full overflow-hidden">
               <div
                 ref={chatContainerRef}
                 className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-4 max-w-4xl w-full mx-auto"
               >
-                {/* Thread Header Banner */}
                 <div className="p-3 mb-4 rounded-xl bg-[#0C3D06]/30 border border-[#1AFF00]/20 flex items-center justify-between text-xs text-gray-300">
                   <div className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#1AFF00] animate-pulse" />
@@ -313,7 +372,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
                 ))}
               </div>
 
-              {/* Chat Input Bar */}
               <ChatInput
                 onSendMessage={handleSendMessage}
                 onOpenUpload={() => setIsUploadModalOpen(true)}
@@ -324,7 +382,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
           )}
         </main>
 
-        {/* Right Sidebar Drawer: Verified Sources & Citations (Perplexity style) */}
         <SourceDrawer
           isOpen={isSourcesDrawerOpen}
           onClose={() => setIsSourcesDrawerOpen(false)}
@@ -337,7 +394,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         />
       </div>
 
-      {/* Slide-over Modal: Evidence Inspector Audit Trail */}
       <EvidenceDrawer
         isOpen={isEvidenceDrawerOpen}
         onClose={() => setIsEvidenceDrawerOpen(false)}
@@ -345,7 +401,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         language={language}
       />
 
-      {/* Interactive Document Upload Modal (OCR Scanner Simulator) */}
       <UploadModal
         isOpen={isUploadModalOpen}
         onClose={() => setIsUploadModalOpen(false)}
@@ -353,7 +408,6 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
         language={language}
       />
 
-      {/* Voice Search Modal (Waveform simulator) */}
       <VoiceModal
         isOpen={isVoiceModalOpen}
         onClose={() => setIsVoiceModalOpen(false)}

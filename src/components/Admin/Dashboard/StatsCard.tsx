@@ -19,12 +19,12 @@ export const StatsCard: React.FC<StatsCardProps> = ({
   const isPositive = growth !== undefined ? growth >= 0 : true;
 
   return (
-    <div className="p-5 rounded-2xl bg-[#111615] border border-white/10 hover:border-[#1AFF00]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.4)] group">
+    <div className="p-5 rounded-2xl bg-[#111827] border border-white/10 hover:border-[#2563EB]/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.4)] group">
       <div className="flex items-center justify-between">
         <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">
           {title}
         </span>
-        <div className="p-2.5 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/30 text-[#1AFF00] shadow-[0_0_12px_rgba(26,255,0,0.15)] group-hover:scale-110 transition-transform">
+        <div className="p-2.5 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA] shadow-[0_0_12px_rgba(37,99,235,0.2)] group-hover:scale-110 transition-transform">
           {icon}
         </div>
       </div>
@@ -38,7 +38,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
           <span
             className={`inline-flex items-center gap-1 text-xs font-mono font-bold px-2 py-0.5 rounded-md ${
               isPositive
-                ? 'bg-[#1AFF00]/15 text-[#1AFF00] border border-[#1AFF00]/30'
+                ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
                 : 'bg-red-500/15 text-red-400 border border-red-500/30'
             }`}
           >

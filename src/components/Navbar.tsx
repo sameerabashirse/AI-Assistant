@@ -1,5 +1,5 @@
-import React from 'react';
-import { Sparkles, Sun, Moon, Search, PanelLeft, ShieldCheck, ShieldAlert } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Sun, Moon, PanelLeft, ShieldCheck, BookOpen, Compass, Library, Info } from 'lucide-react';
 import type { Language, ThemeMode } from '../types';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { MOCK_UI_STRINGS } from '../data/mockData';
@@ -11,7 +11,6 @@ interface NavbarProps {
   onToggleTheme: () => void;
   onToggleSidebar: () => void;
   onToggleSourcesDrawer: () => void;
-  onOpenAdmin: () => void;
   sourcesCount?: number;
 }
 
@@ -22,9 +21,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onToggleTheme,
   onToggleSidebar,
   onToggleSourcesDrawer,
-  onOpenAdmin,
   sourcesCount = 0,
 }) => {
+  const [activePublicTab, setActivePublicTab] = useState<'assistant' | 'research' | 'sources' | 'library' | 'about'>('assistant');
+
   const appTitle = MOCK_UI_STRINGS.appTitle[currentLanguage];
   const appSubtitle = MOCK_UI_STRINGS.appSubtitle[currentLanguage];
 
@@ -65,13 +65,70 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Center: Search / Status Indicator */}
-        <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/30 border border-white/10 text-xs text-gray-400">
-          <Search className="w-3.5 h-3.5 text-[#1AFF00]" />
-          <span>Search verified manuscripts & dictionary items...</span>
-          <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-[10px] text-gray-300 font-mono">
-            ⌘K
-          </kbd>
+        {/* Center: Public User Navigation Items */}
+        <div className="hidden xl:flex items-center gap-1 bg-black/30 p-1 rounded-full border border-white/10 text-xs">
+          <button
+            onClick={() => setActivePublicTab('assistant')}
+            className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+              activePublicTab === 'assistant'
+                ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/30'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>AI Assistant</span>
+          </button>
+
+          <button
+            onClick={() => setActivePublicTab('research')}
+            className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+              activePublicTab === 'research'
+                ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/30'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5" />
+            <span>Research</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActivePublicTab('sources');
+              onToggleSourcesDrawer();
+            }}
+            className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+              activePublicTab === 'sources'
+                ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/30'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Verified Sources</span>
+          </button>
+
+          <button
+            onClick={() => setActivePublicTab('library')}
+            className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+              activePublicTab === 'library'
+                ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/30'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            <Library className="w-3.5 h-3.5" />
+            <span>Library</span>
+          </button>
+
+          <button
+            onClick={() => setActivePublicTab('about')}
+            className={`px-3 py-1 rounded-full font-semibold transition-all flex items-center gap-1.5 ${
+              activePublicTab === 'about'
+                ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/30'
+                : 'text-gray-300 hover:text-white'
+            }`}
+          >
+            <Info className="w-3.5 h-3.5" />
+            <span>About</span>
+          </button>
         </div>
 
         {/* Right Side: Language, Theme, Sources Drawer, Profile */}
@@ -108,17 +165,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             )}
           </button>
 
-          {/* Admin Control Panel Switcher */}
-          <button
-            onClick={onOpenAdmin}
-            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#0C3D06] text-gray-200 hover:text-[#1AFF00] border border-white/10 hover:border-[#1AFF00]/40 text-xs font-semibold transition-all"
-            title="Open Admin Control Panel"
-          >
-            <ShieldAlert className="w-3.5 h-3.5 text-[#1AFF00]" />
-            <span>Admin Portal</span>
-          </button>
-
-          {/* Profile Avatar */}
+          {/* User Profile Avatar */}
           <div className="relative group cursor-pointer">
             <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#0C3D06] to-[#1AFF00] p-0.5 shadow-[0_0_10px_rgba(26,255,0,0.3)]">
               <div className="w-full h-full rounded-full bg-[#071705] flex items-center justify-center font-bold text-xs text-[#1AFF00]">

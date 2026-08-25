@@ -36,10 +36,9 @@ export const OCRReviewPanel: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      {/* Review Selector Bar */}
-      <div className="p-4 rounded-2xl bg-[#111615] border border-white/10 flex items-center justify-between">
+      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-[#0C3D06] border border-[#1AFF00]/30 text-[#1AFF00]">
+          <div className="p-2 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
             <FileCheck2 className="w-5 h-5" />
           </div>
           <div>
@@ -56,7 +55,7 @@ export const OCRReviewPanel: React.FC = () => {
           <span
             className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
               activeReview.status === 'Approved'
-                ? 'bg-[#1AFF00]/15 text-[#1AFF00] border border-[#1AFF00]/30'
+                ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
                 : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
             }`}
           >
@@ -91,16 +90,15 @@ export const OCRReviewPanel: React.FC = () => {
         </div>
       </div>
 
-      {/* Side-by-Side Review Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {/* LEFT COLUMN: Original Book Page Scan Image */}
-        <div className="p-4 rounded-2xl bg-[#111615] border border-white/10 space-y-3 flex flex-col justify-between">
+        {/* LEFT COLUMN: Original Scan */}
+        <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 space-y-3 flex flex-col justify-between">
           <div className="flex items-center justify-between text-xs text-gray-400">
             <span className="font-bold text-white flex items-center gap-1.5">
-              <ZoomIn className="w-4 h-4 text-[#1AFF00]" />
+              <ZoomIn className="w-4 h-4 text-[#60A5FA]" />
               Original Manuscript Scan (Page {activeReview.pageNumber})
             </span>
-            <span className="font-mono text-[10px] text-[#1AFF00]">300 DPI Resolution</span>
+            <span className="font-mono text-[10px] text-[#60A5FA]">300 DPI Resolution</span>
           </div>
 
           <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-video md:aspect-[4/3] bg-black group">
@@ -122,11 +120,11 @@ export const OCRReviewPanel: React.FC = () => {
           </div>
         </div>
 
-        {/* RIGHT COLUMN: Extracted vs Expert Corrected Text */}
-        <div className="p-4 rounded-2xl bg-[#111615] border border-white/10 space-y-4 flex flex-col justify-between">
+        {/* RIGHT COLUMN: OCR Text Editor */}
+        <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 space-y-4 flex flex-col justify-between">
           <div className="space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-white/10">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#1AFF00] flex items-center gap-1.5">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[#60A5FA] flex items-center gap-1.5">
                 <Edit3 className="w-4 h-4" />
                 Text Extraction & Correction Editor
               </h4>
@@ -135,7 +133,6 @@ export const OCRReviewPanel: React.FC = () => {
               </span>
             </div>
 
-            {/* RAW OCR Extracted Output */}
             <div className="space-y-1">
               <label className="text-[11px] font-mono text-gray-400 block">
                 1. Raw Machine OCR Output (Before):
@@ -145,21 +142,19 @@ export const OCRReviewPanel: React.FC = () => {
               </div>
             </div>
 
-            {/* Expert Corrected Output (Editable) */}
             <div className="space-y-1">
-              <label className="text-[11px] font-mono text-[#1AFF00] block">
+              <label className="text-[11px] font-mono text-[#60A5FA] block">
                 2. Expert Verified & Corrected Text (After):
               </label>
               <textarea
                 rows={5}
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="w-full p-3 rounded-xl bg-emerald-950/30 border border-[#1AFF00]/40 text-xs text-white leading-relaxed font-serif focus:outline-none focus:border-[#1AFF00]"
+                className="w-full p-3 rounded-xl bg-[#0B1F3A]/40 border border-[#2563EB]/40 text-xs text-white leading-relaxed font-serif focus:outline-none focus:border-[#2563EB]"
               />
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
             <button
               onClick={handleReject}
@@ -172,7 +167,7 @@ export const OCRReviewPanel: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleApprove}
-                className="py-2 px-5 rounded-xl bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/40 font-bold text-xs transition-all shadow-[0_0_15px_rgba(26,255,0,0.2)] flex items-center gap-1.5"
+                className="py-2 px-5 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white border border-[#2563EB]/40 font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center gap-1.5 cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve & Index Page</span>

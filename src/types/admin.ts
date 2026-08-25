@@ -78,6 +78,7 @@ export interface SystemLog {
   action: string;
   user: string;
   role: string;
+  ip?: string;
   date: string;
   time: string;
   status: 'Success' | 'Warning' | 'Error';

@@ -1,11 +1,15 @@
-import React from 'react';
-import { Menu, Search, Bell, ShieldCheck, UserCheck, ArrowRight } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Menu, Search, Bell, ShieldCheck, Sun, Moon, LogOut, KeyRound, Settings, ChevronDown } from 'lucide-react';
 import type { AdminTab } from './AdminSidebar';
+import type { ThemeMode } from '../../../types';
 
 interface AdminHeaderProps {
   activeTab: AdminTab;
   onToggleSidebar: () => void;
   onSwitchToUserApp: () => void;
+  onSelectTab?: (tab: AdminTab) => void;
+  theme: ThemeMode;
+  onToggleTheme: () => void;
 }
 
 const TAB_TITLES: Record<AdminTab, { title: string; subtitle: string }> = {
@@ -55,11 +59,26 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
   activeTab,
   onToggleSidebar,
   onSwitchToUserApp,
+  onSelectTab,
+  theme,
+  onToggleTheme,
 }) => {
   const currentTab = TAB_TITLES[activeTab] || TAB_TITLES.dashboard;
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+        setIsProfileMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-30 bg-[#080B0A]/90 border-b border-white/10 backdrop-blur-md px-4 md:px-6 py-3.5 flex items-center justify-between">
+    <header className="sticky top-0 z-30 bg-[#070B14]/90 border-b border-white/10 backdrop-blur-md px-4 md:px-6 py-3.5 flex items-center justify-between">
       {/* Left: Mobile Toggle & Page Title */}
       <div className="flex items-center gap-3">
         <button
@@ -74,8 +93,8 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
             <h1 className="text-base md:text-lg font-black text-white tracking-tight leading-none">
               {currentTab.title}
             </h1>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/30">
-              <ShieldCheck className="w-3 h-3 text-[#1AFF00]" />
+            <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40">
+              <ShieldCheck className="w-3 h-3 text-[#60A5FA]" />
               Super Admin Verified
             </span>
           </div>
@@ -85,11 +104,11 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
         </div>
       </div>
 
-      {/* Right: Search, Notifications, Admin Profile */}
-      <div className="flex items-center gap-3">
+      {/* Right: Search, Notifications, Theme Toggle, Profile */}
+      <div className="flex items-center gap-2 md:gap-3">
         {/* Global Search */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111615] border border-white/10 text-xs text-gray-400 w-56 lg:w-64">
-          <Search className="w-3.5 h-3.5 text-[#1AFF00]" />
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111827] border border-white/10 text-xs text-gray-400 w-48 lg:w-56">
+          <Search className="w-3.5 h-3.5 text-[#60A5FA]" />
           <input
             type="text"
             placeholder="Search admin records..."
@@ -97,33 +116,87 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
           />
         </div>
 
+        {/* Theme Switcher Toggle */}
+        <button
+          onClick={onToggleTheme}
+          className="p-2 rounded-full bg-[#111827] hover:bg-[#102A56] text-gray-300 hover:text-[#60A5FA] border border-white/10 transition-all"
+          title="Toggle Dark / Light Theme"
+        >
+          {theme === 'dark' ? (
+            <Sun className="w-4 h-4 text-amber-400" />
+          ) : (
+            <Moon className="w-4 h-4 text-[#60A5FA]" />
+          )}
+        </button>
+
         {/* Notification Bell */}
         <button
-          className="relative p-2 rounded-full bg-[#111615] hover:bg-[#0C3D06] text-gray-300 hover:text-[#1AFF00] border border-white/10 transition-all"
+          className="relative p-2 rounded-full bg-[#111827] hover:bg-[#102A56] text-gray-300 hover:text-[#60A5FA] border border-white/10 transition-all"
           title="Notifications (340 Pending Reviews)"
         >
           <Bell className="w-4 h-4" />
-          <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-[#1AFF00] ring-2 ring-[#080B0A]" />
+          <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-[#2563EB] ring-2 ring-[#070B14]" />
         </button>
 
-        {/* User Assistant Switcher */}
-        <button
-          onClick={onSwitchToUserApp}
-          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#0C3D06] hover:bg-[#16e000] text-[#1AFF00] hover:text-black border border-[#1AFF00]/40 text-xs font-semibold transition-all shadow-[0_0_12px_rgba(26,255,0,0.15)]"
-        >
-          <span>User AI Assistant</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
+        {/* Admin Profile Dropdown */}
+        <div className="relative" ref={profileRef}>
+          <button
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
+            className="flex items-center gap-2 p-1.5 rounded-full bg-[#111827] hover:bg-[#102A56] border border-white/10 hover:border-[#2563EB]/40 transition-all"
+          >
+            <div className="w-7 h-7 rounded-full bg-[#0B1F3A] border border-[#2563EB]/50 flex items-center justify-center text-[#60A5FA] text-xs font-bold">
+              AK
+            </div>
+            <div className="hidden xl:block text-left">
+              <p className="text-[11px] font-bold text-white leading-none">Ahmed Khan</p>
+              <p className="text-[9px] text-[#60A5FA] font-mono">Super Admin</p>
+            </div>
+            <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+          </button>
 
-        {/* Admin Badge */}
-        <div className="flex items-center gap-2 p-1.5 rounded-full bg-[#111615] border border-white/10">
-          <div className="w-7 h-7 rounded-full bg-[#0C3D06] border border-[#1AFF00]/50 flex items-center justify-center text-[#1AFF00] text-xs font-bold">
-            <UserCheck className="w-4 h-4 text-[#1AFF00]" />
-          </div>
-          <div className="hidden xl:block text-left pr-2">
-            <p className="text-[11px] font-bold text-white leading-none">Admin Control</p>
-            <p className="text-[9px] text-[#1AFF00] font-mono">Verified Session</p>
-          </div>
+          {isProfileMenuOpen && (
+            <div className="absolute right-0 mt-2 w-52 rounded-xl bg-[#111827] border border-white/10 backdrop-blur-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="px-3 py-2 border-b border-white/10 mb-1">
+                <p className="text-xs font-bold text-white">Ahmed Khan Baloch</p>
+                <p className="text-[10px] text-[#60A5FA] font-mono">ahmed.khan@balochidigital.org</p>
+              </div>
+
+              <button
+                onClick={() => {
+                  if (onSelectTab) onSelectTab('settings');
+                  setIsProfileMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+              >
+                <Settings className="w-3.5 h-3.5 text-[#60A5FA]" />
+                <span>Account Settings</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  if (onSelectTab) onSelectTab('settings');
+                  setIsProfileMenuOpen(false);
+                }}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium text-gray-300 hover:bg-white/5 hover:text-white transition-colors"
+              >
+                <KeyRound className="w-3.5 h-3.5 text-[#60A5FA]" />
+                <span>Security & 2FA</span>
+              </button>
+
+              <div className="border-t border-white/10 my-1" />
+
+              <button
+                onClick={() => {
+                  setIsProfileMenuOpen(false);
+                  onSwitchToUserApp();
+                }}
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-red-400 hover:bg-red-950/40 transition-colors"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign Out Admin Session</span>
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
