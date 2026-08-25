@@ -35,7 +35,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={onToggleSidebar}
-            className="p-2 rounded-xl bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-white border border-white/10 hover:border-[#2563EB]/40 transition-all"
+            className="p-2 rounded-xl bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-white border border-white/10 hover:border-[#2563EB]/40 transition-all cursor-pointer"
             title="Toggle Sidebar"
           >
             <PanelLeft className="w-4 h-4" />
@@ -141,13 +141,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Theme Toggle */}
           <button
             onClick={onToggleTheme}
-            className="p-2 rounded-full bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-[#60A5FA] border border-white/10 hover:border-[#2563EB]/40 transition-all"
-            title="Toggle Theme"
+            className="p-2 rounded-full bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-[#60A5FA] border border-white/10 hover:border-[#2563EB]/40 transition-all cursor-pointer"
+            title="Toggle Light / Dark Theme"
           >
             {theme === 'dark' ? (
               <Sun className="w-4 h-4 text-amber-400" />
             ) : (
-              <Moon className="w-4 h-4 text-[#60A5FA]" />
+              <Moon className="w-4 h-4 text-[#2563EB]" />
             )}
           </button>
 
