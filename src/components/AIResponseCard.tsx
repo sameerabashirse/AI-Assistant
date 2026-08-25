@@ -53,15 +53,15 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
     return lines.map((line, idx) => {
       if (line.startsWith('### ')) {
         return (
-          <h3 key={idx} className="text-base md:text-lg font-bold text-white mt-4 mb-2 flex items-center gap-2 border-b border-[#6366F1]/20 pb-1">
-            <span className="w-2 h-2 rounded-full bg-[#8B5CF6]" />
+          <h3 key={idx} className="text-base md:text-lg font-bold text-white mt-4 mb-2 flex items-center gap-2 border-b border-white/10 pb-1">
+            <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
             {line.replace('### ', '')}
           </h3>
         );
       }
       if (line.startsWith('#### ')) {
         return (
-          <h4 key={idx} className="text-sm md:text-base font-bold text-[#A78BFA] mt-3 mb-1.5">
+          <h4 key={idx} className="text-sm md:text-base font-bold text-[#60A5FA] mt-3 mb-1.5">
             {line.replace('#### ', '')}
           </h4>
         );
@@ -75,7 +75,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
       }
       if (line.startsWith('> ')) {
         return (
-          <blockquote key={idx} className="my-3 p-3 rounded-xl bg-black/40 border-l-4 border-[#8B5CF6] italic text-xs md:text-sm text-indigo-200 font-serif">
+          <blockquote key={idx} className="my-3 p-3 rounded-xl bg-black/40 border-l-4 border-[#2563EB] italic text-xs md:text-sm text-blue-200 font-serif">
             {line.replace('> ', '')}
           </blockquote>
         );
@@ -93,19 +93,19 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
   };
 
   return (
-    <div className="w-full rounded-2xl bg-gradient-to-br from-[#18181B]/90 via-[#1E1B4B]/30 to-[#09090B]/90 border border-[#6366F1]/30 backdrop-blur-xl p-5 md:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] animate-in fade-in duration-300">
+    <div className="w-full rounded-2xl bg-[#111827] border border-white/10 backdrop-blur-xl p-5 md:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] animate-in fade-in duration-300">
       {/* AI Card Header */}
-      <div className="flex items-center justify-between pb-4 mb-4 border-b border-[#6366F1]/20">
+      <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#1E1B4B] to-[#6366F1] border border-[#8B5CF6]/50 flex items-center justify-center shadow-[0_0_15px_rgba(139,92,246,0.3)]">
-            <Sparkles className="w-5 h-5 text-[#A78BFA]" />
+          <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-[#0B1F3A] to-[#2563EB] border border-[#60A5FA]/40 flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.3)]">
+            <Sparkles className="w-5 h-5 text-[#60A5FA]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <span className="font-extrabold text-sm text-white">AI Assistant</span>
               <span className="text-[10px] text-gray-400 font-mono">{message.timestamp}</span>
             </div>
-            <p className="text-[11px] text-[#A78BFA] font-medium">Balochi Knowledge Engine</p>
+            <p className="text-[11px] text-[#60A5FA] font-medium">Balochi Knowledge Engine</p>
           </div>
         </div>
 
@@ -120,11 +120,11 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
 
       {/* Streaming Indicator if response is loading */}
       {message.isStreaming ? (
-        <div className="py-6 flex items-center gap-3 text-sm text-[#A78BFA]">
+        <div className="py-6 flex items-center gap-3 text-sm text-[#60A5FA]">
           <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-1" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-2" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#8B5CF6] typing-dot-3" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] typing-dot-1" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] typing-dot-2" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2563EB] typing-dot-3" />
           </div>
           <span className="font-mono text-xs animate-pulse">
             Cross-referencing 14 verified Balochi manuscripts & dictionaries...
@@ -141,7 +141,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
           {message.citations && message.citations.length > 0 && (
             <div className="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center gap-2">
               <span className="text-xs font-bold text-gray-400 mr-1 flex items-center gap-1">
-                <BookOpen className="w-3.5 h-3.5 text-[#A78BFA]" />
+                <BookOpen className="w-3.5 h-3.5 text-[#60A5FA]" />
                 Sources:
               </span>
               {message.citations.map((cit, i) => (
@@ -160,7 +160,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => onOpenSources(message.citations)}
-                className="px-3 py-1.5 rounded-xl bg-[#6366F1]/20 hover:bg-[#6366F1]/30 text-[#A78BFA] border border-[#6366F1]/40 font-bold transition-all flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-xl bg-[#2563EB]/20 hover:bg-[#2563EB]/30 text-[#60A5FA] border border-[#2563EB]/40 font-bold transition-all flex items-center gap-1.5"
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>View Sources ({message.citations?.length || 0})</span>
@@ -170,7 +170,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
                 onClick={() => onOpenEvidence(message.citations?.[0])}
                 className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 font-medium transition-all flex items-center gap-1.5"
               >
-                <ShieldCheck className="w-3.5 h-3.5 text-[#8B5CF6]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#60A5FA]" />
                 <span>Audit Evidence</span>
               </button>
             </div>
@@ -180,7 +180,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
                 onClick={handleSpeak}
                 className={`p-2 rounded-xl border transition-all ${
                   isPlayingAudio
-                    ? 'bg-[#8B5CF6] text-white border-[#8B5CF6]'
+                    ? 'bg-[#2563EB] text-white border-[#2563EB]'
                     : 'bg-white/5 hover:bg-white/10 text-gray-300 border-white/10'
                 }`}
                 title="Read AI Answer Aloud"
@@ -193,7 +193,7 @@ export const AIResponseCard: React.FC<AIResponseCardProps> = ({
                 className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 border border-white/10 transition-all"
                 title="Copy Answer Text"
               >
-                {copied ? <Check className="w-3.5 h-3.5 text-[#8B5CF6]" /> : <Copy className="w-3.5 h-3.5" />}
+                {copied ? <Check className="w-3.5 h-3.5 text-[#60A5FA]" /> : <Copy className="w-3.5 h-3.5" />}
               </button>
 
               {onRegenerate && (

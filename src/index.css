@@ -2,37 +2,39 @@
 
 @layer base {
   :root {
-    /* Public User AI Theme - Deep Violet & Electric Indigo */
-    --bg-primary: #1E1B4B;
-    --accent-bright: #6366F1;
-    --accent-violet: #8B5CF6;
-    --accent-soft: #EEF2FF;
-    --dark-text: #111827;
-    --light-bg: #F8FAFC;
-    --surface-white: #FFFFFF;
-    
-    /* Dark Theme default variables (User App) */
-    --theme-bg: #09090B;
-    --theme-card: #18181B;
-    --theme-card-border: rgba(99, 102, 241, 0.25);
-    --theme-text-main: #F4F4F5;
-    --theme-text-muted: #A1A1AA;
+    /* Global Balochi Digital Unified Navy Blue Brand System */
+    --brand-navy-primary: #0B1F3A;
+    --brand-navy-secondary: #123B73;
+    --brand-accent-blue: #2563EB;
+    --brand-accent-light: #60A5FA;
 
-    /* Admin Navy Theme Variables */
+    --brand-success: #22C55E;
+    --brand-warning: #F59E0B;
+    --brand-error: #EF4444;
+
+    /* Dark Mode Defaults (Shared by Public App & Admin Dashboard) */
+    --theme-bg: #070B14;
+    --theme-card: #111827;
+    --theme-card-elevated: #172033;
+    --theme-border: rgba(255, 255, 255, 0.08);
+    --theme-text-main: #FFFFFF;
+    --theme-text-muted: #94A3B8;
+
     --admin-bg: #070B14;
     --admin-card-bg: #111827;
     --admin-primary-navy: #0B1F3A;
-    --admin-secondary-navy: #102A56;
+    --admin-secondary-navy: #123B73;
     --admin-accent-blue: #2563EB;
     --admin-light-accent: #60A5FA;
     --admin-border: rgba(255, 255, 255, 0.08);
   }
 
-  /* Light Mode High-Contrast Overhaul */
+  /* Light Mode High-Contrast Overhaul (Shared across entire platform) */
   .light {
     --theme-bg: #FFFFFF;
     --theme-card: #F8FAFC;
-    --theme-card-border: #E2E8F0;
+    --theme-card-elevated: #FFFFFF;
+    --theme-border: #E2E8F0;
     --theme-text-main: #111827;
     --theme-text-muted: #475569;
 
@@ -65,7 +67,7 @@ body {
   color: #334155;
 }
 
-.light .glass-panel, .light .bg-\[\#18181B\], .light .bg-\[\#09090B\] {
+.light .glass-panel, .light .bg-\[\#111827\], .light .bg-\[\#070B14\] {
   background-color: #F8FAFC !important;
   border-color: #E2E8F0 !important;
   color: #111827 !important;
@@ -100,29 +102,25 @@ body {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(99, 102, 241, 0.35);
+  background: rgba(37, 99, 235, 0.4);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.6);
+  background: rgba(96, 165, 250, 0.7);
 }
 
 /* Glowing utilities */
 .glow-accent {
-  box-shadow: 0 0 25px -5px rgba(99, 102, 241, 0.4);
-}
-
-.glow-violet {
-  box-shadow: 0 0 30px -5px rgba(139, 92, 246, 0.45);
+  box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.45);
 }
 
 .glow-blue {
-  box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.4);
+  box-shadow: 0 0 30px -5px rgba(37, 99, 235, 0.5);
 }
 
 .glass-panel {
-  background: rgba(24, 24, 27, 0.85);
+  background: rgba(17, 24, 39, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }

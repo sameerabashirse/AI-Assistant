@@ -146,7 +146,7 @@ export function App() {
         particleCount: 25,
         spread: 60,
         origin: { y: 0.85 },
-        colors: ['#6366F1', '#8B5CF6', '#EEF2FF'],
+        colors: ['#2563EB', '#60A5FA', '#0B1F3A'],
       });
 
       const verifiedCitations: Citation[] = [

@@ -49,13 +49,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
   return (
     <div className="sticky bottom-4 z-30 mx-3 md:mx-6 mt-2 max-w-4xl w-full self-center">
-      <div className="glass-panel rounded-[30px] p-2 md:p-3 shadow-[0_10px_40px_rgba(0,0,0,0.6)] border border-[#6366F1]/30 transition-all focus-within:border-[#8B5CF6] focus-within:shadow-[0_0_30px_rgba(139,92,246,0.25)] bg-[#18181B]/90 backdrop-blur-xl">
+      <div className="rounded-[30px] p-2 md:p-3 shadow-[0_10px_40px_rgba(7,11,20,0.6)] border border-white/10 transition-all focus-within:border-[#2563EB] focus-within:shadow-[0_0_30px_rgba(37,99,235,0.3)] bg-[#111827]/95 backdrop-blur-xl">
         <div className="flex items-end gap-2">
           {/* Document Upload Button */}
           <button
             type="button"
             onClick={onOpenUpload}
-            className="p-2.5 rounded-full bg-white/5 hover:bg-[#6366F1]/20 text-gray-300 hover:text-[#A78BFA] border border-white/10 hover:border-[#6366F1]/40 transition-all shrink-0 mb-1 cursor-pointer"
+            className="p-2.5 rounded-full bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-[#60A5FA] border border-white/10 hover:border-[#2563EB]/40 transition-all shrink-0 mb-1 cursor-pointer"
             title="Upload Balochi Document or Scan"
           >
             <Paperclip className="w-4 h-4" />
@@ -65,7 +65,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           <button
             type="button"
             onClick={onOpenVoice}
-            className="p-2.5 rounded-full bg-white/5 hover:bg-[#6366F1]/20 text-gray-300 hover:text-[#A78BFA] border border-white/10 hover:border-[#6366F1]/40 transition-all shrink-0 mb-1 cursor-pointer"
+            className="p-2.5 rounded-full bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-[#60A5FA] border border-white/10 hover:border-[#2563EB]/40 transition-all shrink-0 mb-1 cursor-pointer"
             title="Speak Query in Balochi"
           >
             <Mic className="w-4 h-4" />
@@ -92,7 +92,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
             disabled={!text.trim() || disabled}
             className={`p-3 rounded-full transition-all shrink-0 mb-1 flex items-center justify-center cursor-pointer ${
               text.trim() && !disabled
-                ? 'bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white shadow-[0_0_20px_rgba(99,102,241,0.5)] scale-105'
+                ? 'bg-[#2563EB] hover:bg-[#1D4ED8] text-white shadow-[0_0_20px_rgba(37,99,235,0.5)] scale-105'
                 : 'bg-white/5 text-gray-600 border border-white/5 cursor-not-allowed'
             }`}
           >
@@ -103,7 +103,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         {/* Bottom Input Footer Note */}
         <div className="mt-2 pt-2 border-t border-white/5 flex items-center justify-between px-2 text-[10px] text-gray-400 font-mono">
           <span className="flex items-center gap-1">
-            <ShieldCheck className="w-3 h-3 text-[#A78BFA]" />
+            <ShieldCheck className="w-3 h-3 text-[#60A5FA]" />
             Strict Grounding Active (98% Min Confidence)
           </span>
           <span className="hidden sm:inline">Press Enter to Send • Shift+Enter for New Line</span>

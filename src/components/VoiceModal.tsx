@@ -50,10 +50,10 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-[#18181B] border border-[#6366F1]/30 rounded-2xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="w-full max-w-sm bg-[#111827] border border-[#2563EB]/40 rounded-2xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex justify-between items-center">
-          <span className="text-xs font-mono font-bold text-[#A78BFA] uppercase tracking-wider">
+          <span className="text-xs font-mono font-bold text-[#60A5FA] uppercase tracking-wider">
             {MOCK_UI_STRINGS.voiceQuery[language]}
           </span>
           <button
@@ -69,8 +69,8 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
           <div
             className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center transition-all ${
               isListening
-                ? 'bg-[#1E1B4B] border-2 border-[#8B5CF6] shadow-[0_0_40px_rgba(139,92,246,0.6)] animate-pulse'
-                : 'bg-[#6366F1] text-white shadow-[0_0_20px_rgba(99,102,241,0.4)]'
+                ? 'bg-[#0B1F3A] border-2 border-[#2563EB] shadow-[0_0_40px_rgba(37,99,235,0.6)] animate-pulse'
+                : 'bg-[#2563EB] text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]'
             }`}
           >
             <Mic className="w-10 h-10 text-white" />
@@ -78,9 +78,9 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
 
           {isListening && (
             <div className="mt-3 flex items-center justify-center gap-1">
-              <span className="w-1.5 h-6 rounded-full bg-[#8B5CF6] animate-pulse" />
-              <span className="w-1.5 h-10 rounded-full bg-[#6366F1] animate-pulse delay-100" />
-              <span className="w-1.5 h-4 rounded-full bg-[#A78BFA] animate-pulse delay-200" />
+              <span className="w-1.5 h-6 rounded-full bg-[#2563EB] animate-pulse" />
+              <span className="w-1.5 h-10 rounded-full bg-[#60A5FA] animate-pulse delay-100" />
+              <span className="w-1.5 h-4 rounded-full bg-[#2563EB] animate-pulse delay-200" />
             </div>
           )}
         </div>
@@ -111,7 +111,7 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
             </button>
             <button
               onClick={handleConfirm}
-              className="py-2 px-5 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] text-white font-bold text-xs shadow-[0_0_15px_rgba(99,102,241,0.4)]"
+              className="py-2 px-5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-[0_0_15px_rgba(37,99,235,0.4)]"
             >
               Submit Query →
             </button>

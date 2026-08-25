@@ -45,20 +45,20 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
       {isOpen && (
         <div
           onClick={onClose}
-          className="fixed inset-0 bg-black/75 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 lg:hidden"
         />
       )}
 
       <aside
-        className={`fixed lg:static top-0 left-0 z-40 h-full w-72 md:w-80 bg-[#18181B]/95 border-r border-[#6366F1]/20 flex flex-col justify-between transition-transform duration-300 ${
+        className={`fixed lg:static top-0 left-0 z-40 h-full w-72 md:w-80 bg-[#070B14] border-r border-white/10 flex flex-col justify-between transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Top Header */}
-        <div className="p-4 space-y-3 border-b border-[#6366F1]/20 bg-[#1E1B4B]/40">
+        <div className="p-4 space-y-3 border-b border-white/10 bg-[#0B1F3A]/40">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-[#A78BFA] font-bold text-xs uppercase tracking-wider">
-              <Layers className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-[#60A5FA] font-bold text-xs uppercase tracking-wider">
+              <Layers className="w-4 h-4 text-[#60A5FA]" />
               <span>Research Threads</span>
             </div>
 
@@ -76,7 +76,7 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
               onNewThread();
               if (window.innerWidth < 1024) onClose();
             }}
-            className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#6366F1] to-[#8B5CF6] hover:from-[#4F46E5] hover:to-[#7C3AED] text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2 cursor-pointer"
+            className="w-full py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>{newChatText}</span>
@@ -90,7 +90,7 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search chat history..."
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#6366F1]"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[#111827] border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
             />
           </div>
 
@@ -102,7 +102,7 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === cat
-                    ? 'bg-[#6366F1]/30 text-[#A78BFA] border border-[#6366F1]/50 font-bold'
+                    ? 'bg-[#123B73] text-[#60A5FA] border border-[#2563EB]/40 font-bold'
                     : 'bg-white/5 text-gray-400 hover:text-white'
                 }`}
               >
@@ -130,15 +130,15 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                   }}
                   className={`group relative p-3 rounded-xl cursor-pointer transition-all border ${
                     isActive
-                      ? 'bg-[#1E1B4B]/80 border-[#6366F1]/50 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)]'
-                      : 'bg-black/20 border-white/5 text-gray-300 hover:bg-white/5 hover:border-white/10'
+                      ? 'bg-[#123B73] border-[#2563EB]/50 text-white shadow-[0_0_15px_rgba(37,99,235,0.25)]'
+                      : 'bg-[#111827]/60 border-white/5 text-gray-300 hover:bg-white/5 hover:border-white/10'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2 min-w-0">
                       <MessageSquare
                         className={`w-3.5 h-3.5 shrink-0 ${
-                          isActive ? 'text-[#A78BFA]' : 'text-gray-400'
+                          isActive ? 'text-[#60A5FA]' : 'text-gray-400'
                         }`}
                       />
                       <h4 className="text-xs font-bold truncate">{thread.title}</h4>
@@ -173,12 +173,12 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-[#6366F1]/20 bg-[#1E1B4B]/20 text-[11px] font-mono text-gray-400 flex items-center justify-between">
+        <div className="p-3 border-t border-white/10 bg-[#0B1F3A]/30 text-[11px] font-mono text-gray-400 flex items-center justify-between">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#A78BFA]" />
+            <ShieldCheck className="w-3.5 h-3.5 text-[#60A5FA]" />
             <span>Balochi Digital Index</span>
           </span>
-          <span className="text-[10px] bg-[#6366F1]/20 text-[#A78BFA] px-2 py-0.5 rounded border border-[#6366F1]/30">
+          <span className="text-[10px] bg-[#2563EB]/20 text-[#60A5FA] px-2 py-0.5 rounded border border-[#2563EB]/30">
             25.4K Sources
           </span>
         </div>
