@@ -36,16 +36,16 @@ export const OCRReviewPanel: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex items-center justify-between">
+      <div className="surface p-4 rounded-2xl border border-[var(--theme-border)] flex items-center justify-between shadow-md">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
+          <div className="p-2 rounded-xl surface-muted text-[var(--accent-strong-text)]">
             <FileCheck2 className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white leading-none">
+            <h3 className="text-sm font-bold text-[var(--theme-text-main)] leading-none">
               OCR Verification Queue ({reviews.length} Queue Items)
             </h3>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-[var(--theme-text-muted)] mt-1">
               {activeReview.bookTitle} — Page {activeReview.pageNumber}
             </p>
           </div>
@@ -55,8 +55,8 @@ export const OCRReviewPanel: React.FC = () => {
           <span
             className={`px-3 py-1 rounded-full text-xs font-mono font-bold ${
               activeReview.status === 'Approved'
-                ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
-                : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                ? 'bg-[var(--success-soft)] text-[var(--success-text)] border border-[var(--success-text)]/30'
+                : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
             }`}
           >
             Status: {activeReview.status}
@@ -69,11 +69,11 @@ export const OCRReviewPanel: React.FC = () => {
                 setActiveReviewIndex(activeReviewIndex - 1);
                 setEditedText(reviews[activeReviewIndex - 1].correctedText);
               }}
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 disabled:opacity-30 text-white"
+              className="btn-soft p-1.5 rounded-lg disabled:opacity-30 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-xs font-mono text-gray-400 px-1">
+            <span className="text-xs font-mono text-[var(--theme-text-muted)] px-1">
               {activeReviewIndex + 1} / {reviews.length}
             </span>
             <button
@@ -82,7 +82,7 @@ export const OCRReviewPanel: React.FC = () => {
                 setActiveReviewIndex(activeReviewIndex + 1);
                 setEditedText(reviews[activeReviewIndex + 1].correctedText);
               }}
-              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/15 disabled:opacity-30 text-white"
+              className="btn-soft p-1.5 rounded-lg disabled:opacity-30 cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -92,73 +92,73 @@ export const OCRReviewPanel: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* LEFT COLUMN: Original Scan */}
-        <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 space-y-3 flex flex-col justify-between">
-          <div className="flex items-center justify-between text-xs text-gray-400">
-            <span className="font-bold text-white flex items-center gap-1.5">
-              <ZoomIn className="w-4 h-4 text-[#60A5FA]" />
+        <div className="surface p-4 rounded-2xl border border-[var(--theme-border)] space-y-3 flex flex-col justify-between shadow-md">
+          <div className="flex items-center justify-between text-xs text-[var(--theme-text-muted)]">
+            <span className="font-bold text-[var(--theme-text-main)] flex items-center gap-1.5">
+              <ZoomIn className="w-4 h-4 text-[var(--accent-strong-text)]" />
               Original Manuscript Scan (Page {activeReview.pageNumber})
             </span>
-            <span className="font-mono text-[10px] text-[#60A5FA]">300 DPI Resolution</span>
+            <span className="font-mono text-[10px] text-[var(--accent-strong-text)] font-semibold">300 DPI Resolution</span>
           </div>
 
-          <div className="relative rounded-xl overflow-hidden border border-white/10 aspect-video md:aspect-[4/3] bg-black group">
+          <div className="relative rounded-xl overflow-hidden border border-[var(--theme-border)] aspect-video md:aspect-[4/3] bg-black group">
             <img
               src={activeReview.originalScanUrl}
               alt="Original Scan"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-4">
-              <p className="text-xs text-gray-300 font-mono">
+              <p className="text-xs text-white font-mono">
                 Source Document: {activeReview.bookTitle}
               </p>
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-black/40 border border-white/5 text-xs text-gray-400">
-            <p className="font-bold text-white">Reviewer Note:</p>
+          <div className="surface-muted p-3 rounded-xl border border-[var(--theme-border-subtle)] text-xs text-[var(--theme-text-muted)]">
+            <p className="font-bold text-[var(--theme-text-main)]">Reviewer Note:</p>
             <p className="italic mt-0.5">"{activeReview.reviewerNotes}"</p>
           </div>
         </div>
 
         {/* RIGHT COLUMN: OCR Text Editor */}
-        <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 space-y-4 flex flex-col justify-between">
+        <div className="surface p-4 rounded-2xl border border-[var(--theme-border)] space-y-4 flex flex-col justify-between shadow-md">
           <div className="space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-white/10">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-[#60A5FA] flex items-center gap-1.5">
+            <div className="flex items-center justify-between pb-2 border-b border-[var(--theme-border)]">
+              <h4 className="text-xs font-bold uppercase tracking-wider text-[var(--accent-strong-text)] flex items-center gap-1.5">
                 <Edit3 className="w-4 h-4" />
                 Text Extraction & Correction Editor
               </h4>
-              <span className="text-[10px] text-gray-400 font-mono">
+              <span className="text-[10px] text-[var(--theme-text-muted)] font-mono">
                 Audit Time: {activeReview.timestamp}
               </span>
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-mono text-gray-400 block">
+              <label className="text-[11px] font-mono text-[var(--theme-text-muted)] block">
                 1. Raw Machine OCR Output (Before):
               </label>
-              <div className="p-3 rounded-xl bg-black/40 border border-red-500/20 text-xs font-mono text-red-300 leading-relaxed">
+              <div className="p-3 rounded-xl bg-[var(--error-soft)] border border-[var(--error-text)]/30 text-xs font-mono text-[var(--error-text)] leading-relaxed">
                 {activeReview.extractedText}
               </div>
             </div>
 
             <div className="space-y-1">
-              <label className="text-[11px] font-mono text-[#60A5FA] block">
+              <label className="text-[11px] font-mono text-[var(--accent-strong-text)] block font-semibold">
                 2. Expert Verified & Corrected Text (After):
               </label>
               <textarea
                 rows={5}
                 value={editedText}
                 onChange={(e) => setEditedText(e.target.value)}
-                className="w-full p-3 rounded-xl bg-[#0B1F3A]/40 border border-[#2563EB]/40 text-xs text-white leading-relaxed font-serif focus:outline-none focus:border-[#2563EB]"
+                className="w-full p-3 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] leading-relaxed font-serif focus:outline-none focus:border-[var(--accent)]"
               />
             </div>
           </div>
 
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between gap-3">
+          <div className="pt-3 border-t border-[var(--theme-border)] flex items-center justify-between gap-3">
             <button
               onClick={handleReject}
-              className="py-2 px-4 rounded-xl bg-red-950 hover:bg-red-900 text-red-300 border border-red-500/30 font-bold text-xs flex items-center gap-1.5 transition-colors"
+              className="py-2 px-4 rounded-xl bg-[var(--error-soft)] hover:opacity-90 text-[var(--error-text)] border border-[var(--error-text)]/30 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
             >
               <XCircle className="w-4 h-4" />
               <span>Reject Scan</span>
@@ -167,7 +167,7 @@ export const OCRReviewPanel: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleApprove}
-                className="py-2 px-5 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white border border-[#2563EB]/40 font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center gap-1.5 cursor-pointer"
+                className="btn-primary py-2 px-5 rounded-xl font-bold text-xs transition-all flex items-center gap-1.5 cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Approve & Index Page</span>

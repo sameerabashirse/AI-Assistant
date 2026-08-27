@@ -82,14 +82,13 @@ export function App({ initialRoute = 'public', initialTab = 'assistant' }: AppPr
   }, [activeThread?.messages]);
 
   // Toggle Theme Class on body
+  useEffect(() => {
+    document.documentElement.classList.toggle('light', theme === 'light');
+  }, [theme]);
+
   const handleToggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(nextTheme);
-    if (nextTheme === 'light') {
-      document.documentElement.classList.add('light');
-    } else {
-      document.documentElement.classList.remove('light');
-    }
   };
 
   const handleSelectThread = (threadId: string) => {
@@ -308,7 +307,7 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
 
   // ROUTE 3: Public Platform (Default User AI Knowledge Assistant)
   return (
-    <div className="min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text-main)] flex flex-col justify-between font-sans selection:bg-[#1AFF00] selection:text-black">
+    <div className="premium-shell min-h-screen bg-[var(--theme-bg)] text-[var(--theme-text-main)] flex flex-col justify-between font-sans selection:bg-[var(--accent)] selection:text-white">
       {/* Top Public Navbar (No Admin Links) */}
       <Navbar
         currentLanguage={language}
@@ -321,7 +320,7 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
       />
 
       {/* Main Public Workspace Layout */}
-      <div className="flex-1 flex overflow-hidden relative max-w-[1920px] w-full mx-auto">
+      <div className="flex-1 flex overflow-hidden relative max-w-[1920px] w-full mx-auto px-0 md:px-3 pb-3">
         <SidebarHistory
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
@@ -333,7 +332,7 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
           language={language}
         />
 
-        <main className="flex-1 flex flex-col justify-between min-w-0 h-[calc(100vh-80px)] overflow-hidden relative">
+        <main className="flex-1 flex flex-col justify-between min-w-0 h-[calc(100vh-86px)] overflow-hidden relative">
           {!activeThread || activeThread.messages.length === 0 ? (
             <div className="flex-1 overflow-y-auto flex flex-col justify-between p-2">
               <WelcomeScreen
@@ -353,14 +352,14 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
                 ref={chatContainerRef}
                 className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-4 max-w-4xl w-full mx-auto"
               >
-                <div className="p-3 mb-4 rounded-xl bg-[#0C3D06]/30 border border-[#1AFF00]/20 flex items-center justify-between text-xs text-gray-300">
+                <div className="surface-muted p-3 mb-4 rounded-xl flex items-center justify-between gap-3 text-xs text-[var(--theme-text-secondary)]">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#1AFF00] animate-pulse" />
-                    <span className="font-bold text-white truncate max-w-xs md:max-w-md">
+                    <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
+                    <span className="font-semibold text-[var(--theme-text-main)] truncate max-w-xs md:max-w-md">
                       Thread: {activeThread.title}
                     </span>
                   </div>
-                  <span className="font-mono text-[10px] text-[#1AFF00] bg-black/40 px-2 py-0.5 rounded border border-[#1AFF00]/30">
+                  <span className="accent-pill font-mono text-[10px] px-2 py-0.5 rounded">
                     {activeThread.category}
                   </span>
                 </div>

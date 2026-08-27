@@ -73,16 +73,16 @@ export const UserManagement: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Top Action Bar */}
-      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="surface p-4 rounded-2xl border border-[var(--theme-border)] flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+            <Search className="w-4 h-4 absolute left-3 top-3 text-[var(--theme-text-muted)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by name or email..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)]"
             />
           </div>
 
@@ -93,8 +93,8 @@ export const UserManagement: React.FC = () => {
                 onClick={() => setRoleFilter(role)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   roleFilter === role
-                    ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40'
-                    : 'bg-white/5 text-gray-400 hover:text-white'
+                    ? 'accent-pill font-bold'
+                    : 'btn-soft'
                 }`}
               >
                 {role}
@@ -105,7 +105,7 @@ export const UserManagement: React.FC = () => {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer"
+          className="btn-primary w-full md:w-auto py-2.5 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <UserPlus className="w-4 h-4" />
           <span>Add New Administrator / User</span>
@@ -113,11 +113,11 @@ export const UserManagement: React.FC = () => {
       </div>
 
       {/* Users Table */}
-      <div className="rounded-2xl bg-[#111827] border border-white/10 overflow-hidden shadow-xl">
+      <div className="surface rounded-2xl border border-[var(--theme-border)] overflow-hidden shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px] bg-black/30">
+              <tr className="border-b border-[var(--theme-border)] text-[var(--theme-text-muted)] font-mono uppercase text-[10px] bg-[var(--theme-muted)]">
                 <th className="py-3 px-4">User</th>
                 <th className="py-3 px-4">Email</th>
                 <th className="py-3 px-4">Role</th>
@@ -127,28 +127,20 @@ export const UserManagement: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-gray-300">
+            <tbody className="divide-y divide-[var(--theme-border-subtle)] text-[var(--theme-text-secondary)]">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="hover:bg-white/5 transition-colors">
+                <tr key={user.id} className="hover:bg-[var(--accent-soft)] transition-colors">
                   <td className="py-3.5 px-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-[#0B1F3A] border border-[#2563EB]/50 flex items-center justify-center text-[#60A5FA] font-bold text-xs">
+                      <div className="w-8 h-8 rounded-full surface-muted border border-[var(--accent-border)] flex items-center justify-center text-[var(--accent-strong-text)] font-bold text-xs">
                         {user.name.charAt(0)}
                       </div>
-                      <span className="font-bold text-white">{user.name}</span>
+                      <span className="font-bold text-[var(--theme-text-main)]">{user.name}</span>
                     </div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-gray-300">{user.email}</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--theme-text-secondary)]">{user.email}</td>
                   <td className="py-3.5 px-4">
-                    <span
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
-                        user.role === 'Super Admin'
-                          ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
-                          : user.role === 'Admin'
-                          ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/30'
-                          : 'bg-white/10 text-gray-300'
-                      }`}
-                    >
+                    <span className="accent-pill px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold">
                       {user.role}
                     </span>
                   </td>
@@ -156,43 +148,43 @@ export const UserManagement: React.FC = () => {
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                         user.status === 'Active'
-                          ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/30'
-                          : 'bg-red-950/80 text-red-400 border border-red-500/30'
+                          ? 'bg-[var(--success-soft)] text-[var(--success-text)] border border-[var(--success-text)]/30'
+                          : 'bg-[var(--error-soft)] text-[var(--error-text)] border border-[var(--error-text)]/30'
                       }`}
                     >
                       <span
                         className={`w-1.5 h-1.5 rounded-full ${
-                          user.status === 'Active' ? 'bg-[#60A5FA]' : 'bg-red-400'
+                          user.status === 'Active' ? 'bg-[var(--success-text)]' : 'bg-[var(--error-text)]'
                         }`}
                       />
                       {user.status}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-gray-400">{user.joinedDate}</td>
-                  <td className="py-3.5 px-4 font-mono text-gray-400">{user.lastLogin}</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--theme-text-muted)]">{user.joinedDate}</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--theme-text-muted)]">{user.lastLogin}</td>
                   <td className="py-3.5 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button
                         onClick={() => setSelectedUserForDrawer(user)}
-                        className="p-1.5 rounded-lg hover:bg-white/10 text-gray-300 hover:text-white"
+                        className="btn-soft p-1.5 rounded-lg text-[var(--theme-text-muted)] hover:text-[var(--theme-text-main)] cursor-pointer"
                         title="View & Edit Permissions"
                       >
                         <Edit2 className="w-3.5 h-3.5" />
                       </button>
                       <button
                         onClick={() => handleToggleStatus(user.id)}
-                        className="p-1.5 rounded-lg hover:bg-white/10 text-gray-300 hover:text-[#60A5FA]"
+                        className="btn-soft p-1.5 rounded-lg text-[var(--theme-text-muted)] hover:text-[var(--accent-strong-text)] cursor-pointer"
                         title={user.status === 'Active' ? 'Deactivate Account' : 'Activate Account'}
                       >
                         {user.status === 'Active' ? (
-                          <UserX className="w-3.5 h-3.5 text-amber-400" />
+                          <UserX className="w-3.5 h-3.5 text-amber-500" />
                         ) : (
-                          <UserCheck className="w-3.5 h-3.5 text-[#60A5FA]" />
+                          <UserCheck className="w-3.5 h-3.5 text-[var(--accent-strong-text)]" />
                         )}
                       </button>
                       <button
                         onClick={() => handleDeleteUser(user.id)}
-                        className="p-1.5 rounded-lg hover:bg-white/10 text-gray-300 hover:text-red-400"
+                        className="btn-soft p-1.5 rounded-lg text-[var(--theme-text-muted)] hover:text-red-500 cursor-pointer"
                         title="Delete User"
                       >
                         <Trash2 className="w-3.5 h-3.5" />

@@ -78,7 +78,7 @@ export const AdminDashboardApp: React.FC<AdminDashboardAppProps> = ({
   }, []);
 
   return (
-    <div className="min-h-screen bg-[var(--admin-bg)] text-white flex overflow-hidden font-sans selection:bg-[#2563EB] selection:text-white">
+    <div className="premium-shell min-h-screen bg-[var(--admin-bg)] text-[var(--theme-text-main)] flex overflow-hidden font-sans selection:bg-[var(--accent)] selection:text-white">
       {/* Left Navigation Sidebar */}
       <AdminSidebar
         activeTab={activeTab}

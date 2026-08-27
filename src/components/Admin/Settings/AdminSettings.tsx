@@ -20,13 +20,13 @@ export const AdminSettings: React.FC = () => {
   return (
     <div className="space-y-6 max-w-4xl">
       {/* Sub Tabs */}
-      <div className="flex gap-2 border-b border-white/10 pb-3 text-xs">
+      <div className="flex gap-2 border-b border-[var(--theme-border)] pb-3 text-xs">
         <button
           onClick={() => setActiveTab('general')}
           className={`px-4 py-2 rounded-xl font-bold transition-all ${
             activeTab === 'general'
-              ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40 shadow-[0_0_12px_rgba(37,99,235,0.2)]'
-              : 'bg-white/5 text-gray-400 hover:text-white'
+              ? 'accent-pill font-bold'
+              : 'btn-soft'
           }`}
         >
           General Configuration
@@ -36,8 +36,8 @@ export const AdminSettings: React.FC = () => {
           onClick={() => setActiveTab('ai')}
           className={`px-4 py-2 rounded-xl font-bold transition-all ${
             activeTab === 'ai'
-              ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40 shadow-[0_0_12px_rgba(37,99,235,0.2)]'
-              : 'bg-white/5 text-gray-400 hover:text-white'
+              ? 'accent-pill font-bold'
+              : 'btn-soft'
           }`}
         >
           AI Grounding & Confidence
@@ -47,8 +47,8 @@ export const AdminSettings: React.FC = () => {
           onClick={() => setActiveTab('security')}
           className={`px-4 py-2 rounded-xl font-bold transition-all ${
             activeTab === 'security'
-              ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40 shadow-[0_0_12px_rgba(37,99,235,0.2)]'
-              : 'bg-white/5 text-gray-400 hover:text-white'
+              ? 'accent-pill font-bold'
+              : 'btn-soft'
           }`}
         >
           Security & Admin Sessions
@@ -60,33 +60,33 @@ export const AdminSettings: React.FC = () => {
       ) : (
         <form onSubmit={handleSave} className="space-y-6">
           {savedSuccess && (
-            <div className="p-4 rounded-xl bg-[#2563EB]/20 border border-[#2563EB] text-[#60A5FA] font-bold text-xs flex items-center gap-2 shadow-[0_0_20px_rgba(37,99,235,0.3)] animate-in fade-in">
-              <CheckCircle2 className="w-5 h-5 text-[#60A5FA]" />
+            <div className="p-4 rounded-xl bg-[var(--success-soft)] border border-[var(--success-text)] text-[var(--success-text)] font-bold text-xs flex items-center gap-2 animate-in fade-in">
+              <CheckCircle2 className="w-5 h-5 text-[var(--success-text)]" />
               <span>Platform Settings Saved Successfully!</span>
             </div>
           )}
 
           {activeTab === 'general' && (
-            <div className="p-6 rounded-2xl bg-[#111827] border border-white/10 space-y-4">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2 border-b border-white/10 pb-3">
-                <Settings className="w-4 h-4 text-[#60A5FA]" />
+            <div className="surface p-6 rounded-2xl border border-[var(--theme-border)] space-y-4 shadow-md">
+              <h3 className="text-sm font-bold text-[var(--theme-text-main)] uppercase tracking-wider flex items-center gap-2 border-b border-[var(--theme-border)] pb-3">
+                <Settings className="w-4 h-4 text-[var(--accent-strong-text)]" />
                 General Platform Configuration
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-1">Platform Public Title</label>
+                  <label className="block text-[var(--theme-text-secondary)] font-semibold mb-1">Platform Public Title</label>
                   <input
                     type="text"
                     value={platformName}
                     onChange={(e) => setPlatformName(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-white focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-3 py-2 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] focus:outline-none focus:border-[var(--accent)]"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-1">Default UI Language</label>
-                  <select className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#2563EB]">
+                  <label className="block text-[var(--theme-text-secondary)] font-semibold mb-1">Default UI Language</label>
+                  <select className="w-full px-3 py-2 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] focus:outline-none focus:border-[var(--accent)]">
                     <option value="english">English (Default)</option>
                     <option value="balochi">Balochi (بلوچی)</option>
                     <option value="roman">Roman Balochi</option>
@@ -94,11 +94,11 @@ export const AdminSettings: React.FC = () => {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-300 font-semibold mb-1">Session Inactivity Timeout</label>
+                  <label className="block text-[var(--theme-text-secondary)] font-semibold mb-1">Session Inactivity Timeout</label>
                   <select
                     value={sessionTimeout}
                     onChange={(e) => setSessionTimeout(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl bg-black/60 border border-white/10 text-white focus:outline-none focus:border-[#2563EB]"
+                    className="w-full px-3 py-2 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] focus:outline-none focus:border-[var(--accent)]"
                   >
                     <option value="15 mins">15 Minutes Inactivity</option>
                     <option value="30 mins">30 Minutes Inactivity</option>
@@ -110,17 +110,17 @@ export const AdminSettings: React.FC = () => {
           )}
 
           {activeTab === 'ai' && (
-            <div className="p-6 rounded-2xl bg-[#111827] border border-white/10 space-y-4">
-              <h3 className="text-sm font-bold text-[#60A5FA] uppercase tracking-wider flex items-center gap-2 border-b border-white/10 pb-3">
-                <Cpu className="w-4 h-4 text-[#60A5FA]" />
+            <div className="surface p-6 rounded-2xl border border-[var(--theme-border)] space-y-4 shadow-md">
+              <h3 className="text-sm font-bold text-[var(--accent-strong-text)] uppercase tracking-wider flex items-center gap-2 border-b border-[var(--theme-border)] pb-3">
+                <Cpu className="w-4 h-4 text-[var(--accent-strong-text)]" />
                 AI Grounding & Confidence Policy
               </h3>
 
               <div className="space-y-4 text-xs">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <label className="text-gray-300 font-semibold">Minimum Confidence Threshold</label>
-                    <span className="font-mono font-bold text-[#60A5FA]">{confidenceThreshold}%</span>
+                    <label className="text-[var(--theme-text-secondary)] font-semibold">Minimum Confidence Threshold</label>
+                    <span className="font-mono font-bold text-[var(--accent-strong-text)]">{confidenceThreshold}%</span>
                   </div>
                   <input
                     type="range"
@@ -128,23 +128,23 @@ export const AdminSettings: React.FC = () => {
                     max={99}
                     value={confidenceThreshold}
                     onChange={(e) => setConfidenceThreshold(Number(e.target.value))}
-                    className="w-full accent-[#2563EB]"
+                    className="w-full accent-[var(--accent)]"
                   />
-                  <p className="text-[10px] text-gray-400 mt-1">
+                  <p className="text-[10px] text-[var(--theme-text-muted)] mt-1">
                     Responses falling below {confidenceThreshold}% match will be flagged for expert OCR review before rendering.
                   </p>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between">
+                <div className="surface-muted p-3.5 rounded-xl border border-[var(--theme-border-subtle)] flex items-center justify-between">
                   <div>
-                    <p className="font-bold text-white">Strict Citation Enforcement</p>
-                    <p className="text-[10px] text-gray-400">Reject answers without exact book/page citation numbers.</p>
+                    <p className="font-bold text-[var(--theme-text-main)]">Strict Citation Enforcement</p>
+                    <p className="text-[10px] text-[var(--theme-text-muted)]">Reject answers without exact book/page citation numbers.</p>
                   </div>
                   <input
                     type="checkbox"
                     checked={strictCitation}
                     onChange={(e) => setStrictCitation(e.target.checked)}
-                    className="w-4 h-4 accent-[#2563EB]"
+                    className="w-4 h-4 accent-[var(--accent)] cursor-pointer"
                   />
                 </div>
               </div>
@@ -154,7 +154,7 @@ export const AdminSettings: React.FC = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="py-3 px-6 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(37,99,235,0.3)] flex items-center gap-2"
+              className="btn-primary py-3 px-6 rounded-xl font-bold text-xs transition-all flex items-center gap-2 cursor-pointer"
             >
               <Save className="w-4 h-4" />
               <span>Save Admin Settings</span>

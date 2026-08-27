@@ -32,16 +32,16 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <aside className="w-80 lg:w-96 shrink-0 h-full border-l border-white/10 bg-[#070B14]/95 backdrop-blur-xl flex flex-col justify-between z-20 transition-all duration-300 shadow-2xl">
+    <aside className="surface w-80 lg:w-96 shrink-0 h-full border-l flex flex-col justify-between z-20 transition-all duration-300">
       {/* Header */}
-      <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0B1F3A]/50">
+      <div className="p-4 border-b border-[var(--theme-border)] flex items-center justify-between bg-[var(--theme-card-elevated)]">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-[#2563EB]/20 text-[#60A5FA]">
+          <div className="accent-pill p-1.5 rounded-lg">
             <BookOpen className="w-4 h-4" />
           </div>
           <div>
-            <h3 className="text-sm font-bold text-white leading-none">{title}</h3>
-            <span className="text-[10px] text-[#60A5FA] font-mono">
+            <h3 className="text-sm font-bold text-[var(--theme-text-main)] leading-none">{title}</h3>
+            <span className="text-[10px] text-[var(--accent-strong-text)] font-mono">
               {citations.length} Verified Entries
             </span>
           </div>
@@ -49,7 +49,7 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
 
         <button
           onClick={onClose}
-          className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
+          className="btn-soft p-1.5 rounded-lg transition-colors"
           title="Close panel"
         >
           <X className="w-4 h-4" />
@@ -57,13 +57,13 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="px-4 pt-3 flex gap-2 border-b border-white/10 text-xs">
+      <div className="px-4 pt-3 flex gap-2 border-b border-[var(--theme-border)] text-xs">
         <button
           onClick={() => setActiveTab('citations')}
           className={`pb-2.5 px-3 font-bold transition-all border-b-2 ${
             activeTab === 'citations'
-              ? 'border-[#2563EB] text-[#60A5FA]'
-              : 'border-transparent text-gray-400 hover:text-white'
+              ? 'border-[var(--accent)] text-[var(--accent-strong-text)]'
+              : 'border-transparent text-[var(--theme-text-muted)] hover:text-[var(--theme-text-main)]'
           }`}
         >
           Citations ({citations.length})
@@ -73,8 +73,8 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
           onClick={() => setActiveTab('manuscripts')}
           className={`pb-2.5 px-3 font-bold transition-all border-b-2 ${
             activeTab === 'manuscripts'
-              ? 'border-[#2563EB] text-[#60A5FA]'
-              : 'border-transparent text-gray-400 hover:text-white'
+              ? 'border-[var(--accent)] text-[var(--accent-strong-text)]'
+              : 'border-transparent text-[var(--theme-text-muted)] hover:text-[var(--theme-text-main)]'
           }`}
         >
           Scanned Manuscripts ({MOCK_MANUSCRIPT_PREVIEWS.length})
@@ -85,7 +85,7 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {activeTab === 'citations' ? (
           citations.length === 0 ? (
-            <div className="text-center py-10 text-xs text-gray-500 font-mono">
+            <div className="text-center py-10 text-xs text-[var(--theme-text-muted)] font-mono">
               No active citations for this thread.
             </div>
           ) : (
@@ -96,26 +96,26 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
                   onClick={() => setSelectedCitation(cit)}
                   className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                     selectedCitation?.id === cit.id || activeCitationId === cit.id
-                      ? 'bg-[#123B73] border-[#2563EB] text-white shadow-[0_0_15px_rgba(37,99,235,0.3)]'
-                      : 'bg-[#111827] border-white/10 text-gray-300 hover:bg-white/5'
+                      ? 'accent-pill border-[var(--accent-border)] text-[var(--theme-text-main)]'
+                      : 'surface-muted text-[var(--theme-text-secondary)] hover:border-[var(--accent-border)]'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/30">
+                    <span className="accent-pill px-2 py-0.5 rounded text-[10px] font-mono font-bold">
                       Citation [{idx + 1}]
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-[#60A5FA]">
+                    <span className="text-[10px] font-mono font-bold text-[var(--accent-strong-text)]">
                       {Math.round(cit.relevanceScore * 100)}% Match
                     </span>
                   </div>
 
-                  <h4 className="text-xs font-bold text-white leading-snug">{cit.bookTitle}</h4>
-                  <p className="text-[11px] text-gray-400 mt-0.5">Author: {cit.author}</p>
-                  <p className="text-[10px] font-mono text-gray-500 mt-1">
+                  <h4 className="text-xs font-bold text-[var(--theme-text-main)] leading-snug">{cit.bookTitle}</h4>
+                  <p className="text-[11px] text-[var(--theme-text-muted)] mt-0.5">Author: {cit.author}</p>
+                  <p className="text-[10px] font-mono text-[var(--theme-text-muted)] mt-1">
                     {cit.edition} • Page {cit.pageNumber}
                   </p>
 
-                  <div className="mt-2.5 p-2 rounded-lg bg-black/40 border border-white/5 text-[11px] text-blue-200 italic font-serif leading-relaxed">
+                  <div className="mt-2.5 p-2 rounded-lg bg-[var(--theme-card)] border border-[var(--theme-border-subtle)] text-[11px] text-[var(--theme-text-secondary)] italic font-serif leading-relaxed">
                     "{cit.originalQuote}"
                   </div>
                 </div>
@@ -127,17 +127,17 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
             {MOCK_MANUSCRIPT_PREVIEWS.map((ms, idx) => (
               <div
                 key={idx}
-                className="p-3.5 rounded-xl bg-[#111827] border border-white/10 space-y-2 hover:border-[#2563EB]/40 transition-all"
+                className="surface-muted p-3.5 rounded-xl space-y-2 hover:border-[var(--accent-border)] transition-all"
               >
                 <div className="flex items-center justify-between">
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/30">
+                  <span className="accent-pill px-2 py-0.5 rounded text-[10px] font-mono font-bold">
                     {ms.badge}
                   </span>
-                  <span className="text-[10px] text-gray-400 font-mono">{ms.pages}</span>
+                  <span className="text-[10px] text-[var(--theme-text-muted)] font-mono">{ms.pages}</span>
                 </div>
 
-                <h4 className="text-xs font-bold text-white">{ms.title}</h4>
-                <p className="text-[11px] text-gray-400 font-mono">Collector / Author: {ms.author}</p>
+                <h4 className="text-xs font-bold text-[var(--theme-text-main)]">{ms.title}</h4>
+                <p className="text-[11px] text-[var(--theme-text-muted)] font-mono">Collector / Author: {ms.author}</p>
               </div>
             ))}
           </div>
@@ -145,10 +145,10 @@ export const SourceDrawer: React.FC<SourceDrawerProps> = ({
       </div>
 
       {/* Bottom Action Footer */}
-      <div className="p-3 border-t border-white/10 bg-[#0B1F3A]/30 space-y-2">
+      <div className="p-3 border-t border-[var(--theme-border)] bg-[var(--theme-card-elevated)] space-y-2">
         <button
           onClick={() => onOpenEvidence(selectedCitation || undefined)}
-          className="w-full py-2.5 px-3 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 cursor-pointer"
+          className="btn-primary w-full py-2.5 px-3 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <ShieldCheck className="w-4 h-4" />
           <span>Audit Evidence Trail</span>

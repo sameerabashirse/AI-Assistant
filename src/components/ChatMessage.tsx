@@ -25,20 +25,20 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({
   if (message.sender === 'user') {
     return (
       <div className="flex justify-end my-4 animate-in fade-in duration-200">
-        <div className="flex items-start gap-3 max-w-2xl">
-          <div className="p-4 rounded-2xl bg-gradient-to-br from-[#0B1F3A] to-[#123B73] text-white border border-[#2563EB]/40 shadow-[0_4px_20px_rgba(7,11,20,0.5)]">
+        <div className="flex items-start gap-3 max-w-2xl min-w-0">
+          <div className="p-4 rounded-2xl bg-[var(--accent)] text-white border border-[var(--accent-border)] shadow-sm">
             <p className="text-sm md:text-base leading-relaxed font-medium">
               {message.text}
             </p>
             <div className="mt-1.5 text-right">
-              <span className="text-[10px] text-[#60A5FA] font-mono">
+              <span className="text-[10px] text-white/75 font-mono">
                 {message.timestamp}
               </span>
             </div>
           </div>
 
-          <div className="w-8 h-8 rounded-full bg-[#0B1F3A] border border-[#2563EB]/50 flex items-center justify-center text-white shrink-0 shadow-lg">
-            <User className="w-4 h-4 text-[#60A5FA]" />
+          <div className="w-8 h-8 rounded-full surface-muted flex items-center justify-center text-[var(--accent-strong-text)] shrink-0 shadow-sm">
+            <User className="w-4 h-4" />
           </div>
         </div>
       </div>

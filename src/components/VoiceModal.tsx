@@ -52,15 +52,15 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="w-full max-w-sm bg-[#111827] border border-[#2563EB]/40 rounded-2xl p-6 shadow-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="surface-elevated w-full max-w-sm rounded-2xl p-6 text-center space-y-5 animate-in fade-in zoom-in-95 duration-200">
         <div className="flex justify-between items-center">
-          <span className="text-xs font-mono font-bold text-[#60A5FA] uppercase tracking-wider">
+          <span className="text-xs font-mono font-bold text-[var(--accent-strong-text)] uppercase tracking-wider">
             {MOCK_UI_STRINGS.voiceQuery[language]}
           </span>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+            className="btn-soft p-1.5 rounded-lg"
           >
             <X className="w-4 h-4" />
           </button>
@@ -71,8 +71,8 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
           <div
             className={`w-20 h-20 rounded-full mx-auto flex items-center justify-center transition-all ${
               isListening
-                ? 'bg-[#0B1F3A] border-2 border-[#2563EB] shadow-[0_0_40px_rgba(37,99,235,0.6)] animate-pulse'
-                : 'bg-[#2563EB] text-white shadow-[0_0_20px_rgba(37,99,235,0.4)]'
+                ? 'bg-[var(--theme-muted)] border-2 border-[var(--accent-border)] animate-pulse'
+                : 'bg-[var(--accent)] text-white shadow-sm'
             }`}
           >
             <Mic className="w-10 h-10 text-white" />
@@ -80,21 +80,21 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
 
           {isListening && (
             <div className="mt-3 flex items-center justify-center gap-1">
-              <span className="w-1.5 h-6 rounded-full bg-[#2563EB] animate-pulse" />
-              <span className="w-1.5 h-10 rounded-full bg-[#60A5FA] animate-pulse delay-100" />
-              <span className="w-1.5 h-4 rounded-full bg-[#2563EB] animate-pulse delay-200" />
+              <span className="w-1.5 h-6 rounded-full bg-[var(--accent)] animate-pulse" />
+              <span className="w-1.5 h-10 rounded-full bg-[var(--accent)] animate-pulse delay-100" />
+              <span className="w-1.5 h-4 rounded-full bg-[var(--accent)] animate-pulse delay-200" />
             </div>
           )}
         </div>
 
         {/* Transcript Box */}
-        <div className="p-4 rounded-xl bg-black/40 border border-white/10 text-xs min-h-[70px] flex items-center justify-center font-medium">
+        <div className="p-4 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border)] text-xs min-h-[70px] flex items-center justify-center font-medium">
           {isListening ? (
-            <span className="text-gray-400 font-mono italic animate-pulse">
+            <span className="text-[var(--theme-text-muted)] font-mono italic animate-pulse">
               Listening in {language.toUpperCase()}... Speak query clearly.
             </span>
           ) : (
-            <span className="text-white leading-relaxed font-serif text-sm">
+            <span className="text-[var(--theme-text-main)] leading-relaxed font-serif text-sm">
               "{transcript}"
             </span>
           )}
@@ -107,13 +107,13 @@ export const VoiceModal: React.FC<VoiceModalProps> = ({
                 setIsListening(true);
                 setTranscript('');
               }}
-              className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-gray-300 font-bold text-xs"
+              className="btn-soft py-2 px-3 rounded-xl font-bold text-xs"
             >
               Retry
             </button>
             <button
               onClick={handleConfirm}
-              className="py-2 px-5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-[0_0_15px_rgba(37,99,235,0.4)]"
+              className="btn-primary py-2 px-5 rounded-xl font-bold text-xs"
             >
               Submit Query →
             </button>

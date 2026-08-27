@@ -78,27 +78,27 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
   }, []);
 
   return (
-    <header className="sticky top-0 z-30 bg-[#070B14]/90 light:bg-[#FFFFFF]/95 border-b border-white/10 light:border-[#E2E8F0] backdrop-blur-md px-4 md:px-6 py-3.5 flex items-center justify-between shadow-[0_4px_20px_rgba(15,23,42,0.04)]">
+    <header className="surface sticky top-0 z-30 border-x-0 border-t-0 px-4 md:px-6 py-3.5 flex items-center justify-between gap-3">
       {/* Left: Mobile Toggle & Page Title */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-2 rounded-xl bg-white/5 light:bg-slate-100 text-gray-300 light:text-[#334155] hover:text-white cursor-pointer"
+          className="lg:hidden btn-soft p-2 rounded-xl cursor-pointer"
         >
           <Menu className="w-5 h-5" />
         </button>
 
         <div>
           <div className="flex items-center gap-2">
-            <h1 className="text-base md:text-lg font-extrabold text-white light:text-[#111827] tracking-tight leading-none">
+            <h1 className="text-base md:text-lg font-extrabold text-[var(--theme-text-main)] tracking-tight leading-none">
               {currentTab.title}
             </h1>
-            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#102A56] light:bg-[#EFF6FF] text-[#60A5FA] light:text-[#1D4ED8] border border-[#2563EB]/40 light:border-[#BFDBFE]">
-              <ShieldCheck className="w-3 h-3 text-[#2563EB]" />
+            <span className="accent-pill hidden sm:inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold">
+              <ShieldCheck className="w-3 h-3" />
               Super Admin Verified
             </span>
           </div>
-          <p className="text-xs text-gray-400 light:text-[#6B7280] font-medium hidden sm:block mt-0.5">
+          <p className="text-xs text-[var(--theme-text-muted)] font-medium hidden sm:block mt-0.5">
             {currentTab.subtitle}
           </p>
         </div>
@@ -107,58 +107,58 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
       {/* Right: Search, Notifications, Theme Toggle, Profile */}
       <div className="flex items-center gap-2 md:gap-3">
         {/* Global Search Input */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111827] light:bg-[#F8FAFC] border border-white/10 light:border-[#E2E8F0] text-xs text-gray-400 light:text-[#6B7280] w-48 lg:w-60 focus-within:border-[#2563EB]">
-          <Search className="w-3.5 h-3.5 text-[#2563EB]" />
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--theme-card-elevated)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-muted)] w-48 lg:w-60 focus-within:border-[var(--accent)]">
+          <Search className="w-3.5 h-3.5 text-[var(--accent-strong-text)]" />
           <input
             type="text"
             placeholder="Search admin records..."
-            className="w-full bg-transparent border-none text-xs text-white light:text-[#111827] placeholder-gray-500 light:placeholder-[#6B7280] focus:outline-none"
+            className="w-full bg-transparent border-none text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none"
           />
         </div>
 
         {/* Theme Switcher Toggle */}
         <button
           onClick={onToggleTheme}
-          className="p-2 rounded-full bg-[#111827] light:bg-[#F8FAFC] hover:bg-[#102A56] light:hover:bg-slate-200 text-gray-300 light:text-[#334155] border border-white/10 light:border-[#E2E8F0] transition-all cursor-pointer"
+          className="btn-soft p-2 rounded-full transition-all cursor-pointer"
           title="Toggle Dark / Light Theme"
         >
           {theme === 'dark' ? (
             <Sun className="w-4 h-4 text-amber-400" />
           ) : (
-            <Moon className="w-4 h-4 text-[#2563EB]" />
+            <Moon className="w-4 h-4 text-[var(--accent-strong-text)]" />
           )}
         </button>
 
         {/* Notification Bell */}
         <button
-          className="relative p-2 rounded-full bg-[#111827] light:bg-[#F8FAFC] hover:bg-[#102A56] light:hover:bg-slate-200 text-gray-300 light:text-[#334155] border border-white/10 light:border-[#E2E8F0] transition-all cursor-pointer"
+          className="btn-soft relative p-2 rounded-full transition-all cursor-pointer"
           title="Notifications (340 Pending Reviews)"
         >
           <Bell className="w-4 h-4" />
-          <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-[#2563EB] ring-2 ring-[#070B14] light:ring-white animate-pulse" />
+          <span className="absolute top-0 right-0 w-2.5 h-2.5 rounded-full bg-[var(--accent)] ring-2 ring-[var(--theme-card)] animate-pulse" />
         </button>
 
         {/* Admin Profile Dropdown */}
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-            className="flex items-center gap-2 p-1.5 rounded-full bg-[#111827] light:bg-[#F8FAFC] hover:bg-[#102A56] light:hover:bg-slate-200 border border-white/10 light:border-[#E2E8F0] transition-all cursor-pointer"
+            className="btn-soft flex items-center gap-2 p-1.5 rounded-full transition-all cursor-pointer"
           >
-            <div className="w-7 h-7 rounded-full bg-[#0B1F3A] light:bg-[#2563EB] border border-[#2563EB]/50 flex items-center justify-center text-white text-xs font-bold">
+            <div className="w-7 h-7 rounded-full bg-[var(--accent)] border border-[var(--accent-border)] flex items-center justify-center text-white text-xs font-bold">
               AK
             </div>
             <div className="hidden xl:block text-left">
-              <p className="text-[11px] font-bold text-white light:text-[#111827] leading-none">Ahmed Khan</p>
-              <p className="text-[9px] text-[#60A5FA] light:text-[#1D4ED8] font-mono">Super Admin</p>
+              <p className="text-[11px] font-bold text-[var(--theme-text-main)] leading-none">Ahmed Khan</p>
+              <p className="text-[9px] text-[var(--accent-strong-text)] font-mono">Super Admin</p>
             </div>
-            <ChevronDown className="w-3.5 h-3.5 text-gray-400 light:text-slate-500" />
+            <ChevronDown className="w-3.5 h-3.5 text-[var(--theme-text-muted)]" />
           </button>
 
           {isProfileMenuOpen && (
-            <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-[#111827] light:bg-[#FFFFFF] border border-white/10 light:border-[#E2E8F0] backdrop-blur-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-              <div className="px-3 py-2 border-b border-white/10 light:border-slate-100 mb-1">
-                <p className="text-xs font-bold text-white light:text-[#111827]">Ahmed Khan Baloch</p>
-                <p className="text-[10px] text-[#60A5FA] light:text-[#1D4ED8] font-mono">ahmed.khan@balochidigital.org</p>
+            <div className="surface-elevated absolute right-0 mt-2 w-52 rounded-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+              <div className="px-3 py-2 border-b border-[var(--theme-border)] mb-1">
+                <p className="text-xs font-bold text-[var(--theme-text-main)]">Ahmed Khan Baloch</p>
+                <p className="text-[10px] text-[var(--accent-strong-text)] font-mono">ahmed.khan@balochidigital.org</p>
               </div>
 
               <button
@@ -166,9 +166,9 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
                   if (onSelectTab) onSelectTab('settings');
                   setIsProfileMenuOpen(false);
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-gray-300 light:text-[#334155] hover:bg-white/5 light:hover:bg-slate-100 hover:text-white light:hover:text-[#111827] transition-colors cursor-pointer"
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-[var(--theme-text-secondary)] hover:bg-[var(--theme-muted)] hover:text-[var(--theme-text-main)] transition-colors cursor-pointer"
               >
-                <Settings className="w-3.5 h-3.5 text-[#2563EB]" />
+                <Settings className="w-3.5 h-3.5 text-[var(--accent-strong-text)]" />
                 <span>Account Settings</span>
               </button>
 
@@ -177,13 +177,13 @@ export const AdminHeader: React.FC<AdminHeaderProps> = ({
                   if (onSelectTab) onSelectTab('settings');
                   setIsProfileMenuOpen(false);
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-gray-300 light:text-[#334155] hover:bg-white/5 light:hover:bg-slate-100 hover:text-white light:hover:text-[#111827] transition-colors cursor-pointer"
+                className="w-full flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium text-[var(--theme-text-secondary)] hover:bg-[var(--theme-muted)] hover:text-[var(--theme-text-main)] transition-colors cursor-pointer"
               >
                 <KeyRound className="w-3.5 h-3.5 text-[#2563EB]" />
                 <span>Security & 2FA</span>
               </button>
 
-              <div className="border-t border-white/10 light:border-slate-100 my-1" />
+              <div className="border-t border-[var(--theme-border)] my-1" />
 
               <button
                 onClick={() => {

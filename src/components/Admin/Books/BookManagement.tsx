@@ -51,31 +51,31 @@ export const BookManagement: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="p-5 rounded-2xl bg-[#111827] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="surface p-5 rounded-2xl border border-[var(--theme-border)] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-md">
         <div>
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-[#60A5FA]" />
+          <h3 className="text-base font-bold text-[var(--theme-text-main)] flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-[var(--accent-strong-text)]" />
             Balochi Literature & Manuscript Catalog
           </h3>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-[var(--theme-text-muted)] mt-1">
             Digitized books, dictionaries, and historical manuscripts ready for OCR text extraction.
           </p>
         </div>
 
         <button
           onClick={() => setIsUploadModalOpen(true)}
-          className="py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer"
+          className="btn-primary py-2.5 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <Upload className="w-4 h-4" />
           <span>Upload PDF Book for OCR Indexing</span>
         </button>
       </div>
 
-      <div className="rounded-2xl bg-[#111827] border border-white/10 overflow-hidden shadow-xl">
+      <div className="surface rounded-2xl border border-[var(--theme-border)] overflow-hidden shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px] bg-black/30">
+              <tr className="border-b border-[var(--theme-border)] text-[var(--theme-text-muted)] font-mono uppercase text-[10px] bg-[var(--theme-muted)]">
                 <th className="py-3 px-4">Book Title</th>
                 <th className="py-3 px-4">Author</th>
                 <th className="py-3 px-4">Edition</th>
@@ -86,37 +86,35 @@ export const BookManagement: React.FC = () => {
                 <th className="py-3 px-4 text-right">Upload Date</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-gray-300">
+            <tbody className="divide-y divide-[var(--theme-border-subtle)] text-[var(--theme-text-secondary)]">
               {books.map((b) => (
-                <tr key={b.id} className="hover:bg-white/5 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-white text-sm">{b.name}</td>
-                  <td className="py-3.5 px-4 font-medium text-gray-300">{b.author}</td>
-                  <td className="py-3.5 px-4 font-mono text-gray-400">{b.edition}</td>
+                <tr key={b.id} className="hover:bg-[var(--accent-soft)] transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-[var(--theme-text-main)] text-sm">{b.name}</td>
+                  <td className="py-3.5 px-4 font-medium text-[var(--theme-text-secondary)]">{b.author}</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--theme-text-muted)]">{b.edition}</td>
                   <td className="py-3.5 px-4">
-                    <p className="font-semibold text-white">{b.language}</p>
-                    <p className="text-[10px] text-gray-400 font-mono">{b.dialect}</p>
+                    <p className="font-semibold text-[var(--theme-text-main)]">{b.language}</p>
+                    <p className="text-[10px] text-[var(--theme-text-muted)] font-mono">{b.dialect}</p>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-[#60A5FA] text-[11px]">{b.rights}</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--accent-strong-text)] text-[11px] font-semibold">{b.rights}</td>
                   <td className="py-3.5 px-4 font-mono">{b.pagesCount} pgs</td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                         b.ocrStatus === 'Completed'
-                          ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
-                          : b.ocrStatus === 'Processing'
-                          ? 'bg-blue-500/15 text-blue-400 border border-blue-500/30'
-                          : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                          ? 'bg-[var(--success-soft)] text-[var(--success-text)] border border-[var(--success-text)]/30'
+                          : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
                       }`}
                     >
                       {b.ocrStatus === 'Completed' ? (
-                        <CheckCircle2 className="w-3 h-3 text-[#60A5FA]" />
+                        <CheckCircle2 className="w-3 h-3 text-[var(--success-text)]" />
                       ) : (
                         <Loader2 className="w-3 h-3 animate-spin" />
                       )}
                       {b.ocrStatus}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-right text-gray-400">{b.uploadDate}</td>
+                  <td className="py-3.5 px-4 font-mono text-right text-[var(--theme-text-muted)]">{b.uploadDate}</td>
                 </tr>
               ))}
             </tbody>

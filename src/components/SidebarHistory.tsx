@@ -51,21 +51,21 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
       )}
 
       <aside
-        className={`fixed lg:static top-0 left-0 z-40 h-full w-72 md:w-80 bg-[#070B14] light:bg-[#F8FAFC] border-r border-white/10 light:border-[#E2E8F0] flex flex-col justify-between transition-transform duration-300 ${
+        className={`surface fixed lg:static top-0 left-0 z-40 h-full w-72 md:w-80 border-r flex flex-col justify-between transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
         {/* Top Header */}
-        <div className="p-4 space-y-3 border-b border-white/10 light:border-[#E2E8F0] bg-[#0B1F3A]/40 light:bg-[#FFFFFF]">
+        <div className="p-4 space-y-3 border-b border-[var(--theme-border)] bg-[var(--theme-card-elevated)]">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-[#60A5FA] light:text-[#0F172A] font-bold text-sm tracking-tight">
-              <Layers className="w-4 h-4 text-[#2563EB]" />
+            <div className="flex items-center gap-2 text-[var(--theme-text-main)] font-bold text-sm tracking-tight">
+              <Layers className="w-4 h-4 text-[var(--accent-strong-text)]" />
               <span className="text-sm font-bold uppercase tracking-wider">RESEARCH THREADS</span>
             </div>
 
             <button
               onClick={onClose}
-              className="lg:hidden p-1.5 rounded-lg text-gray-400 hover:text-white light:hover:text-black hover:bg-white/10 light:hover:bg-slate-100"
+              className="lg:hidden btn-soft p-1.5 rounded-lg"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -77,7 +77,7 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
               onNewThread();
               if (window.innerWidth < 1024) onClose();
             }}
-            className="w-full py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 cursor-pointer"
+            className="btn-primary w-full py-2.5 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>{newChatText}</span>
@@ -85,13 +85,13 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
 
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-gray-400 light:text-[#64748B]" />
+            <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--theme-text-muted)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search chat history..."
-              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[#111827] light:bg-[#FFFFFF] border border-white/10 light:border-[#CBD5E1] text-xs text-white light:text-[#0F172A] placeholder-gray-500 light:placeholder-[#64748B] focus:outline-none focus:border-[#2563EB]"
+              className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)]"
             />
           </div>
 
@@ -103,8 +103,8 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-2.5 py-1 rounded-lg text-[10px] font-semibold whitespace-nowrap transition-all ${
                   selectedCategory === cat
-                    ? 'bg-[#123B73] text-[#60A5FA] light:bg-[#DBEAFE] light:text-[#1D4ED8] border border-[#2563EB]/40 light:border-[#93C5FD] font-bold'
-                    : 'bg-white/5 light:bg-[#FFFFFF] text-gray-400 light:text-[#334155] border border-transparent light:border-[#E2E8F0] hover:text-white light:hover:text-[#0F172A]'
+                    ? 'accent-pill font-bold'
+                    : 'btn-soft'
                 }`}
               >
                 {cat}
@@ -116,7 +116,7 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
         {/* Thread History Items */}
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {filteredThreads.length === 0 ? (
-            <div className="text-center py-8 text-xs text-gray-500 light:text-[#64748B] font-mono">
+            <div className="text-center py-8 text-xs text-[var(--theme-text-muted)] font-mono">
               No matching research threads found.
             </div>
           ) : (
@@ -131,8 +131,8 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                   }}
                   className={`group relative p-3.5 rounded-2xl cursor-pointer transition-all border ${
                     isActive
-                      ? 'bg-[#123B73] light:bg-[#EFF6FF] border-2 border-[#2563EB] text-white light:text-[#1E3A8A] shadow-[0_4px_15px_rgba(37,99,235,0.2)]'
-                      : 'bg-[#111827]/60 light:bg-[#FFFFFF] border-white/5 light:border-[#E2E8F0] text-gray-300 light:text-[#0F172A] hover:bg-white/5 light:hover:bg-slate-50 shadow-[0_4px_12px_rgba(15,23,42,0.04)]'
+                      ? 'accent-pill border-[var(--accent-border)] text-[var(--theme-text-main)]'
+                      : 'surface-muted text-[var(--theme-text-secondary)] hover:border-[var(--accent-border)]'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2">
@@ -140,11 +140,11 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                       <MessageSquare
                         className={`w-3.5 h-3.5 shrink-0 ${
                           isActive
-                            ? 'text-[#60A5FA] light:text-[#2563EB]'
-                            : 'text-gray-400 light:text-[#64748B]'
+                            ? 'text-[var(--accent-strong-text)]'
+                            : 'text-[var(--theme-text-muted)]'
                         }`}
                       />
-                      <h4 className="text-xs font-bold truncate text-white light:text-[#0F172A]">
+                      <h4 className="text-xs font-bold truncate text-[var(--theme-text-main)]">
                         {thread.title}
                       </h4>
                     </div>
@@ -154,20 +154,20 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
                         e.stopPropagation();
                         onDeleteThread(thread.id);
                       }}
-                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-950 light:hover:bg-red-50 hover:text-red-400 light:hover:text-red-600 text-gray-400 light:text-[#64748B] transition-all"
+                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-red-500/15 hover:text-red-500 text-[var(--theme-text-muted)] transition-all"
                       title="Delete Thread"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
                   </div>
 
-                  <p className="text-[11px] text-gray-400 light:text-[#475569] line-clamp-1 mt-1 font-medium">
+                  <p className="text-[11px] text-[var(--theme-text-muted)] line-clamp-1 mt-1 font-medium">
                     {thread.preview}
                   </p>
 
-                  <div className="mt-2.5 flex items-center justify-between text-[10px] font-mono text-gray-500 light:text-[#64748B]">
+                  <div className="mt-2.5 flex items-center justify-between text-[10px] font-mono text-[var(--theme-text-muted)]">
                     <span>{thread.createdAt}</span>
-                    <span className="px-2 py-0.5 rounded-full font-bold bg-white/5 light:bg-[#DBEAFE] text-gray-300 light:text-[#1D4ED8] border border-transparent light:border-[#93C5FD]">
+                    <span className="accent-pill px-2 py-0.5 rounded-full font-bold">
                       {thread.category}
                     </span>
                   </div>
@@ -178,12 +178,12 @@ export const SidebarHistory: React.FC<SidebarHistoryProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-white/10 light:border-[#E2E8F0] bg-[#0B1F3A]/30 light:bg-[#FFFFFF] text-[11px] font-mono text-gray-400 light:text-[#64748B] flex items-center justify-between">
-          <span className="flex items-center gap-1.5 font-bold text-gray-300 light:text-[#0F172A]">
-            <ShieldCheck className="w-3.5 h-3.5 text-[#2563EB]" />
+        <div className="p-3 border-t border-[var(--theme-border)] bg-[var(--theme-card-elevated)] text-[11px] font-mono text-[var(--theme-text-muted)] flex items-center justify-between">
+          <span className="flex items-center gap-1.5 font-bold text-[var(--theme-text-main)]">
+            <ShieldCheck className="w-3.5 h-3.5 text-[var(--accent-strong-text)]" />
             <span>Balochi Digital Index</span>
           </span>
-          <span className="text-[10px] bg-[#2563EB]/20 light:bg-[#DBEAFE] text-[#60A5FA] light:text-[#1D4ED8] px-2 py-0.5 rounded-full font-bold border border-[#2563EB]/30 light:border-[#93C5FD]">
+          <span className="accent-pill text-[10px] px-2 py-0.5 rounded-full font-bold">
             25.4K Sources
           </span>
         </div>

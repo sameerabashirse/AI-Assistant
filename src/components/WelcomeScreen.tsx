@@ -11,10 +11,10 @@ interface WelcomeScreenProps {
 }
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  BookOpen: <BookOpen className="w-5 h-5 text-[#2563EB]" />,
-  ScrollText: <ScrollText className="w-5 h-5 text-[#2563EB]" />,
-  Compass: <Compass className="w-5 h-5 text-[#2563EB]" />,
-  FileCheck: <FileCheck className="w-5 h-5 text-[#2563EB]" />,
+  BookOpen: <BookOpen className="w-5 h-5 text-[var(--accent-strong-text)]" />,
+  ScrollText: <ScrollText className="w-5 h-5 text-[var(--accent-strong-text)]" />,
+  Compass: <Compass className="w-5 h-5 text-[var(--accent-strong-text)]" />,
+  FileCheck: <FileCheck className="w-5 h-5 text-[var(--accent-strong-text)]" />,
 };
 
 export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
@@ -26,24 +26,24 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8 max-w-4xl mx-auto w-full text-center my-auto animate-in fade-in zoom-in-95 duration-500">
-      {/* Hero Visual Orb - Navy & Accent Blue */}
+      {/* Assistant identity mark */}
       <div className="relative mb-6">
-        <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-[#0B1F3A] via-[#123B73] to-[#2563EB] border-2 border-[#60A5FA] flex items-center justify-center shadow-[0_0_50px_rgba(37,99,235,0.4)] animate-pulse-glow">
-          <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-white animate-pulse" />
+        <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-[var(--accent)] border border-[var(--accent-border)] flex items-center justify-center shadow-md animate-pulse-glow">
+          <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-white" />
         </div>
-        <div className="absolute -bottom-2 right-0 px-2.5 py-0.5 rounded-full bg-[#0B1F3A] light:bg-[#DBEAFE] text-[#60A5FA] light:text-[#1D4ED8] border border-[#2563EB]/50 light:border-[#93C5FD] text-[10px] font-mono font-bold flex items-center gap-1">
-          <ShieldCheck className="w-3 h-3 text-[#2563EB]" />
+        <div className="accent-pill absolute -bottom-2 right-0 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold flex items-center gap-1">
+          <ShieldCheck className="w-3 h-3" />
           Verified AI
         </div>
       </div>
 
       {/* Hero Heading */}
-      <h2 className="text-3xl md:text-5xl font-black text-white light:text-[#0F172A] tracking-tight leading-tight max-w-2xl">
+      <h2 className="text-3xl md:text-5xl font-black text-[var(--theme-text-main)] tracking-tight leading-tight max-w-2xl">
         {heroTitle}
       </h2>
 
       {/* Hero Subtitle */}
-      <p className="mt-3 text-sm md:text-base text-gray-300 light:text-[#475569] max-w-xl font-normal leading-relaxed">
+      <p className="mt-3 text-sm md:text-base text-[var(--theme-text-secondary)] max-w-xl font-normal leading-relaxed">
         {heroSubtitle}
       </p>
 
@@ -58,29 +58,29 @@ export const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
             <button
               key={card.id}
               onClick={() => onSelectSuggestion(card)}
-              className="group relative p-4 md:p-5 rounded-2xl bg-[#111827] light:bg-[#FFFFFF] hover:bg-[#172033] light:hover:bg-slate-50 border border-white/10 light:border-[#E2E8F0] hover:border-[#2563EB] light:hover:border-[#2563EB] transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.4)] light:shadow-[0_4px_16px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_20px_rgba(37,99,235,0.15)] hover:-translate-y-1 flex flex-col justify-between cursor-pointer"
+              className="surface group relative p-4 md:p-5 rounded-2xl hover:border-[var(--accent-border)] transition-all duration-200 hover:-translate-y-0.5 flex flex-col justify-between cursor-pointer"
             >
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="p-2 rounded-xl bg-[#0B1F3A] light:bg-[#EFF6FF] border border-[#2563EB]/40 light:border-[#BFDBFE] group-hover:scale-110 transition-transform">
+                  <div className="surface-muted p-2 rounded-xl text-[var(--accent-strong-text)] group-hover:scale-105 transition-transform">
                     {icon}
                   </div>
-                  <span className="text-[10px] font-mono font-bold text-[#60A5FA] light:text-[#1D4ED8] bg-[#2563EB]/15 light:bg-[#DBEAFE] px-2.5 py-0.5 rounded-full border border-[#2563EB]/30 light:border-[#93C5FD]">
+                  <span className="accent-pill text-[10px] font-mono font-bold px-2.5 py-0.5 rounded-full">
                     Featured
                   </span>
                 </div>
 
-                <h3 className="text-sm font-bold text-white light:text-[#0F172A] group-hover:text-[#2563EB] transition-colors leading-snug">
+                <h3 className="text-sm font-bold text-[var(--theme-text-main)] group-hover:text-[var(--accent-strong-text)] transition-colors leading-snug">
                   {titleText}
                 </h3>
-                <p className="mt-1 text-xs text-gray-400 light:text-[#475569] font-normal leading-relaxed">
+                <p className="mt-1 text-xs text-[var(--theme-text-muted)] font-normal leading-relaxed">
                   {subText}
                 </p>
               </div>
 
-              <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[#60A5FA] light:text-[#1D4ED8] group-hover:text-[#2563EB] pt-2.5 border-t border-white/5 light:border-slate-100">
+              <div className="mt-4 flex items-center justify-between text-xs font-semibold text-[var(--accent-strong-text)] pt-2.5 border-t border-[var(--theme-border-subtle)]">
                 <span>Ask Verified Assistant</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#2563EB]" />
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </div>
             </button>
           );

@@ -18,18 +18,18 @@ export const VerifiedBadge: React.FC<VerifiedBadgeProps> = ({
 
   if (compact) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40 shadow-[0_0_12px_rgba(37,99,235,0.25)]">
-        <CheckCircle2 className="w-3.5 h-3.5 text-[#60A5FA]" />
+      <span className="accent-pill inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold">
+        <CheckCircle2 className="w-3.5 h-3.5" />
         <span>✓ {badgeText} ({score}%)</span>
       </span>
     );
   }
 
   return (
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40 shadow-[0_0_15px_rgba(37,99,235,0.3)] transition-transform hover:scale-[1.02]">
-      <ShieldCheck className="w-4 h-4 text-[#60A5FA] animate-pulse" />
+    <div className="accent-pill inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-transform hover:scale-[1.02]">
+      <ShieldCheck className="w-4 h-4" />
       <span className="tracking-wide">✓ {badgeText}</span>
-      <span className="ml-1 px-1.5 py-0.5 rounded bg-[#2563EB]/20 text-[#60A5FA] text-[10px] font-mono font-bold border border-[#2563EB]/30">
+      <span className="ml-1 px-1.5 py-0.5 rounded bg-[var(--theme-card)] text-[var(--accent-strong-text)] text-[10px] font-mono font-bold border border-[var(--accent-border)]">
         {score}% Match
       </span>
     </div>

@@ -37,16 +37,17 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0C3D06]/60 hover:bg-[#0C3D06] text-[#1AFF00] border border-[#1AFF00]/30 hover:border-[#1AFF00] text-xs font-semibold transition-all shadow-[0_0_12px_rgba(26,255,0,0.15)]"
+        className="btn-soft flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold transition-all"
       >
-        <Globe className="w-3.5 h-3.5 text-[#1AFF00]" />
-        <span>{activeLang.native}</span>
-        <ChevronDown className={`w-3.5 h-3.5 text-[#1AFF00] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <Globe className="w-3.5 h-3.5 text-[var(--accent-strong-text)]" />
+        <span className="hidden sm:inline">{activeLang.native}</span>
+        <span className="sm:hidden">{activeLang.label}</span>
+        <ChevronDown className={`w-3.5 h-3.5 text-[var(--theme-text-muted)] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 rounded-xl bg-[#071705] border border-[#1AFF00]/30 backdrop-blur-xl shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
-          <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-[#1AFF00]/70 border-b border-white/10 mb-1">
+        <div className="surface-elevated absolute right-0 mt-2 w-52 rounded-xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+          <div className="px-3 py-1.5 text-[10px] uppercase font-bold text-[var(--theme-text-muted)] border-b border-[var(--theme-border)] mb-1">
             Select Language / زبان گچین
           </div>
           {LANGUAGES.map((lang) => (
@@ -58,12 +59,12 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
               }}
               className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                 currentLanguage === lang.id
-                  ? 'bg-[#0C3D06] text-[#1AFF00] font-bold border border-[#1AFF00]/40'
-                  : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                  ? 'accent-pill font-bold'
+                  : 'text-[var(--theme-text-secondary)] hover:bg-[var(--theme-muted)] hover:text-[var(--theme-text-main)]'
               }`}
             >
               <span>{lang.native}</span>
-              {currentLanguage === lang.id && <Check className="w-3.5 h-3.5 text-[#1AFF00]" />}
+              {currentLanguage === lang.id && <Check className="w-3.5 h-3.5" />}
             </button>
           ))}
         </div>

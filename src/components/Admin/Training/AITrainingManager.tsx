@@ -20,29 +20,29 @@ export const AITrainingManager: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      <div className="p-5 rounded-2xl bg-[#111827] border border-white/10 flex items-center justify-between">
+      <div className="surface p-5 rounded-2xl border border-[var(--theme-border)] flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
+          <div className="p-2.5 rounded-xl surface-muted text-[var(--accent-strong-text)]">
             <Cpu className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-base font-bold text-white">AI Grounding & Model Response Tuning</h3>
-            <p className="text-xs text-gray-400 mt-0.5">
+            <h3 className="text-base font-bold text-[var(--theme-text-main)]">AI Grounding & Model Response Tuning</h3>
+            <p className="text-xs text-[var(--theme-text-muted)] mt-0.5">
               Review AI generated answers against source citations and tune strictness thresholds.
             </p>
           </div>
         </div>
 
-        <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40">
+        <span className="accent-pill px-3 py-1 rounded-full text-xs font-mono font-bold">
           Strict Mode: Enforced
         </span>
       </div>
 
-      <div className="rounded-2xl bg-[#111827] border border-white/10 overflow-hidden shadow-xl">
+      <div className="surface rounded-2xl border border-[var(--theme-border)] overflow-hidden shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px] bg-black/30">
+              <tr className="border-b border-[var(--theme-border)] text-[var(--theme-text-muted)] font-mono uppercase text-[10px] bg-[var(--theme-muted)]">
                 <th className="py-3 px-4">Question Prompt</th>
                 <th className="py-3 px-4">Generated AI Response</th>
                 <th className="py-3 px-4">Grounded Sources</th>
@@ -51,32 +51,32 @@ export const AITrainingManager: React.FC = () => {
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-gray-300">
+            <tbody className="divide-y divide-[var(--theme-border-subtle)] text-[var(--theme-text-secondary)]">
               {items.map((trn) => (
-                <tr key={trn.id} className="hover:bg-white/5 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-white max-w-xs">{trn.question}</td>
-                  <td className="py-3.5 px-4 max-w-sm leading-relaxed text-gray-200">{trn.aiAnswer}</td>
+                <tr key={trn.id} className="hover:bg-[var(--accent-soft)] transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-[var(--theme-text-main)] max-w-xs">{trn.question}</td>
+                  <td className="py-3.5 px-4 max-w-sm leading-relaxed text-[var(--theme-text-secondary)]">{trn.aiAnswer}</td>
                   <td className="py-3.5 px-4">
                     <div className="flex flex-wrap gap-1">
                       {trn.sources.map((s, idx) => (
-                        <span key={idx} className="px-2 py-0.5 rounded bg-white/10 text-[10px] font-mono text-gray-300">
+                        <span key={idx} className="accent-pill px-2 py-0.5 rounded text-[10px] font-mono font-semibold">
                           {s}
                         </span>
                       ))}
                     </div>
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-[#60A5FA]">
+                  <td className="py-3.5 px-4 font-mono font-bold text-[var(--accent-strong-text)]">
                     {trn.confidenceScore}%
                   </td>
                   <td className="py-3.5 px-4">
                     <span
                       className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold ${
                         trn.status === 'Approved'
-                          ? 'bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40'
-                          : 'bg-amber-500/15 text-amber-400 border border-amber-500/30'
+                          ? 'bg-[var(--success-soft)] text-[var(--success-text)] border border-[var(--success-text)]/30'
+                          : 'bg-amber-500/10 text-amber-500 border border-amber-500/30'
                       }`}
                     >
-                      <ShieldCheck className="w-3 h-3 text-[#60A5FA]" />
+                      <ShieldCheck className="w-3 h-3" />
                       {trn.status}
                     </span>
                   </td>
@@ -85,17 +85,17 @@ export const AITrainingManager: React.FC = () => {
                       {trn.status !== 'Approved' && (
                         <button
                           onClick={() => handleApprove(trn.id)}
-                          className="px-2.5 py-1 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-[10px] transition-all"
+                          className="btn-primary px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all cursor-pointer"
                         >
                           Approve Template
                         </button>
                       )}
                       <button
                         onClick={() => handleReject(trn.id)}
-                        className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-red-400"
+                        className="btn-soft p-1.5 rounded-lg text-[var(--theme-text-muted)] hover:text-red-500 cursor-pointer"
                         title="Override AI Answer"
                       >
-                        <XCircle className="w-4 h-4" />
+                        <XCircle className="w-3.5 h-3.5" />
                       </button>
                     </div>
                   </td>

@@ -57,49 +57,49 @@ export const KnowledgeDatabase: React.FC = () => {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
+        <div className="surface p-4 rounded-xl border border-[var(--theme-border)] flex items-center justify-between">
           <div>
-            <p className="text-xs text-gray-400 font-semibold">Total Verified Words</p>
-            <p className="text-2xl font-black text-[#60A5FA]">{words.length}</p>
+            <p className="text-xs text-[var(--theme-text-muted)] font-semibold">Total Verified Words</p>
+            <p className="text-2xl font-black text-[var(--accent-strong-text)]">{words.length}</p>
           </div>
-          <div className="p-2.5 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
+          <div className="p-2.5 rounded-xl surface-muted text-[var(--accent-strong-text)]">
             <Database className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
+        <div className="surface p-4 rounded-xl border border-[var(--theme-border)] flex items-center justify-between">
           <div>
-            <p className="text-xs text-gray-400 font-semibold">Pending Verification</p>
-            <p className="text-2xl font-black text-amber-400">
+            <p className="text-xs text-[var(--theme-text-muted)] font-semibold">Pending Verification</p>
+            <p className="text-2xl font-black text-amber-500">
               {words.filter((w) => w.status === 'Pending').length}
             </p>
           </div>
-          <div className="p-2.5 rounded-xl bg-amber-950/40 border border-amber-500/30 text-amber-400">
+          <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-500">
             <AlertCircle className="w-5 h-5" />
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#111827] border border-white/10 flex items-center justify-between">
+        <div className="surface p-4 rounded-xl border border-[var(--theme-border)] flex items-center justify-between">
           <div>
-            <p className="text-xs text-gray-400 font-semibold">Dialects Cataloged</p>
-            <p className="text-2xl font-black text-white">4 Dialects</p>
+            <p className="text-xs text-[var(--theme-text-muted)] font-semibold">Dialects Cataloged</p>
+            <p className="text-2xl font-black text-[var(--theme-text-main)]">4 Dialects</p>
           </div>
-          <div className="p-2.5 rounded-xl bg-white/5 text-gray-300">
+          <div className="p-2.5 rounded-xl surface-muted text-[var(--theme-text-secondary)]">
             <Filter className="w-5 h-5" />
           </div>
         </div>
       </div>
 
-      <div className="p-4 rounded-2xl bg-[#111827] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="surface p-4 rounded-2xl border border-[var(--theme-border)] flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <div className="relative flex-1 md:w-72">
-            <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+            <Search className="w-4 h-4 absolute left-3 top-3 text-[var(--theme-text-muted)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search words, script or meanings..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
+              className="w-full pl-9 pr-3 py-2 rounded-xl bg-[var(--theme-card)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)]"
             />
           </div>
 
@@ -110,8 +110,8 @@ export const KnowledgeDatabase: React.FC = () => {
                 onClick={() => setDialectFilter(d)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   dialectFilter === d
-                    ? 'bg-[#102A56] text-[#60A5FA] border border-[#2563EB]/40'
-                    : 'bg-white/5 text-gray-400 hover:text-white'
+                    ? 'accent-pill font-bold'
+                    : 'btn-soft'
                 }`}
               >
                 {d}
@@ -122,18 +122,18 @@ export const KnowledgeDatabase: React.FC = () => {
 
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="w-full md:w-auto py-2.5 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_15px_rgba(37,99,235,0.3)] flex items-center justify-center gap-2 cursor-pointer"
+          className="btn-primary w-full md:w-auto py-2.5 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Add New Vocabulary Item</span>
         </button>
       </div>
 
-      <div className="rounded-2xl bg-[#111827] border border-white/10 overflow-hidden shadow-xl">
+      <div className="surface rounded-2xl border border-[var(--theme-border)] overflow-hidden shadow-md">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
             <thead>
-              <tr className="border-b border-white/10 text-gray-400 font-mono uppercase text-[10px] bg-black/30">
+              <tr className="border-b border-[var(--theme-border)] text-[var(--theme-text-muted)] font-mono uppercase text-[10px] bg-[var(--theme-muted)]">
                 <th className="py-3 px-4">Balochi Word</th>
                 <th className="py-3 px-4">Script</th>
                 <th className="py-3 px-4">Dictionary Meaning</th>
@@ -143,29 +143,29 @@ export const KnowledgeDatabase: React.FC = () => {
                 <th className="py-3 px-4 text-right">Status / Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-white/5 text-gray-300">
+            <tbody className="divide-y divide-[var(--theme-border-subtle)] text-[var(--theme-text-secondary)]">
               {filteredWords.map((w) => (
-                <tr key={w.id} className="hover:bg-white/5 transition-colors">
-                  <td className="py-3.5 px-4 font-bold text-white text-sm">{w.word}</td>
-                  <td className="py-3.5 px-4 font-serif text-[#60A5FA] text-base">{w.balochiScript}</td>
+                <tr key={w.id} className="hover:bg-[var(--accent-soft)] transition-colors">
+                  <td className="py-3.5 px-4 font-bold text-[var(--theme-text-main)] text-sm">{w.word}</td>
+                  <td className="py-3.5 px-4 font-serif text-[var(--accent-strong-text)] text-base">{w.balochiScript}</td>
                   <td className="py-3.5 px-4 max-w-xs leading-snug">{w.meaning}</td>
                   <td className="py-3.5 px-4">
-                    <span className="px-2 py-0.5 rounded bg-white/10 text-[10px] font-mono text-gray-300">
+                    <span className="accent-pill px-2 py-0.5 rounded text-[10px] font-mono font-semibold">
                       {w.dialect}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono text-gray-400">{w.source}</td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-[#60A5FA]">{w.confidence}%</td>
+                  <td className="py-3.5 px-4 font-mono text-[var(--theme-text-muted)]">{w.source}</td>
+                  <td className="py-3.5 px-4 font-mono font-bold text-[var(--accent-strong-text)]">{w.confidence}%</td>
                   <td className="py-3.5 px-4 text-right">
                     {w.status === 'Verified' ? (
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40">
-                        <CheckCircle2 className="w-3 h-3 text-[#60A5FA]" />
+                      <span className="accent-pill inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold">
+                        <CheckCircle2 className="w-3 h-3" />
                         Verified
                       </span>
                     ) : (
                       <button
                         onClick={() => handleVerifyWord(w.id)}
-                        className="px-2.5 py-1 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-[10px] transition-colors"
+                        className="btn-primary px-2.5 py-1 rounded-lg font-bold text-[10px] transition-colors cursor-pointer"
                       >
                         Approve Word
                       </button>

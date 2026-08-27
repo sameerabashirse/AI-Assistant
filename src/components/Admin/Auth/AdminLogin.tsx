@@ -70,44 +70,40 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center p-4 relative font-sans selection:bg-[#2563EB] selection:text-white bg-gradient-to-br from-[#070B14] via-[#0B1F3A] to-[#102A56] overflow-hidden">
-      {/* Background Ambient Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#2563EB]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-[#60A5FA]/10 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="premium-shell min-h-screen w-full flex items-center justify-center p-4 relative font-sans selection:bg-[var(--accent)] selection:text-white overflow-hidden">
       {/* Top Left Return Button */}
       <button
         onClick={onReturnToHome}
-        className="absolute top-6 left-6 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white border border-white/10 text-xs font-semibold transition-all flex items-center gap-2 backdrop-blur-md"
+        className="btn-soft absolute top-6 left-6 px-4 py-2 rounded-full text-xs font-semibold transition-all flex items-center gap-2 backdrop-blur-md"
       >
         <span>← Public Platform</span>
       </button>
 
       {/* Centered Admin Login Card */}
-      <div className="w-full max-w-md bg-[#111827]/90 border border-white/10 backdrop-blur-2xl rounded-[24px] p-6 md:p-8 shadow-[0_20px_50px_rgba(7,11,20,0.8)] space-y-6 relative z-10 animate-in fade-in zoom-in-95 duration-300">
+      <div className="surface-elevated w-full max-w-md rounded-[24px] p-6 md:p-8 space-y-6 relative z-10 animate-in fade-in zoom-in-95 duration-300">
         {/* Card Header Logo */}
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#0B1F3A] to-[#2563EB] border border-[#60A5FA]/40 mx-auto flex items-center justify-center shadow-[0_0_25px_rgba(37,99,235,0.4)]">
-            <Sparkles className="w-7 h-7 text-[#60A5FA] animate-pulse" />
+          <div className="w-14 h-14 rounded-2xl bg-[var(--accent)] border border-[var(--accent-border)] mx-auto flex items-center justify-center shadow-sm">
+            <Sparkles className="w-7 h-7 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-black text-white tracking-tight leading-tight">
+            <h1 className="text-2xl font-black text-[var(--theme-text-main)] tracking-tight leading-tight">
               Balochi Digital
             </h1>
-            <span className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-mono font-bold bg-[#2563EB]/20 text-[#60A5FA] border border-[#2563EB]/40 mt-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#60A5FA]" />
+            <span className="accent-pill inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-mono font-bold mt-1">
+              <ShieldCheck className="w-3.5 h-3.5" />
               Enterprise Admin Control Portal
             </span>
           </div>
-          <p className="text-xs text-gray-400 font-normal pt-1">
+          <p className="text-xs text-[var(--theme-text-muted)] font-normal pt-1">
             Sign in to access protected platform management & AI knowledge curation.
           </p>
         </div>
 
         {/* Error Alert Message */}
         {errorMessage && (
-          <div className="p-3.5 rounded-xl bg-red-950/80 border border-red-500/40 text-red-300 text-xs flex items-center gap-2.5 animate-in fade-in">
-            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+          <div className="p-3.5 rounded-xl bg-[var(--error-soft)] border border-[var(--error-text)]/40 text-[var(--error-text)] text-xs flex items-center gap-2.5 animate-in fade-in font-medium">
+            <AlertCircle className="w-4 h-4 shrink-0 text-[var(--error-text)]" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -115,42 +111,42 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
         {/* Email / Password Form */}
         <form onSubmit={handleEmailLogin} className="space-y-4">
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-gray-300 block">
+            <label className="text-xs font-semibold text-[var(--theme-text-secondary)] block">
               Admin Email Address
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
+              <Mail className="w-4 h-4 absolute left-3.5 top-3 text-[var(--theme-text-muted)]" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@balochidigital.org"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)] transition-all"
               />
             </div>
           </div>
 
           <div className="space-y-1.5">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-semibold text-gray-300">
+              <label className="text-xs font-semibold text-[var(--theme-text-secondary)]">
                 Password
               </label>
               <button
                 type="button"
                 onClick={() => setIsForgotModalOpen(true)}
-                className="text-[11px] font-semibold text-[#60A5FA] hover:underline"
+                className="text-[11px] font-semibold text-[var(--accent-strong-text)] hover:underline"
               >
                 Forgot Password?
               </button>
             </div>
             <div className="relative">
-              <Lock className="w-4 h-4 absolute left-3.5 top-3 text-gray-400" />
+              <Lock className="w-4 h-4 absolute left-3.5 top-3 text-[var(--theme-text-muted)]" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)] transition-all"
               />
             </div>
           </div>
@@ -158,7 +154,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full py-3 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2 group cursor-pointer"
+            className="btn-primary w-full py-3 px-4 rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 group cursor-pointer"
           >
             {isSubmitting ? (
               <>
@@ -176,8 +172,8 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
 
         {/* Divider */}
         <div className="relative flex items-center justify-center">
-          <div className="border-t border-white/10 w-full" />
-          <span className="bg-[#111827] px-3 text-[10px] uppercase font-mono text-gray-500 relative">
+          <div className="border-t border-[var(--theme-border)] w-full" />
+          <span className="bg-[var(--theme-card-elevated)] px-3 text-[10px] uppercase font-mono text-[var(--theme-text-muted)] relative">
             OR
           </span>
         </div>
@@ -187,7 +183,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
           type="button"
           onClick={handleGoogleLogin}
           disabled={isGoogleLoading}
-          className="w-full py-2.5 px-4 rounded-xl bg-white/5 hover:bg-white/10 text-white font-semibold text-xs border border-white/10 hover:border-white/20 transition-all flex items-center justify-center gap-3 cursor-pointer"
+          className="btn-soft w-full py-2.5 px-4 rounded-xl font-semibold text-xs transition-all flex items-center justify-center gap-3 cursor-pointer"
         >
           {isGoogleLoading ? (
             <Loader2 className="w-4 h-4 animate-spin text-[#60A5FA]" />
@@ -215,43 +211,43 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
         </button>
 
         {/* Footer info */}
-        <div className="pt-2 text-center text-[11px] text-gray-500 font-mono">
+        <div className="pt-2 text-center text-[11px] text-[var(--theme-text-muted)] font-mono">
           <span>Protected Area • Authorized Administrators Only</span>
         </div>
       </div>
 
       {/* Forgot Password Modal */}
       {isForgotModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-md flex items-center justify-center p-4">
           <form
             onSubmit={handleForgotSubmit}
-            className="w-full max-w-sm bg-[#111827] border border-white/10 rounded-2xl p-6 shadow-2xl space-y-4 text-left animate-in fade-in zoom-in-95 duration-200"
+            className="surface-elevated w-full max-w-sm rounded-2xl p-6 space-y-4 text-left animate-in fade-in zoom-in-95 duration-200"
           >
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div className="flex items-center justify-between border-b border-[var(--theme-border)] pb-3">
               <div className="flex items-center gap-2">
-                <KeyRound className="w-5 h-5 text-[#60A5FA]" />
-                <h3 className="text-sm font-bold text-white">Reset Admin Password</h3>
+                <KeyRound className="w-5 h-5 text-[var(--accent-strong-text)]" />
+                <h3 className="text-sm font-bold text-[var(--theme-text-main)]">Reset Admin Password</h3>
               </div>
               <button
                 type="button"
                 onClick={() => setIsForgotModalOpen(false)}
-                className="p-1 rounded-lg text-gray-400 hover:text-white"
+                className="btn-soft p-1 rounded-lg"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
             {forgotSent ? (
-              <div className="p-4 rounded-xl bg-[#2563EB]/20 border border-[#2563EB]/40 text-center space-y-2 text-xs">
-                <CheckCircle2 className="w-8 h-8 text-[#60A5FA] mx-auto" />
-                <p className="font-bold text-white">Password Reset Link Sent!</p>
-                <p className="text-gray-300">
+              <div className="accent-pill p-4 rounded-xl text-center space-y-2 text-xs">
+                <CheckCircle2 className="w-8 h-8 mx-auto" />
+                <p className="font-bold text-[var(--theme-text-main)]">Password Reset Link Sent!</p>
+                <p className="text-[var(--theme-text-secondary)]">
                   Check your admin inbox ({forgotEmail}) for recovery instructions.
                 </p>
               </div>
             ) : (
               <>
-                <p className="text-xs text-gray-300">
+                <p className="text-xs text-[var(--theme-text-secondary)]">
                   Enter your registered corporate admin email address to receive a secure password recovery token:
                 </p>
 
@@ -261,20 +257,20 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
                   value={forgotEmail}
                   onChange={(e) => setForgotEmail(e.target.value)}
                   placeholder="admin@balochidigital.org"
-                  className="w-full px-3 py-2 rounded-xl bg-black/40 border border-white/10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#2563EB]"
+                  className="w-full px-3 py-2 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border)] text-xs text-[var(--theme-text-main)] placeholder:text-[var(--theme-text-muted)] focus:outline-none focus:border-[var(--accent)]"
                 />
 
                 <div className="pt-2 flex justify-end gap-2 text-xs">
                   <button
                     type="button"
                     onClick={() => setIsForgotModalOpen(false)}
-                    className="py-2 px-3 rounded-xl bg-white/5 text-gray-300"
+                    className="btn-soft py-2 px-3 rounded-xl"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="py-2 px-4 rounded-xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold"
+                    className="btn-primary py-2 px-4 rounded-xl font-bold"
                   >
                     Send Recovery Email
                   </button>

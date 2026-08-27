@@ -42,18 +42,18 @@ export const UploadModal: React.FC<UploadModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-[#111827] border border-[#2563EB]/40 rounded-2xl p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-200">
-        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+    <div className="fixed inset-0 z-50 bg-black/55 backdrop-blur-md flex items-center justify-center p-4">
+      <div className="surface-elevated w-full max-w-md rounded-2xl p-6 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+        <div className="flex items-center justify-between border-b border-[var(--theme-border)] pb-3">
           <div className="flex items-center gap-2">
-            <div className="p-2 rounded-xl bg-[#0B1F3A] border border-[#2563EB]/40 text-[#60A5FA]">
+            <div className="accent-pill p-2 rounded-xl">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white leading-tight">
+              <h3 className="text-base font-bold text-[var(--theme-text-main)] leading-tight">
                 {MOCK_UI_STRINGS.uploadDoc[language]}
               </h3>
-              <p className="text-xs text-[#60A5FA] font-mono">
+              <p className="text-xs text-[var(--accent-strong-text)] font-mono">
                 OCR & Manuscript Verification Engine
               </p>
             </div>
@@ -61,7 +61,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white"
+            className="btn-soft p-1.5 rounded-lg"
           >
             <X className="w-5 h-5" />
           </button>
@@ -84,17 +84,17 @@ export const UploadModal: React.FC<UploadModalProps> = ({
               onClick={() => handleSimulatedUpload()}
               className={`p-6 rounded-2xl border-2 border-dashed transition-all text-center cursor-pointer ${
                 isDragging
-                  ? 'border-[#2563EB] bg-[#0B1F3A]/80'
-                  : 'border-white/20 hover:border-[#2563EB] bg-black/30'
+                  ? 'border-[var(--accent)] bg-[var(--accent-soft)]'
+                  : 'border-[var(--theme-border)] hover:border-[var(--accent-border)] bg-[var(--theme-muted)]'
               }`}
             >
-              <Upload className="w-10 h-10 text-[#60A5FA] mx-auto mb-2 animate-bounce" />
-              <p className="font-bold text-white text-sm">Drop PDF Manuscript or Book Scan</p>
-              <p className="text-gray-400 mt-1">Supports PDF, PNG high-res scans up to 100MB</p>
+              <Upload className="w-10 h-10 text-[var(--accent-strong-text)] mx-auto mb-2" />
+              <p className="font-bold text-[var(--theme-text-main)] text-sm">Drop PDF Manuscript or Book Scan</p>
+              <p className="text-[var(--theme-text-muted)] mt-1">Supports PDF, PNG high-res scans up to 100MB</p>
             </div>
 
-            <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1.5">
-              <p className="font-bold text-white">Sample Manuscript Presets:</p>
+            <div className="p-3 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border-subtle)] space-y-1.5">
+              <p className="font-bold text-[var(--theme-text-main)]">Sample Manuscript Presets:</p>
               <div className="flex flex-wrap gap-1.5">
                 {[
                   'Sher_Marri_Balochi_Dict.pdf',
@@ -105,7 +105,7 @@ export const UploadModal: React.FC<UploadModalProps> = ({
                     key={name}
                     type="button"
                     onClick={() => handleSimulatedUpload(name)}
-                    className="px-2.5 py-1 rounded-lg bg-[#2563EB]/20 hover:bg-[#2563EB]/40 text-[#60A5FA] border border-[#2563EB]/30 font-mono text-[10px] transition-colors"
+                    className="accent-pill px-2.5 py-1 rounded-lg font-mono text-[10px] transition-colors"
                   >
                     + {name}
                   </button>
@@ -117,10 +117,10 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
         {uploadingState === 'scanning' && (
           <div className="py-10 text-center space-y-4">
-            <Loader2 className="w-12 h-12 text-[#60A5FA] animate-spin mx-auto" />
+            <Loader2 className="w-12 h-12 text-[var(--accent-strong-text)] animate-spin mx-auto" />
             <div>
-              <p className="text-sm font-bold text-white">Running Optical OCR & Alignment...</p>
-              <p className="text-xs text-[#60A5FA] font-mono mt-1">
+              <p className="text-sm font-bold text-[var(--theme-text-main)]">Running Optical OCR & Alignment...</p>
+              <p className="text-xs text-[var(--accent-strong-text)] font-mono mt-1">
                 Digitizing "{scannedDocName}"...
               </p>
             </div>
@@ -129,19 +129,19 @@ export const UploadModal: React.FC<UploadModalProps> = ({
 
         {uploadingState === 'success' && (
           <div className="py-6 text-center space-y-4">
-            <CheckCircle2 className="w-12 h-12 text-[#60A5FA] mx-auto" />
+            <CheckCircle2 className="w-12 h-12 text-[var(--accent-strong-text)] mx-auto" />
             <div>
-              <h4 className="text-base font-bold text-white">OCR Extraction Complete!</h4>
-              <p className="text-xs text-gray-300 mt-1 font-mono">{scannedDocName}</p>
+              <h4 className="text-base font-bold text-[var(--theme-text-main)]">OCR Extraction Complete!</h4>
+              <p className="text-xs text-[var(--theme-text-secondary)] mt-1 font-mono">{scannedDocName}</p>
             </div>
 
-            <div className="p-3 rounded-xl bg-black/40 border border-white/10 text-left text-xs font-mono text-blue-200">
+            <div className="p-3 rounded-xl bg-[var(--theme-muted)] border border-[var(--theme-border)] text-left text-xs font-mono text-[var(--theme-text-secondary)]">
               ✓ 142 pages indexed into Vector HNSW index.
             </div>
 
             <button
               onClick={handleAnalyze}
-              className="w-full py-2.5 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs shadow-[0_0_15px_rgba(37,99,235,0.4)]"
+              className="btn-primary w-full py-2.5 rounded-xl font-bold text-xs"
             >
               Analyze with Verified AI Assistant →
             </button>
