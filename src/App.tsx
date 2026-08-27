@@ -26,7 +26,19 @@ export function App({ initialRoute = 'public', initialTab = 'assistant' }: AppPr
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(initialRoute === 'admin');
 
   const [language, setLanguage] = useState<Language>('english');
-  const [theme, setTheme] = useState<ThemeMode>('dark');
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          return savedTheme;
+        }
+      } catch (e) {
+        // Ignore privacy/security errors accessing localStorage
+      }
+    }
+    return 'dark';
+  });
   const [threads, setThreads] = useState<Thread[]>(MOCK_THREADS);
   const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
 
@@ -81,14 +93,24 @@ export function App({ initialRoute = 'public', initialTab = 'assistant' }: AppPr
     }
   }, [activeThread?.messages]);
 
-  // Toggle Theme Class on body
+  // Toggle Theme Class on body and persist in localStorage
   useEffect(() => {
     document.documentElement.classList.toggle('light', theme === 'light');
+    try {
+      localStorage.setItem('theme', theme);
+    } catch (e) {
+      // Ignore quota/privacy errors
+    }
   }, [theme]);
 
   const handleToggleTheme = () => {
     const nextTheme = theme === 'dark' ? 'light' : 'dark';
     setTheme(nextTheme);
+    try {
+      localStorage.setItem('theme', nextTheme);
+    } catch (e) {
+      // Ignore quota/privacy errors
+    }
   };
 
   const handleSelectThread = (threadId: string) => {
