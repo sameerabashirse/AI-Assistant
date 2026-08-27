@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { Sparkles, BookOpen, ScrollText, Compass, FileCheck, ArrowRight, ShieldCheck } from 'lucide-react';
 import type { SuggestionCard, Language } from '../types';

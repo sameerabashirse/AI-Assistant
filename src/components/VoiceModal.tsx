@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { X, Mic } from 'lucide-react';
 import type { Language } from '../types';

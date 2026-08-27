@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { X, BookOpen, ShieldCheck } from 'lucide-react';
 import type { Citation, Language } from '../types';

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Sparkles, Copy, Check, Volume2, RefreshCw, BookOpen, ShieldCheck } from 'lucide-react';
 import type { Message, Citation, Language } from '../types';

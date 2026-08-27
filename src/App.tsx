@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
 import confetti from 'canvas-confetti';
 import { Navbar } from './components/Navbar';
@@ -14,9 +16,14 @@ import { AdminLogin } from './components/Admin/Auth/AdminLogin';
 import type { Thread, Message, Language, ThemeMode, Citation, EvidenceData, SuggestionCard } from './types';
 import { MOCK_THREADS } from './data/mockData';
 
-export function App() {
-  const [route, setRoute] = useState<'public' | 'admin-login' | 'admin'>('public');
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+export interface AppProps {
+  initialRoute?: 'public' | 'admin-login' | 'admin';
+  initialTab?: 'assistant' | 'research' | 'sources' | 'library' | 'about';
+}
+
+export function App({ initialRoute = 'public', initialTab = 'assistant' }: AppProps = {}) {
+  const [route, setRoute] = useState<'public' | 'admin-login' | 'admin'>(initialRoute);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(initialRoute === 'admin');
 
   const [language, setLanguage] = useState<Language>('english');
   const [theme, setTheme] = useState<ThemeMode>('dark');
@@ -25,7 +32,7 @@ export function App() {
 
   // Drawers & Modals State
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isSourcesDrawerOpen, setIsSourcesDrawerOpen] = useState(false);
+  const [isSourcesDrawerOpen, setIsSourcesDrawerOpen] = useState(initialTab === 'sources');
   const [isEvidenceDrawerOpen, setIsEvidenceDrawerOpen] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [isVoiceModalOpen, setIsVoiceModalOpen] = useState(false);
@@ -37,13 +44,17 @@ export function App() {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const activeThread = threads.find((t) => t.id === activeThreadId);
 
-  // Handle URL hash/path change simulation for /admin & /admin/login
+  // Handle URL hash/path change simulation for /admin & /admin/login & subroutes
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleNavigation = () => {
       const hash = window.location.hash;
-      if (hash === '#/admin/login') {
+      const pathname = window.location.pathname;
+      // Get route path without hash prefix
+      const routePath = hash ? hash.replace(/^#/, '') : pathname;
+
+      if (routePath === '/admin/login' || routePath.startsWith('/admin/login')) {
         setRoute('admin-login');
-      } else if (hash === '#/admin') {
+      } else if (routePath === '/admin' || routePath.startsWith('/admin/')) {
         if (isAdminAuthenticated) {
           setRoute('admin');
         } else {
@@ -54,9 +65,13 @@ export function App() {
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange();
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleNavigation);
+    window.addEventListener('popstate', handleNavigation);
+    handleNavigation();
+    return () => {
+      window.removeEventListener('hashchange', handleNavigation);
+      window.removeEventListener('popstate', handleNavigation);
+    };
   }, [isAdminAuthenticated]);
 
   // Auto-scroll to bottom of chat
@@ -282,8 +297,8 @@ According to verified entries in the **Balochi Academy Archives**, this subject 
       <AdminDashboardApp
         onSwitchToUserApp={() => {
           setIsAdminAuthenticated(false);
-          setRoute('admin-login');
-          window.location.hash = '#/admin/login';
+          setRoute('public');
+          window.location.hash = '';
         }}
         theme={theme}
         onToggleTheme={handleToggleTheme}

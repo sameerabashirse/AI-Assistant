@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Plus, MessageSquare, Trash2, Search, Layers, ChevronLeft, ShieldCheck } from 'lucide-react';
 import type { Thread, Language } from '../types';

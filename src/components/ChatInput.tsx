@@ -1,4 +1,6 @@
-import React, { useState, useRef } from 'react';
+'use client';
+
+import React, { useState, useRef, useEffect } from 'react';
 import type { KeyboardEvent } from 'react';
 import { Send, Paperclip, Mic, ShieldCheck, Sparkles } from 'lucide-react';
 import type { Language } from '../types';

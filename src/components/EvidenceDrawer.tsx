@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { X, Sparkles, ShieldCheck, Cpu, GitCommit, FileText, Binary } from 'lucide-react';
 import type { EvidenceData, VerificationData, Language } from '../types';

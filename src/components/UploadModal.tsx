@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { X, Upload, FileText, CheckCircle2, Loader2 } from 'lucide-react';
 import type { Language } from '../types';

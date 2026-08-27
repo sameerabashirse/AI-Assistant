@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Sparkles, Sun, Moon, PanelLeft, ShieldCheck, BookOpen, Compass, Library, Info } from 'lucide-react';
 import type { Language, ThemeMode } from '../types';
@@ -163,6 +165,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {sourcesCount}
               </span>
             )}
+          </button>
+
+          {/* Admin Portal Quick Link */}
+          <button
+            onClick={() => {
+              window.location.hash = '#/admin/login';
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-[#123B73] text-gray-300 hover:text-white border border-white/10 hover:border-[#2563EB]/40 text-xs font-semibold transition-all cursor-pointer"
+            title="Open Admin Portal"
+          >
+            <ShieldCheck className="w-3.5 h-3.5 text-[#60A5FA]" />
+            <span className="hidden md:inline">Admin</span>
           </button>
 
           {/* User Profile Avatar */}
